@@ -136,9 +136,18 @@ io_modifier:
     printf(" Yacc: insert output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
   }
-  | GREATGREATAMPERSAND Word 
-  | GREATAMPERSAND Word 
-  | LESS Word 
+  | GREATGREATAMPERSAND Word {
+    printf(" Yacc: insert output \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._outFile = $2;
+  }   
+  | GREATAMPERSAND Word {
+    printf(" Yacc: insert output \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._outFile = $2;
+  }
+  | LESS Word {
+    printf(" Yacc: insert output \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._outFile = $2;
+  }
   ; 
 
 io_modifier_list: 
