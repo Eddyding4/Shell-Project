@@ -42,7 +42,7 @@ int yylex();
 
 %%
 
-goal: command;
+goal: command_list;
 
 command_list :
   command_list command_line
