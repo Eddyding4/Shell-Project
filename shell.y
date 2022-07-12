@@ -113,6 +113,8 @@ cmd_and_args:
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument( $1 );
   }
+  arg_list
+  ;
 
 pipe_list:
   cmd_and_args
@@ -156,13 +158,7 @@ command_list :
   //TODO
   ;
 
-//actions
-arg_list:
-  arg_list WORD {
-    currSimpleCmd->insertArg( $2 );
-  }
-  | /*empty*/
-  ;
+
 
 %%
 
