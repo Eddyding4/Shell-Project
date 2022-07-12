@@ -97,7 +97,6 @@ iomodifier_opt:
   | /* can be empty */
   ;
   
-command_list;
 
 arg_list: 
   arg_list WORD {
