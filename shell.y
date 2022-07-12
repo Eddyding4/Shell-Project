@@ -137,7 +137,7 @@ io_modifier_list:
   | /*empty*/
   ;
 
-background_optional:
+background_opt:
   AMPERSAND
   | /*empty*/
 ;
