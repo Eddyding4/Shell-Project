@@ -71,14 +71,14 @@ pipe_list:
   ;
 
 io_modifier: 
-  GREATGREAT Word 
-  | GREAT Word {
+  GREATGREAT WORD
+  | GREAT WORD {
     printf(" Yacc: insert output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
   }
-  | GREATGREATAMPERSAND Word
-  | GREATAMPERSAND Word 
-  | LESS Word 
+  | GREATGREATAMPERSAND WORD
+  | GREATAMPERSAND WORD 
+  | LESS WORD
   ; 
 
 io_modifier_list: 
