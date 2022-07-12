@@ -99,7 +99,7 @@ iomodifier_opt:
   ;
 
 //I added below
-goal command_list;
+//goal command_list;
 
 arg_list:
   arg_list WORD {
