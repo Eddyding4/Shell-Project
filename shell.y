@@ -102,11 +102,10 @@ iomodifier_opt:
 
 goal: command_list;
 
-arg_list:
-  //copy slide stuff	
+arg_list:	
   arg_list WORD {
-    printf(" Yacc: insert argument \"%s\"\n", $1->c_str());
-    Command::_currentSimpleCommand->insertArgument( $1 );\
+    printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
+    Command::_currentSimpleCommand->insertArgument( $2 );\
   }
   | /*empty string*/
   ;
@@ -118,8 +117,8 @@ cmd_and_args:
     Command::_currentSimpleCommand->insertArgument( $1 );
   }
   arg_list {
-  // shell current command
-  //insert simple command
+    Shell::_currentCommand.
+    insertSimpleCommand( Command::_currentSimpleCommand );
   }
        
   ;
