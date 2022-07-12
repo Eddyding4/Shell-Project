@@ -100,19 +100,19 @@ iomodifier_opt:
 
 //I added below
 
-goal: command_list;
+goal: command_list;
 
-arg_list:	
+arg_list: 
   arg_list WORD {
     printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
     Command::_currentSimpleCommand->insertArgument( $2 );\
   }
-  | /*empty string*/
-  ;
+  | /*empty*/ 
+  ;
 
-cmd_and_args:
+cmd_and_args: 
   WORD {
-    printf("   Yacc: insert command \"s\"\n", $1->c_str());
+    printf(" Yacc: insert command \"%s\"\n", $1->c_str());
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument( $1 );
   }
@@ -120,51 +120,46 @@ cmd_and_args:
     Shell::_currentCommand.
     insertSimpleCommand( Command::_currentSimpleCommand );
   }
-       
-  ;
+  ; 
 
-pipe_list:
-  cmd_and_args
-  | pipe_list PIPE cmd_and_args
-  ;
+pipe_list: 
+  pipe_list PIPE cmd_and_args 
+  | cmd_and_args 
+  ;
 
-io_modifier:
-  GREATGREAT WORD
-  | GREAT WORD {
+io_modifier: 
+  GREATGREAT Word {
     printf(" Yacc: insert output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
   }
-  | GREATGREATAMPERSAND WORD
-  | GREATAMPERSAND WORD
-  | LESS WORD
-  ;
-
-io_modifier_list:
-  io_modifier_list io_modifier
-  | /*empty*/
-  ;
-
-background_opt:
-  AMPERSAND
-  | /*empty*/
-;
-
-command_line:
-  pipe_list io_modifier_list
-  background_opt NEWLINE {
-    printf(" Yacc: Execute command\n");
-    Shell::_currentCommand.execute();
+  | GREAT Word {
+    printf(" Yacc: insert output \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._outFile = $2;
   }
-  | NEWLINE /*accept empty cmd line*/
-  | error NEWLINE{yyerrok;}
-  ; /*error recovery*/
+  | GREATGREATAMPERSAND Word 
+  | GREATAMPERSAND Word 
+  | LESS Word 
+  ; 
 
-command_list :
-  command_line 
-  | command_list command_line
-  //TODO
-  ;
+io_modifier_list: 
+  io_modifier_list io_modifier 
+  | /*empty*/ 
+  ; 
 
+background_optional:  
+  AMPERSAND 
+  | /*empty*/ 
+  ; 
+
+command_line: 
+  pipe_list io_modifier_list background_opt NEWLINE 
+  | NEWLINE /*accept empty cmd line*/ 
+  | error NEWLINE{yyerrok;} 
+             /*error recovery*/ 
+
+command_list :  
+  command_list command_line 
+  ;/* command loop*/
 
 
 %%
