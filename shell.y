@@ -102,8 +102,8 @@ iomodifier_opt:
 
 goal: command_list;
 
-arg_list:
-  arg_list WORD {
+argument_list:
+  argument_list WORD {
   printf("   Yacc: insert argument \"%s\"\n", $1->c_str());
   Command::_currentSimpleCommand->insertArgument( $1 );\
   }
