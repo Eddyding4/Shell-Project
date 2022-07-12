@@ -42,61 +42,8 @@ int yylex();
 
 %%
 
-goal: 
-commands 
-;   
 
-commands:
-  command
-  | commands command
-  ;
-command: simple_command
-       ;
-
-simple_command:
-  command_and_args iomodifier_opt NEWLINE {
-  printf(" Yacc: Execute command\n");
-  Shell::_currentCommand.execute();
-  }
-  | NEWLINE
-  | error NEWLINE { yyerrok; }
-  ;
-
-command_and_args:
-  command_word argument_list {
-  Shell::_currrentCommand.
-  insertSimpleCommand( Command::_currentSimpleCommand );
-  }
-  ;
-
-argument_list:
-  argument_list argument
-  | /* can be empty */
-  ;
-
-argument:
-  WORD {
-    printf(" Yacc: insert argument \"%s\"\n", $1->c_str());
-    Command::_currentSimpleCommand->insertAugment( $1 );
-  }
-  ;
-
-command_word:
-  WORD {
-    printf(" Yacc: insert argument \"%s\"\n", $1->c_str());
-    Command::_currentSimpleCommand = new SimpleCommand();
-    Command::_currentSimpleCommand->insertAugment( $1 );
-  }
-  ;
-
-iomodifier_opt:
-  GREAT WORD {
-    printf(" Yacc: insert output \"%s\"\n", $2->c_str());
-    Shell::_currentCommand._outFile = $2;
-  }
-  | /* can be empty */
-  ;
-
+//I added below
 goal: command_list;
 
 arg_list: 
