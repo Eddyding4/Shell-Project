@@ -44,7 +44,12 @@ int yylex();
 
 goal: command_list;
 
-command_list :
+command_list:
+  command_line
+  | command_list command_line
+  ;
+
+command_list :	     
   command_list command_line
   ;/* command loop*/
 
