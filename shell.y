@@ -71,26 +71,14 @@ pipe_list:
   ;
 
 io_modifier: 
-  GREATGREAT Word {
-    printf(" Yacc: insert output \"%s\"\n", $2->c_str());
-    Shell::_currentCommand._outFile = $2;
-  }
+  GREATGREAT Word 
   | GREAT Word {
     printf(" Yacc: insert output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
   }
-  | GREATGREATAMPERSAND Word {
-    printf(" Yacc: insert output \"%s\"\n", $1->c_str());
-    Shell::_currentCommand._outFile = $1;
-  }   
-  | GREATAMPERSAND Word {
-    printf(" Yacc: insert output \"%s\"\n", $1->c_str());
-    Shell::_currentCommand._outFile = $1;
-  }
-  | LESS Word {
-    printf(" Yacc: insert output \"%s\"\n", $1->c_str());
-    Shell::_currentCommand._outFile = $1;
-  }
+  | GREATGREATAMPERSAND Word
+  | GREATAMPERSAND Word 
+  | LESS Word 
   ; 
 
 io_modifier_list: 
