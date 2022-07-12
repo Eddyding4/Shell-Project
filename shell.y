@@ -51,7 +51,7 @@ arg_list:
     Command::_currentSimpleCommand->insertArgument( $2 );
   }
   | /*empty*/ 
-  ;
+  ;
 
 cmd_and_args: 
   WORD {
@@ -63,12 +63,12 @@ cmd_and_args:
     Shell::_currentCommand.
     insertSimpleCommand( Command::_currentSimpleCommand );
   }
-  ; 
+  ; 
 
 pipe_list: 
   pipe_list PIPE cmd_and_args 
   | cmd_and_args 
-  ;
+  ;
 
 io_modifier: 
   GREATGREAT Word {
@@ -91,17 +91,17 @@ io_modifier:
     printf(" Yacc: insert output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
   }
-  ; 
+  ; 
 
 io_modifier_list: 
   io_modifier_list io_modifier 
   | /*empty*/ 
-  ; 
+  ; 
 
 background_optional:  
   AMPERSAND 
   | /*empty*/ 
-  ; 
+  ; 
 
 command_line: 
   pipe_list io_modifier_list background_opt NEWLINE 
@@ -111,7 +111,7 @@ command_line:
 
 command_list :  
   command_list command_line 
-  ;/* command loop*/
+  ;/* command loop*/
 
 
 %%
