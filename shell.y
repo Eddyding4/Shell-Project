@@ -49,10 +49,6 @@ command_list:
   | command_list command_line
   ;
 
-command_list :	     
-  command_list command_line
-  ;/* command loop*/
-
 command_line:
   pipe_list io_modifier_list background_opt NEWLINE
   | NEWLINE /*accept empty cmd line*/
