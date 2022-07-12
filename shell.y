@@ -104,8 +104,8 @@ goal: command_list;
 
 arg_list:
   arg_list WORD {
-  printf("   Yacc: insert argument \"%s\"\n", $1->c_str());
-  Command::_currentSimpleCommand->insertArgument( $1 );\
+  printf("   Yacc: insert argument \"%s\"\n", $2->c_str());
+  Command::_currentSimpleCommand->insertArgument( $2 );\
   }
   | /*empty string*/
   ;
