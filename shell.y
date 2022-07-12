@@ -76,8 +76,8 @@ io_modifier:
     Shell::_currentCommand._outFile = $1;
   }
   | GREAT Word {
-    printf(" Yacc: insert output \"%s\"\n", $1->c_str());
-    Shell::_currentCommand._outFile = $1;
+    printf(" Yacc: insert output \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._outFile = $2;
   }
   | GREATGREATAMPERSAND Word {
     printf(" Yacc: insert output \"%s\"\n", $1->c_str());
