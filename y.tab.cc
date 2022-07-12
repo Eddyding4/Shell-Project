@@ -545,9 +545,9 @@ static const yytype_int8 yytranslate[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    46,    46,    50,    51,    54,    58,    62,    63,    67,
-      74,    75,    79,    86,    94,    98,   103,   114,   121,   122,
-     126,   127,   131,   132,   133,   137,   138,   142,   143,   147,
-     152,   153,   157,   158
+      74,    75,    79,    86,    94,    98,   103,   111,   118,   119,
+     123,   124,   128,   129,   130,   134,   135,   139,   140,   144,
+     149,   150,   154,   155
 };
 #endif
 
@@ -1418,7 +1418,7 @@ yyreduce:
     break;
 
   case 17:
-#line 114 "shell.y"
+#line 111 "shell.y"
        {
     printf("   Yacc: insert command \"s\"\n", (yyvsp[0].cpp_string)->c_str());
     Command::_currentSimpleCommand = new SimpleCommand();
@@ -1428,7 +1428,7 @@ yyreduce:
     break;
 
   case 21:
-#line 127 "shell.y"
+#line 124 "shell.y"
                {
     printf(" Yacc: insert output \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
@@ -1437,7 +1437,7 @@ yyreduce:
     break;
 
   case 29:
-#line 148 "shell.y"
+#line 145 "shell.y"
                          {
     printf(" Yacc: Execute command\n");
     Shell::_currentCommand.execute();
@@ -1446,7 +1446,7 @@ yyreduce:
     break;
 
   case 31:
-#line 153 "shell.y"
+#line 150 "shell.y"
                  {yyerrok;}
 #line 1452 "y.tab.cc"
     break;
@@ -1684,7 +1684,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 170 "shell.y"
+#line 167 "shell.y"
 
 
 void
