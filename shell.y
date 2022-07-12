@@ -41,7 +41,6 @@ int yylex();
 %}
 
 %%
-//I added below
 
 goal: command_list;
 
