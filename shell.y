@@ -123,7 +123,7 @@ void Command::execute()
   for ( int i = 0; i < _numberOfSimpleCommands; i++ ) {
     ret = fort();
     if (ret == 0) {
-      execvp(sCom[i]->_args[0], sCom[i]->_args);
+      execute(sCom[i]->_args[0], sCom[i]->_args);
       perror("execvp");
       _Exit(1);
     }

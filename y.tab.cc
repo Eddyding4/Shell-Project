@@ -1689,7 +1689,7 @@ void Command::execute()
     }
   }
   if (!_background) {
-    waitpid(ret, NULL);
+    _waitpid(ret, NULL);
   }
 }
 
