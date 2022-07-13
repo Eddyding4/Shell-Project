@@ -120,7 +120,7 @@ command_list:
 void Command::execute() 
 {
   int ret;
-  for ( int i = 0; i < insertSimpleCommands; i++ ) {
+  for ( int i = 0; i < insertSimpleCommand; i++ ) {
     ret = fork();
     if (ret == 0) {
       execute(sCom[i]->_args[0], sCom[i]->_args);
