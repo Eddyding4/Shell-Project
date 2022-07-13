@@ -52,7 +52,7 @@ command_list:
 command_line:
   pipe_list io_modifier_list background_opt NEWLINE
   | NEWLINE /*accept empty cmd line*/
-  | error NEWLINE{yyerrok;}
+  | error NEWLINE{ yyerrok; }
              /*error recovery*/
 
 arg_list:
