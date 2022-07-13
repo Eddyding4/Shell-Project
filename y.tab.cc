@@ -1355,7 +1355,7 @@ yyreduce:
     {
   case 7:
 #line 55 "shell.y"
-                 { yyerrok; }
+                 { yyerrok }
 #line 1360 "y.tab.cc"
     break;
 
