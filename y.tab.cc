@@ -1685,10 +1685,10 @@ void Command::execute()
     if (ret == 0) {
       execvp(sCom[i]->_args[0], sCom[i]->_args);
       perror("execvp");
-      _exit(1);
+      _Exit(1);
     }
   }
-  if (!background) {
+  if (!_background) {
     waitpid(ret, NULL);
   }
 }
