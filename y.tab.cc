@@ -1677,6 +1677,23 @@ yyreturn:
 #line 118 "shell.y"
 
 
+void Command::execute() 
+{
+  int ret;
+  for ( int i = 0; i < _numberOfSimpleCommands; i++ ) {
+    ret = fort();
+    if (ret == 0) {
+      execvp(sCom[i]->_args[0], sCom[i]->_args);
+      perror("execvp");
+      _exit(1);
+    }
+  }
+  if (!background) {
+    waitpid(ret, NULL);
+  }
+}
+
+
 void
 yyerror(const char * s)
 {
