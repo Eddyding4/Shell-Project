@@ -97,15 +97,26 @@ void Command::execute() {
         Shell::prompt();
         return;
     }
-
+    
     // Print contents of Command data structure
     print();
 
-    // Add execution here
-    // For every simple command fork a new process
-    // Setup i/o redirection
-    // and call exec
-
+    int ret;
+    for ( auto & simpleCommand : _simpleCommands ) {
+      ret = fork();
+      if (ret == 0) {
+        execvp(sCom[i]->_args[0], sCom[i]->_args);
+	perror("execvp");
+	_Exit(1);
+      }
+      else if (ret < 0) {
+        perror("fork");
+	return;
+      }
+    }
+    if (!_background) {
+      waitpid(ret, NULL);
+    }
     // Clear to prepare for next command
     clear();
 
