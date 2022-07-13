@@ -545,8 +545,8 @@ static const yytype_int8 yytranslate[] =
 static const yytype_int8 yyrline[] =
 {
        0,    45,    45,    48,    52,    56,    56,    68,    69,    73,
-      74,    78,    79,    80,    84,    85,    89,    90,    94,    95,
-      96,    99,   100
+      74,    78,    79,    80,    84,    85,    89,    90,    94,    98,
+      99,   102,   103
 };
 #endif
 
@@ -1390,14 +1390,23 @@ yyreduce:
 #line 1391 "y.tab.cc"
     break;
 
+  case 18:
+#line 94 "shell.y"
+                                                    {
+    printf(" Yacc: Execute command\n");
+    Shell::_currentCommand.execute();
+  }
+#line 1400 "y.tab.cc"
+    break;
+
   case 20:
-#line 96 "shell.y"
+#line 99 "shell.y"
                  { yyerrok; }
-#line 1397 "y.tab.cc"
+#line 1406 "y.tab.cc"
     break;
 
 
-#line 1401 "y.tab.cc"
+#line 1410 "y.tab.cc"
 
       default: break;
     }
@@ -1629,7 +1638,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 103 "shell.y"
+#line 106 "shell.y"
 
 
 void
