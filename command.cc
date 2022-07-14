@@ -108,7 +108,7 @@ void Command::execute() {
       ret = fork();
       if (ret == 0) {
 	int num = (int) _simpleCommands[i]->_arguments.size();
-	char * myargv[num] = malloc( num * sizeof(char*));
+	char * myargv[num];
         execvp(_simpleCommands[i]->_arguments[0]->c_str(), _simpleCommands[i]->_arguments);
 
 	perror("execvp");
