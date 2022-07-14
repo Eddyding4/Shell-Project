@@ -126,7 +126,7 @@ void Command::execute() {
 
       if(i == _simpleCommands.size() - 1){
         if(outfile){
-	  fdout = open(outfile, ......);
+	  fdout = open(_outFile, ......);
 	} else {
 	  fdout = dup(tmpout);
 	}
