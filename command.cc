@@ -101,6 +101,10 @@ void Command::execute() {
         return;
     }
     
+    if (isatty(0)) {
+      // Stdin is a terminal
+      prompt();
+    }    
     // Print contents of Command data structure
     print();
     
