@@ -117,7 +117,7 @@ void Command::execute() {
       }
     }
     if (!_background) {
-      waitpid(ret, NULL);
+      waitpid(ret, NULL, -1);
     }
     // Clear to prepare for next command
     clear();
