@@ -104,17 +104,21 @@ void Command::execute() {
     print();
 
     int ret;
-    for ( int i = 0; i < (int) _simpleCommands.size(); i++ ) {
+    for ( size_t i = 0; i < _simpleCommands.size(); i++ ) {
       ret = fork();
       if (ret == 0) {
-	int num = _simpleCommands[i]->_arguments.size();
+	size_t num = _simpleCommands[i]->_arguments.size();
         char** myargv = new char*[num];
-	for ( int j = 0; j < num; j++ ) {
+	for ( size_t j = 0; j < num; j++ ) {
 	  myargv[j] = new char[_simpleCommands[i]->_arguments[j]->size() + 1];
           strcpy(myargv[j], _simpleCommands[i]->_arguments[j]->c_str());
 	}
         execvp(_simpleCommands[i]->_arguments[0]->c_str(), myargv);
-
+        
+	for( size_t j = 0; j < num; j++ ) {
+	  delete [] myargv[j];
+	}
+	delete [] argv;
 	perror("execvp");
 	_Exit(1);
       }
