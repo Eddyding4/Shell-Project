@@ -186,5 +186,5 @@ void Command::print() {
     // Print new prompt
     Shell::prompt();
 }
-
+*/
 SimpleCommand * Command::_currentSimpleCommand;
