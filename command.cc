@@ -111,7 +111,7 @@ void Command::execute() {
     // set initial input
     int fdin;
     if (_inFile) {
-      fdin = open(_inFile->str(), O_RDONLY);
+      fdin = open(_inFile, O_RDONLY);
     } else {
       // use default input
       fdin = dup(tmpin);
@@ -125,7 +125,7 @@ void Command::execute() {
       close(fdin);
 
       if(i == _simpleCommands.size() - 1){
-        if(outfile){
+        if(_outFile){
 	  fdout = open(_outFile, ......);
 	} else {
 	  fdout = dup(tmpout);
