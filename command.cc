@@ -18,6 +18,7 @@
 #include <cstdlib>
 
 #include <iostream>
+#include <unistd.h>
 
 #include "command.hh"
 #include "shell.hh"
@@ -103,7 +104,7 @@ void Command::execute() {
 
     int ret;
     for ( int i = 0; i < _simpleCommands.size(); i++ ) {
-      ret = _fork();
+      ret = fork();
       if (ret == 0) {
         execvp(sCom[i]->_args[0], sCom[i]->_args);
 	perror("execvp");
