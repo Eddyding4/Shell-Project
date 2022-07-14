@@ -107,7 +107,8 @@ void Command::execute() {
     for ( int i = 0; i < (int) _simpleCommands.size(); i++ ) {
       ret = fork();
       if (ret == 0) {
-        char* myargv[_simpleCommands[i]->_arguments.size()];
+	int num = _simpleCommands[i]->_arguments.size();
+        char* myargv[num];
 	for ( int j = 0; j < num; j++ ) {
 	  myargv[j] = _simpleCommands[i]->_arguments[j]->c_str();
 	}
