@@ -20,7 +20,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <sys/wait.h>
-
+#include <cstring>
 #include "command.hh"
 #include "shell.hh"
 
