@@ -128,7 +128,7 @@ void Command::execute() {
       if(i == _simpleCommands.size() - 1){
           // last simple command
 	  if(_outFile){
-	  fdout = open(_outFile->c_str(), O_CREAT,O_TRUNC, O_RDWR);
+	  fdout = open(_outFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0600);
 	} else {
 	  fdout = dup(tmpout);
 	}

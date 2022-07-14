@@ -1435,7 +1435,7 @@ yyreduce:
                      {
     printf(" Yacc: insert output \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
-  }
+}
 #line 1440 "y.tab.cc"
     break;
 
