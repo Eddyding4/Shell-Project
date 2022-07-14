@@ -19,6 +19,7 @@
 
 #include <iostream>
 #include <unistd.h>
+#include <sys/wait.h>
 
 #include "command.hh"
 #include "shell.hh"
