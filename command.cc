@@ -102,9 +102,34 @@ void Command::execute() {
     
     // Print contents of Command data structure
     print();
+    
+    // save in and out
+    int tmpin = dup(0);
+    int tmpout = dup(1);
+
+    // set initial input
+    int fdin;
+    if (infile) {
+      fdin = open(infile, O_READ);
+    } else {
+      // use default input
+      fdin = dup(tmpin);
+    }
 
     int ret;
+    int fdout;
+
     for ( size_t i = 0; i < _simpleCommands.size(); i++ ) {
+      dup2(fdin, 0);
+      close(fdin);
+
+      if(i == _simpleCommands.size() - 1){
+        if(outfile){
+	  fdout = open(outfile, ......);
+	} else {
+	  fdout = dup(tmpout);
+	}
+      }
       ret = fork();
       if (ret == 0) {
 	size_t num = _simpleCommands[i]->_arguments.size();
