@@ -106,7 +106,7 @@ void Command::execute() {
     for ( int i = 0; i < (int) _simpleCommands.size(); i++ ) {
       ret = fork();
       if (ret == 0) {
-        execvp(sCom[i]->_args[0], sCom[i]->_args);
+        execvp(_simpleCommands[i]->_args[0], simpleCommands[i]->_args);
 	perror("execvp");
 	_Exit(1);
       }
