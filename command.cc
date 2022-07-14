@@ -18,7 +18,7 @@
 #include <cstdlib>
 
 #include <iostream>
-#include <fcnt1.h>
+
 #include <unistd.h>
 #include <sys/wait.h>
 #include <cstring>
