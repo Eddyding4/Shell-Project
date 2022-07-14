@@ -115,10 +115,11 @@ void Command::execute() {
 	}
         execvp(_simpleCommands[i]->_arguments[0]->c_str(), myargv);
         
-	for( size_t j = 0; j < num; j++ ) {
+	/*for( size_t j = 0; j < num; j++ ) {
 	  delete [] myargv[j];
 	}
 	delete [] myargv;
+	*/
 	perror("execvp");
 	exit(1);
       }
