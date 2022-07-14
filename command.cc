@@ -109,8 +109,8 @@ void Command::execute() {
 
     // set initial input
     int fdin;
-    if (infile) {
-      fdin = open(infile, O_READ);
+    if (_inFile) {
+      fdin = popen(_inFile, O_READ);
     } else {
       // use default input
       fdin = dup(tmpin);
