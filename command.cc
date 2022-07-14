@@ -120,7 +120,7 @@ void Command::execute() {
 	}
 	delete [] myargv;
 	perror("execvp");
-	_Exit(1);
+	exit(1);
       }
       else if (ret < 0) {
         perror("fork");
