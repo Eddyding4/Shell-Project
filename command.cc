@@ -130,6 +130,8 @@ void Command::execute() {
 	} else {
 	  fdout = dup(tmpout);
 	}
+      } else {
+        int fdpipep[2];
       }
       ret = fork();
       if (ret == 0) {
