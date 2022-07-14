@@ -90,6 +90,10 @@ io_modifier:
     printf(" Yacc: insert output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
   }
+  | AMPERSAND WORD {
+    printf(" Yacc: insert output \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._outFile = $2;
+  }
   ; 
 
 io_modifier_list: 
