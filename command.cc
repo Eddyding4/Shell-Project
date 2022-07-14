@@ -108,9 +108,10 @@ void Command::execute() {
       ret = fork();
       if (ret == 0) {
 	int num = _simpleCommands[i]->_arguments.size();
-        char* myargv[num];
+        char** myargv = new char*[num];
 	for ( int j = 0; j < num; j++ ) {
-	  myargv[j] = _simpleCommands[i]->_arguments[j]->c_str();
+	  myargv[j] = new char[_simpleCommands[i]->_arguments[j].size() + 1];
+          strcpy(myargv[j], _simpleCommands[i]->_arguments[j]->c_str());
 	}
         execvp(_simpleCommands[i]->_arguments[0]->c_str(), myargv);
 
