@@ -121,18 +121,30 @@ void Command::execute() {
     int fdout;
 
     for ( size_t i = 0; i < _simpleCommands.size(); i++ ) {
+      // redirect input 
       dup2(fdin, 0);
       close(fdin);
-
+      // setup output
       if(i == _simpleCommands.size() - 1){
-        if(_outFile){
+          // last simple command
+	  if(_outFile){
 	  fdout = open(_outFile->c_str(), O_CREAT,O_RDWR,O_TRUNC);
 	} else {
 	  fdout = dup(tmpout);
 	}
       } else {
-        int fdpipep[2];
+	// not last simple command create pipe
+        int fdpipe[2];
+        pipe(fdpipe);
+	fdout = fdpipe[1];
+	fdin = fdpipe[0];
       }
+
+      // redirect output
+      dup2(fdout, 1);
+      close(fdout);      
+
+      //create child process
       ret = fork();
       if (ret == 0) {
 	size_t num = _simpleCommands[i]->_arguments.size();
@@ -157,6 +169,13 @@ void Command::execute() {
 	return;
       }
     }
+
+    // restore in/out defaults
+    dup2(tmpin, 0);
+    dup2(tmpout, 1);
+    close(tmpin);
+    close(tmpout);
+
     if (!_background) {
       waitpid(ret, NULL, 0);
     }
