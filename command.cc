@@ -118,7 +118,7 @@ void Command::execute() {
 	for( size_t j = 0; j < num; j++ ) {
 	  delete [] myargv[j];
 	}
-	delete [] argv;
+	delete [] myargv;
 	perror("execvp");
 	_Exit(1);
       }
