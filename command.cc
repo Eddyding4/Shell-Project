@@ -112,7 +112,7 @@ void Command::execute() {
 	for ( int j = 0; j < num; j++ ) {
 	  myargv[j] = _simpleCommands[i]->_arguments[j]->c_str();
 	}
-        execvp(_simpleCommands[i]->_arguments[0]->c_str(), _simpleCommands[i]->_arguments);
+        execvp(_simpleCommands[i]->_arguments[0]->c_str(), myargv);
 
 	perror("execvp");
 	_Exit(1);
