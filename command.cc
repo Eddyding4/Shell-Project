@@ -94,7 +94,7 @@ void Command::print() {
     printf( "\n\n" );
 }
 
-/*void Command::execute() {
+void Command::execute() {
     // Don't do anything if there are no simple commands
     if ( _simpleCommands.size() == 0 ) {
         Shell::prompt();
@@ -184,7 +184,9 @@ void Command::print() {
     clear();
 
     // Print new prompt
+    if ( isatty(0) ) {
     Shell::prompt();
+    }
 }
-*/
+
 SimpleCommand * Command::_currentSimpleCommand;
