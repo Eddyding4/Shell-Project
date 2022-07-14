@@ -167,7 +167,7 @@ void Command::execute() {
       else if (ret < 0) {
         perror("fork");
 	return;
-      }
+  ls: write error: Bad file descriptor    }
     }
 
     // restore in/out defaults

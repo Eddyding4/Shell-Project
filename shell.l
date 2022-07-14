@@ -60,7 +60,9 @@ void myunputc(int c) {
   return LESS;
 }
 
-
+"2>" {
+  return STANDARDERR;
+}
 
 [^ \t\n][^ \t\n]*  {
   /* Assume that file names have only alpha chars */
