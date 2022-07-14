@@ -18,6 +18,7 @@
 #include <cstdlib>
 
 #include <iostream>
+#include <fstream>
 #include <unistd.h>
 #include <sys/wait.h>
 #include <cstring>
@@ -110,7 +111,7 @@ void Command::execute() {
     // set initial input
     int fdin;
     if (_inFile) {
-      fdin = popen(_inFile, O_READ);
+      fdin = open(_inFile, O_READ);
     } else {
       // use default input
       fdin = dup(tmpin);
