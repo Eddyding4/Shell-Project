@@ -112,7 +112,7 @@ void Command::execute() {
     // set initial input
     int fdin;
     if (_inFile) {
-      fdin = open(_inFile->c_str(), O_RDONLY);
+      fdin = open(_inFile->c_str(), O_READ);
     } else {
       // use default input
       fdin = dup(tmpin);
@@ -129,7 +129,7 @@ void Command::execute() {
       if(i == _simpleCommands.size() - 1){
           // last simple command
 	  if(_outFile){
-	  fdout = open(_outFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0600);
+	  fdout = open(_outFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
 	} else {
 	  fdout = dup(tmpout);
 	}
@@ -157,11 +157,11 @@ void Command::execute() {
 	myargv[num + 1] = NULL;
         execvp(_simpleCommands[i]->_arguments[0]->c_str(), myargv);
         
-	/*for( size_t j = 0; j < num; j++ ) {
+	for( size_t j = 0; j < num; j++ ) {
 	  delete [] myargv[j];
 	}
 	delete [] myargv;
-	*/
+	
 	perror("execvp");
 	exit(1);
       }
