@@ -226,7 +226,7 @@ dup2( fdpipe[0], 0);
     // restore in/out defaults
     dup2(tmpin, 0);
     dup2(tmpout, 1);
-    dup2(temperr, 2);
+    dup2(tmperr, 2);
 
     close(fdpipe[0]);
     close(fdpipe[1]);
