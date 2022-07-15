@@ -196,10 +196,10 @@ void Command::execute() {
         close( outfd );
 
         // Redirect err
-        dup2( defaulterr, 2 );
+        dup2( tmperr, 2 );
 
-        pid = fork();
-        if (pid == -1 ) {
+        ret = fork();
+        if (ret == -1 ) {
                 perror( "cat_grep: fork");
                 exit( 2 );
         }
