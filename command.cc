@@ -176,7 +176,6 @@ void Command::execute() {
 	delete [] myargv;
 	
 	perror("execvp");
-	dup2(tmperr, stderr);
 	exit(1);
       }
       else if (ret < 0) {
@@ -184,6 +183,8 @@ void Command::execute() {
 	exit(2);
       }
 
+    dup2(fderr, 3);
+    close(fderr);
     // restore in/out defaults
     dup2(tmpin, 0);
     dup2(tmpout, 1);
