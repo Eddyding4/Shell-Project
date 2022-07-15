@@ -176,19 +176,14 @@ void Command::execute() {
 	delete [] myargv;
 	
 	perror("execvp");
+	dup2(tmperr, stderr);
 	exit(1);
       }
       else if (ret < 0) {
         perror("fork");
 	exit(2);
       }
- int fderr;
-    if(_errFile) {
-      fderr = open(_errFile->c_str(),  O_WRONLY|O_CREAT|O_TRUNC, 0664);
-    } else {
-      // use default input
-      fderr = dup(tmperr);
-    }
+
     // restore in/out defaults
     dup2(tmpin, 0);
     dup2(tmpout, 1);
