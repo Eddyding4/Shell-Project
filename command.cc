@@ -126,9 +126,6 @@ void Command::execute() {
       dup2(fdin, 0);
       close(fdin);
       
-      dup2(fderr, 0);
-      close(fderr);
-
       // setup output
       if(i == _simpleCommands.size() - 1){
           // last simple command
