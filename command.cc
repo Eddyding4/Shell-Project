@@ -182,16 +182,60 @@ void Command::execute() {
       }
     }
 
- 
+dup2( fdpipe[0], 0);
+
+        // Redirect output to utfile
+        int outfd = creat( argv[ 3 ], 0666 );
+
+        if ( outfd < 0 ) {
+                perror( "cat_grep: creat outfile" );
+                exit( 2 );
+        }
+
+        dup2( outfd, 1 );
+        close( outfd );
+
+        // Redirect err
+        dup2( defaulterr, 2 );
+
+        pid = fork();
+        if (pid == -1 ) {
+                perror( "cat_grep: fork");
+                exit( 2 );
+        }
+
+        if (pid == 0) {
+                //Child
+
+                // close file descriptors that are not needed
+                close(fdpipe[0]);
+                close(fdpipe[1]);
+                close( defaultin );
+                close( defaultout );
+                close( defaulterr );
+
+                // You can use execvp() instead if the arguments are stored in an array
+                execlp(grep, cat, argv[2], (char *) 0);
+
+                // exec() is not suppose to return, something went wrong
+                perror( "cat_grep: exec grep");
+                exit( 2 );
+
+        } 
 
     // restore in/out defaults
     dup2(tmpin, 0);
     dup2(tmpout, 1);
+    dup2(temperr, 2);
+
+    close(fdpipe[0]);
+    close(fdpipe[1]);
     close(tmpin);
     close(tmpout);
+    close(tmperr);
 
     if (!_background) {
-      waitpid(ret, NULL, 0);
+      waitpid(ret, 0, 0);
     }
     // Clear to prepare for next command
     clear();
