@@ -112,7 +112,7 @@ void Command::execute() {
     // set initial input
     int fdin;
     if (_inFile) {
-      fdin = open(_inFile->c_str(), O_READ);
+      fdin = open(_inFile->c_str(), O_RDONLY);
     } else {
       // use default input
       fdin = dup(tmpin);
