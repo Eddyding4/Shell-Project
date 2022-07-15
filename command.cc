@@ -121,12 +121,12 @@ void Command::execute() {
 
     int ret;
     int fdout;
-
+    int fdpipe[2];
     for ( size_t i = 0; i < _simpleCommands.size(); i++ ) {
       // redirect input 
       dup2(fdin, 0);
       close(fdin);
-      int fdpipe[2];
+      
       // setup output
       if(i == _simpleCommands.size() - 1){
           // last simple command
@@ -182,7 +182,7 @@ void Command::execute() {
       }
     }
 
-dup2( fdpipe[0], 0);
+  dup2( fdpipe[0], 0);
 
         // Redirect output to utfile
         int outfd = creat( argv[ 3 ], 0666 );
