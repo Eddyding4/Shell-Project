@@ -185,7 +185,7 @@ void Command::execute() {
   dup2( fdpipe[0], 0);
 
         // Redirect output to utfile
-        int outfd = creat( myargv[0], 0666 );
+        /*int outfd = creat( , 0666 );
 
         if ( outfd < 0 ) {
                 perror( "cat_grep: creat outfile" );
@@ -194,7 +194,7 @@ void Command::execute() {
 
         dup2( outfd, 1 );
         close( outfd );
-
+        */
         // Redirect err
         dup2( tmperr, 2 );
 
