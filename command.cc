@@ -120,6 +120,7 @@ void Command::execute() {
     }
     int ret;
     int fdout;
+    int fderr;
     int fdpipe[2];
     for ( size_t i = 0; i < _simpleCommands.size(); i++ ) {
       // redirect input 
@@ -145,8 +146,11 @@ void Command::execute() {
 	fdout = fdpipe[1];
 	fdin = fdpipe[0];
       }    
-
-      fprintf(stderr, "debug message");
+      if(_errFile){
+        fderr = open(_errFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
+      } else {
+        fderr = dup(tmperr);
+      }
       dup2(tmpin, 0);
       dup2(fdout, 1);
       dup2(tmperr, 2);
