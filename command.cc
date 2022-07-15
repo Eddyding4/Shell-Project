@@ -21,8 +21,6 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#include <string.h>
-
 #include <cstring>
 #include "command.hh"
 #include "shell.hh"
@@ -131,7 +129,7 @@ void Command::execute() {
       if(i == _simpleCommands.size() - 1){
           // last simple command
 	  if(_outFile){
-	  fdout = open(_outFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
+	  fdout = open(_outFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0600);
 	} else {
 	  fdout = dup(tmpout);
 	}
@@ -151,12 +149,13 @@ void Command::execute() {
       ret = fork();
       if (ret == 0) {
 	size_t num = _simpleCommands[i]->_arguments.size();
-        char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
+        char** myargv = new char*[num + 1];
 	for ( size_t j = 0; j < num; j++ ) {
-	  myargv[j] = strdup(_simpleCommands[i]->_arguments[j]->c_str());
+	  myargv[j] = new char[_simpleCommands[i]->_arguments[j]->size() + 1];
+          strcpy(myargv[j], _simpleCommands[i]->_arguments[j]->c_str());
 	}
-	myargv[_simpleCommands[i]->_arguments.size()] = NULL;
-        execvp(myargv[0], myargv);
+	myargv[num + 1] = NULL;
+        execvp(_simpleCommands[i]->_arguments[0]->c_str(), myargv);
         
 	for( size_t j = 0; j < num; j++ ) {
 	  delete [] myargv[j];
@@ -185,9 +184,7 @@ void Command::execute() {
     clear();
 
     // Print new prompt
-    if ( isatty(0) ) {
     Shell::prompt();
-    }
 }
 
 SimpleCommand * Command::_currentSimpleCommand;
