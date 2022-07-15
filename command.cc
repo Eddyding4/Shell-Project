@@ -180,7 +180,7 @@ void Command::execute() {
         perror("fork");
 	exit(2);
       }
-    }
+    
 
   dup2( fdpipe[0], 0);
 
@@ -249,6 +249,7 @@ void Command::execute() {
     if ( isatty(0) ) {
     Shell::prompt();
     }
+  }
 }
 
 SimpleCommand * Command::_currentSimpleCommand;
