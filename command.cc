@@ -150,7 +150,7 @@ void Command::execute() {
       dup2(tmpin, 0);
       dup2(fdout, 1);
       dup2(tmperr, 2);
-      close(fdout);
+      
       //create child process
       ret = fork();
       if (ret == 0) {
@@ -178,9 +178,11 @@ void Command::execute() {
       }
       else if (ret < 0) {
         perror("fork");
-	return;
+	exit(2);
       }
     }
+
+ 
 
     // restore in/out defaults
     dup2(tmpin, 0);
