@@ -155,9 +155,9 @@ void Command::execute() {
       if (ret == 0) {
         close(fdpipe[0]);
         close(fdpipe[1]);
-        close( defaultin );
-        close( defaultout );
-        close( defaulterr );
+        close( tmpin );
+        close( tmpout );
+        close( tmperr );
 	size_t num = _simpleCommands[i]->_arguments.size();
         char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
 	for ( size_t j = 0; j < num; j++ ) {
