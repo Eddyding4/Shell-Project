@@ -210,9 +210,9 @@ dup2( fdpipe[0], 0);
                 // close file descriptors that are not needed
                 close(fdpipe[0]);
                 close(fdpipe[1]);
-                close( defaultin );
-                close( defaultout );
-                close( defaulterr );
+                close( tmpin );
+                close( tmpout );
+                close( tmperr );
 
                 // You can use execvp() instead if the arguments are stored in an array
                 execlp(grep, cat, argv[2], (char *) 0);
