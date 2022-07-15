@@ -120,7 +120,7 @@ void Command::execute() {
     }
     int fderr;
     if(_errFile) {
-      fderr = open(_errFile->c_str(), O_RDONLY);
+      fderr = open(_errFile->c_str(),  O_WRONLY|O_CREAT|O_TRUNC, 0664);
     } else {
       // use default input
       fderr = dup(tmperr);
