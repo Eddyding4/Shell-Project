@@ -182,57 +182,7 @@ void Command::execute() {
       }
     
 
-  dup2( fdpipe[0], 0);
-
-        // Redirect output to utfile
-        /*int outfd = creat( , 0666 );
-
-        if ( outfd < 0 ) {
-                perror( "cat_grep: creat outfile" );
-                exit( 2 );
-        }
-
-        dup2( outfd, 1 );
-        close( outfd );
-        */
-        // Redirect err
-        dup2( tmperr, 2 );
-
-        ret = fork();
-        if (ret == -1 ) {
-                perror( "cat_grep: fork");
-                exit( 2 );
-        }
-
-        if (ret == 0) {
-                //Child
-
-                // close file descriptors that are not needed
-                close(fdpipe[0]);
-                close(fdpipe[1]);
-                close( tmpin );
-                close( tmpout );
-                close( tmperr );
-
-                // You can use execvp() instead if the arguments are stored in an array
-                size_t num = _simpleCommands[i]->_arguments.size();
-        char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
-        for ( size_t j = 0; j < num; j++ ) {
-          myargv[j] = strdup(_simpleCommands[i]->_arguments[j]->c_str());
-        }
-        myargv[_simpleCommands[i]->_arguments.size()] = NULL;
-        execvp(myargv[0], myargv);
-
-	for( size_t j = 0; j < num; j++ ) {
-          delete [] myargv[j];
-        }
-        delete [] myargv;
-                // exec() is not suppose to return, something went wrong
-                perror( "cat_grep: exec grep");
-                exit( 2 );
-
-        } 
-
+ 
     // restore in/out defaults
     dup2(tmpin, 0);
     dup2(tmpout, 1);
