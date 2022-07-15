@@ -190,6 +190,7 @@ void Command::execute() {
       } else {
         fderr = dup(tmperr);
       }
+    dup2(fderr, 2);
     // restore in/out defaults
     dup2(tmpin, 0);
     dup2(tmpout, 1);
