@@ -153,7 +153,7 @@ void Command::execute() {
       }
       dup2(tmpin, 0);
       dup2(fdout, 1);
-      dup2(tmperr, 2);
+      dup2(fderr, 2);
       
       //create child process
       ret = fork();
