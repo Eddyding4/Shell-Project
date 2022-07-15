@@ -136,7 +136,7 @@ void Command::execute() {
 	}
       } else {
 	// not last simple command create pipe
-        int fdpipe[2]
+        int fdpipe[2];
         pipe(fdpipe);
 	fdout = fdpipe[1];
 	fdin = fdpipe[0];
