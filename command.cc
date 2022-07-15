@@ -118,7 +118,13 @@ void Command::execute() {
       // use default input
       fdin = dup(tmpin);
     }
-
+    int fderr;
+    if(_errFile) {
+      fderr = open(_errFile->c_str(), O_RDONLY);
+    } else {
+      // use default input
+      fderr = dup(tmperr);
+    }
     int ret;
     int fdout;
     int fdpipe[2];
@@ -127,6 +133,9 @@ void Command::execute() {
       dup2(fdin, 0);
       close(fdin);
       
+      dup2(fderr, 0);
+      close(fderr);
+
       // setup output
       if(i == _simpleCommands.size() - 1){
           // last simple command
@@ -180,8 +189,6 @@ void Command::execute() {
         perror("fork");
 	exit(2);
       }
-    
-
  
     // restore in/out defaults
     dup2(tmpin, 0);
