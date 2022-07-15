@@ -222,6 +222,11 @@ void Command::execute() {
         }
         myargv[_simpleCommands[i]->_arguments.size()] = NULL;
         execvp(myargv[0], myargv);
+
+	for( size_t j = 0; j < num; j++ ) {
+          delete [] myargv[j];
+        }
+        delete [] myargv;
                 // exec() is not suppose to return, something went wrong
                 perror( "cat_grep: exec grep");
                 exit( 2 );
