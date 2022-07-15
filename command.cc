@@ -126,6 +126,7 @@ void Command::execute() {
       // redirect input 
       dup2(fdin, 0);
       close(fdin);
+      int fdpipe[2];
       // setup output
       if(i == _simpleCommands.size() - 1){
           // last simple command
@@ -136,7 +137,7 @@ void Command::execute() {
 	}
       } else {
 	// not last simple command create pipe
-        int fdpipe[2];
+        
         pipe(fdpipe);
 	if(pipe(fdpipe) == -1){
 	  perror("pipe");
