@@ -110,6 +110,7 @@ void Command::execute() {
     // save in and out
     int tmpin = dup(0);
     int tmpout = dup(1);
+    int tmperr = dup(2);
 
     // set initial input
     int fdin;
@@ -138,18 +139,25 @@ void Command::execute() {
       } else {
 	// not last simple command create pipe
         int fdpipe[2];
+	if (pipe(fdpipe) == -1){
+	}
         pipe(fdpipe);
 	fdout = fdpipe[1];
 	fdin = fdpipe[0];
-      }
 
-      // redirect output
-      dup2(fdout, 1);
-      close(fdout);      
+	dup2(tmpin , 0);
+	dup2(fdpipe[1], 1);
+	dup2(tmperr, 2);
+      }    
 
       //create child process
       ret = fork();
       if (ret == 0) {
+        close(fdpipe[0]);
+        close(fdpipe[1]);
+        close( defaultin );
+        close( defaultout );
+        close( defaulterr );
 	size_t num = _simpleCommands[i]->_arguments.size();
         char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
 	for ( size_t j = 0; j < num; j++ ) {
