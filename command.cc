@@ -189,7 +189,7 @@ void Command::execute() {
       // use default input
       fderr = dup(tmperr);
     }
-    dup2(fderr, 3);
+    dup2(tmperr, 3);
     close(fderr);
     // restore in/out defaults
     dup2(tmpin, 0);
