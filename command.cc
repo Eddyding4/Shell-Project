@@ -182,7 +182,13 @@ void Command::execute() {
         perror("fork");
 	exit(2);
       }
-
+    int fderr;
+    if (_errFile) {
+      fderr = open(_errFile->c_str(),  O_WRONLY|O_CREAT|O_TRUNC, 0664);
+    } else {
+      // use default input
+      fderr = dup(tmperr);
+    }
     dup2(fderr, 3);
     close(fderr);
     // restore in/out defaults
