@@ -204,7 +204,7 @@ void Command::execute() {
                 exit( 2 );
         }
 
-        if (pid == 0) {
+        if (ret == 0) {
                 //Child
 
                 // close file descriptors that are not needed
