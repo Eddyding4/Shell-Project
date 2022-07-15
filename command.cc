@@ -101,8 +101,7 @@ void Command::execute() {
     if ( _simpleCommands.size() == 0 ) {
         Shell::prompt();
         return;
-    }
-    
+    }  
 
     // Print contents of Command data structure
     print();
