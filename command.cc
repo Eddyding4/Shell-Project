@@ -146,7 +146,7 @@ void Command::execute() {
 	fdin = fdpipe[0];
       }    
 
-      fprintf(stderr);
+      fprintf(stderr, "debug message");
       dup2(tmpin, 0);
       dup2(fdout, 1);
       dup2(tmperr, 2);
