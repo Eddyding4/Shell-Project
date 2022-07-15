@@ -215,8 +215,13 @@ void Command::execute() {
                 close( tmperr );
 
                 // You can use execvp() instead if the arguments are stored in an array
-                execlp(grep, cat, argv[2], (char *) 0);
-
+                size_t num = _simpleCommands[i]->_arguments.size();
+        char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
+        for ( size_t j = 0; j < num; j++ ) {
+          myargv[j] = strdup(_simpleCommands[i]->_arguments[j]->c_str());
+        }
+        myargv[_simpleCommands[i]->_arguments.size()] = NULL;
+        execvp(myargv[0], myargv);
                 // exec() is not suppose to return, something went wrong
                 perror( "cat_grep: exec grep");
                 exit( 2 );
