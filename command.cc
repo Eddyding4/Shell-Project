@@ -65,7 +65,7 @@ void Command::clear() {
     }
     _inFile = NULL;
 
-    if ( _errFile & !check) {
+    if ( _errFile && !check) {
         delete _errFile;
     }
     _errFile = NULL;
