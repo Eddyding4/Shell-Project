@@ -172,10 +172,10 @@ void Command::execute() {
 	}
 	delete [] myargv;
 	
+	close(fdin);
 	perror("execvp");
-	exit(1);
+	exit(1);	
       }
-      close(fdin);
       else if (ret < 0) {
         perror("fork");
 	exit(2);
