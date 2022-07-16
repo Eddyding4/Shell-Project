@@ -154,7 +154,6 @@ void Command::execute() {
 	fdin = fdpipe[0];
       } 
       dup2(fdout, 1);
-      dup2(fdin, 0);
       close(fdout);
       //create child process
       ret = fork();
@@ -180,6 +179,9 @@ void Command::execute() {
         perror("fork");
 	exit(2);
       }
+    dup2(fdin, 0);
+    dup2(fdout, 1);
+
     // restore in/out defaults
     dup2(tmpin, 0);
     dup2(tmpout, 1);
