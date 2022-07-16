@@ -44,10 +44,10 @@ int yylex();
 
 goal: command_list;
 
-argument_list:
-  argument_list WORD {
-    printf(" Yacc: insert argument \"%s\"\n", $1->c_str());
-    Command::_currentSimpleCommand->insertArgument( $1 );
+arg_list:
+  arg_list WORD {
+    printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
+    Command::_currentSimpleCommand->insertArgument( $2 );
   } 
   | /*empty*/
   ;
