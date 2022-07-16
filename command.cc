@@ -18,12 +18,7 @@
 #include <cstdlib>
 
 #include <iostream>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <string.h>
 
-#include <cstring>
 #include "command.hh"
 #include "shell.hh"
 
@@ -101,11 +96,11 @@ void Command::execute() {
     if ( _simpleCommands.size() == 0 ) {
         Shell::prompt();
         return;
-    }  
+    }
 
     // Print contents of Command data structure
     print();
-    
+
     // save in and out
     int tmpin = dup(0);
     int tmpout = dup(1);
@@ -122,33 +117,33 @@ void Command::execute() {
     int fdout;
     int fderr;
     for ( size_t i = 0; i < _simpleCommands.size(); i++ ) {
-      // redirect input 
+      // redirect input
       dup2(fdin, 0);
       close(fdin);
-      
+
       // setup output
       if(i == _simpleCommands.size() - 1){
           // last simple command
-	  if(_outFile){
-	  fdout = open(_outFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
-	} else {
-	  fdout = dup(tmpout);
-	}
-      } else {
-	// not last simple command create pipe
+          if(_outFile){
+          fdout = open(_outFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
+        } else {
+          fdout = dup(tmpout);
+        }
+} else {
+        // not last simple command create pipe
         int fdpipe[2];
         pipe(fdpipe);
-	if(pipe(fdpipe) == -1){
-	  perror("pipe");
-	  exit(2);
-	}
-	fderr = fdpipe[2];
-	fdout = fdpipe[1];
-	fdin = fdpipe[0];
-      }   
+        if(pipe(fdpipe) == -1){
+          perror("pipe");
+          exit(2);
+        }
+        fderr = fdpipe[2];
+        fdout = fdpipe[1];
+        fdin = fdpipe[0];
+      }
       dup2(fdout, 1);
       close(fdout);
-      
+
       //create child process
       ret = fork();
       if (ret == 0) {
@@ -156,27 +151,27 @@ void Command::execute() {
         close( tmpout );
         close( tmperr );
 
-	size_t num = _simpleCommands[i]->_arguments.size();
+        size_t num = _simpleCommands[i]->_arguments.size();
         char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
-	for ( size_t j = 0; j < num; j++ ) {
-	  myargv[j] = strdup(_simpleCommands[i]->_arguments[j]->c_str());
-	}
-	myargv[_simpleCommands[i]->_arguments.size()] = NULL;
+        for ( size_t j = 0; j < num; j++ ) {
+          myargv[j] = strdup(_simpleCommands[i]->_arguments[j]->c_str());
+        }
+        myargv[_simpleCommands[i]->_arguments.size()] = NULL;
         execvp(myargv[0], myargv);
-        
-	/*for( size_t j = 0; j < num; j++ ) {
-	  delete [] myargv[j];
-	}
-	delete [] myargv;
-	*/
-	perror("execvp");
-	exit(1);
+
+        /*for( size_t j = 0; j < num; j++ ) {
+          delete [] myargv[j];
+        }
+        delete [] myargv;
+        */
+        perror("execvp");
+        exit(1);
       }
       else if (ret < 0) {
-        perror("fork");
-	exit(2);
+ perror("fork");
+        exit(2);
       }
-    
+
     // restore in/out defaults
     dup2(tmpin, 0);
     dup2(tmpout, 1);
