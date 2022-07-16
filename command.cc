@@ -132,14 +132,13 @@ void Command::execute() {
         fderr = dup(tmperr);
       }
     dup2(fderr, 2);
-    for ( size_t i = 0; i < _simpleCommands.size(); i++ ) {
-      printf("hello");
+    for ( auto & simpleCommand : _simpleCommands ) {
       // redirect input 
       dup2(fdin, 0);
       close(fdin);
       
       // setup output
-      if(i == _simpleCommands.size() - 1){
+      if(simpleCommand == _simpleCommands.size() - 1){
           // last simple command
 	if(_outFile){
 	  fdout = open(_outFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
@@ -159,12 +158,12 @@ void Command::execute() {
       ret = fork();
       if (ret == 0) {
 
-	size_t num = _simpleCommands[i]->_arguments.size();
-        char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
+	size_t num = _simpleCommand->_arguments.size();
+        char** myargv = (char **) malloc ((_simpleCommand->_arguments.size() + 1) * sizeof(char*));
 	for ( size_t j = 0; j < num; j++ ) {
-	  myargv[j] = strdup(_simpleCommands[i]->_arguments[j]->c_str());
+	  myargv[j] = strdup(_simpleCommand->_arguments[j]->c_str());
 	}
-	myargv[_simpleCommands[i]->_arguments.size()] = NULL;
+	myargv[_simpleCommand->_arguments.size()] = NULL;
         execvp(myargv[0], myargv);
         
 	for( size_t j = 0; j < num; j++ ) {
