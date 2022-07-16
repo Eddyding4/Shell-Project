@@ -158,9 +158,6 @@ void Command::execute() {
       //create child process
       ret = fork();
       if (ret == 0) {
-        close( tmpin );
-        close( tmpout );
-        close( tmperr );
 
 	size_t num = _simpleCommands[i]->_arguments.size();
         char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
