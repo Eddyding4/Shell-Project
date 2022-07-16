@@ -58,10 +58,10 @@ cmd_and_args:
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument( $1 );
   }
-  /*arg_list {
+  arg_list {
     Shell::_currentCommand.
     insertSimpleCommand( Command::_currentSimpleCommand );
-  }*/
+  }
   ;
 
 pipe_list:
@@ -71,24 +71,24 @@ pipe_list:
 
 io_modifier:
   GREATGREAT WORD {
-    printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
-    Command::_currentSimpleCommand->insertArgument( $2 );
+    printf(" Yacc: insert output \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._outFile = $2;
   }
   | GREAT WORD {
-    printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
-    Command::_currentSimpleCommand->insertArgument( $2 );
+    printf(" Yacc: insert output \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._outFile = $2;
   }
   | GREATGREATAMPERSAND WORD {
-    printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
-    Command::_currentSimpleCommand->insertArgument( $2 );
+    printf(" Yacc: insert output \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._outFile = $2;
   }
   | GREATAMPERSAND WORD {
-    printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
-    Command::_currentSimpleCommand->insertArgument( $2 );
+    printf(" Yacc: insert output \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._outFile = $2;
   }
   | LESS WORD {
-    printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
-    Command::_currentSimpleCommand->insertArgument( $2 );
+    printf(" Yacc: insert output \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._outFile = $2;
   } 
   ;
 
