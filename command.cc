@@ -123,6 +123,14 @@ void Command::execute() {
     int ret;
     int fdout;
     int fderr;
+    if(_errFile){
+        fderr = open(_errFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
+
+      } else {
+        fderr = dup(tmperr);
+      }
+
+      dup2(fderr, 2);
     for ( size_t i = 0; i < _simpleCommands.size(); i++ ) {
       // redirect input 
       dup2(fdin, 0);
@@ -148,15 +156,6 @@ void Command::execute() {
 	fdout = fdpipe[1];
 	fdin = fdpipe[0];
       } 
-      if(_errFile){
-        fderr = open(_errFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
-        
-      } else {
-        fderr = dup(tmperr);
-      }
-      
-      dup2(fderr, 2);
-      close(fderr);
       dup2(fdout, 1);
       close(fdout);
       
