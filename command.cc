@@ -146,6 +146,8 @@ void Command::execute() {
 	} else {
 	  fdout = dup(tmpout);
 	}
+	dup2(fdout, 1);
+	close(fdout);
       } else {
 	// not last simple command create pipe
         int fdpipe[2];
@@ -154,12 +156,11 @@ void Command::execute() {
 	  perror("pipe");
 	  exit(2);
 	}
-	//fderr = fdpipe[2];
+	fderr = fdpipe[2];
 	fdout = fdpipe[1];
 	fdin = fdpipe[0];
+        dup2(fdpipe[1], 1);
       } 
-      dup2(fdout, 1);
-      close(fdout);
       
       //create child process
       ret = fork();
