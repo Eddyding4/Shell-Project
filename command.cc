@@ -132,7 +132,7 @@ void Command::execute() {
         fderr = dup(tmperr);
       }
     dup2(fderr, 2);
-    unsigned_int count;
+    unsigned count;
     for ( auto & simpleCommand : _simpleCommands ) {
       // redirect input 
       dup2(fdin, 0);
