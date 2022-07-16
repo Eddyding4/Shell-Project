@@ -99,8 +99,10 @@ void Command::print() {
 void Command::execute() {
     // Don't do anything if there are no simple commands
     if ( _simpleCommands.size() == 0 ) {
-        Shell::prompt();
+       if(isatty(0)){ 
+	Shell::prompt();
         return;
+       }
     }  
 
     // Print contents of Command data structure
