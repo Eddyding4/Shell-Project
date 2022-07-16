@@ -132,14 +132,14 @@ void Command::execute() {
         fderr = dup(tmperr);
       }
     dup2(fderr, 2);
-    int count;
+    unsigned_int count;
     for ( auto & simpleCommand : _simpleCommands ) {
       // redirect input 
       dup2(fdin, 0);
       close(fdin);
        count++;
       // setup output
-      if(count == _simpleCommands.size() - 1){
+      if( count == _simpleCommands.size() - 1){
           // last simple command
 	if(_outFile){
 	  fdout = open(_outFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
