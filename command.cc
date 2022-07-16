@@ -149,7 +149,6 @@ void Command::execute() {
 	// not last simple command create pipe
 	int fdpipe[2];
         pipe(fdpipe);
-	fderr = fdpipe[2];
 	fdout = fdpipe[1];
 	fdin = fdpipe[0];
       } 
@@ -172,7 +171,6 @@ void Command::execute() {
 	}
 	delete [] myargv;
 	
-	close(fdin);
 	perror("execvp");
 	exit(1);	
       }
