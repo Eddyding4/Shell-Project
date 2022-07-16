@@ -148,11 +148,12 @@ void Command::execute() {
 	fdout = fdpipe[1];
 	fdin = fdpipe[0];
       } 
-      if(stderr){
-        fderr = open(stderr);
+      if(_errFile){
+        fderr = open(_errFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
       } else {
         fderr = dup(tmperr);
       }
+      fprintf(stderr, "usage");
       dup2(fderr, 2);
       close(fderr);
       dup2(fdout, 1);
