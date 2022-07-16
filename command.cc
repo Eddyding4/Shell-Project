@@ -121,7 +121,6 @@ void Command::execute() {
     int ret;
     int fdout;
     int fderr;
-    int fdpipe[2];
     for ( size_t i = 0; i < _simpleCommands.size(); i++ ) {
       // redirect input 
       dup2(fdin, 0);
@@ -137,7 +136,7 @@ void Command::execute() {
 	}
       } else {
 	// not last simple command create pipe
-        
+        int fdpipe[2];
         pipe(fdpipe);
 	if(pipe(fdpipe) == -1){
 	  perror("pipe");
@@ -146,11 +145,9 @@ void Command::execute() {
 	fderr = fdpipe[2];
 	fdout = fdpipe[1];
 	fdin = fdpipe[0];
-      }    
-      
-      dup2(tmpin, 0);
+      }   
       dup2(fdout, 1);
-      dup2(tmperr, 2);
+      close(fdout);
       
       //create child process
       ret = fork();
@@ -169,11 +166,11 @@ void Command::execute() {
 	myargv[_simpleCommands[i]->_arguments.size()] = NULL;
         execvp(myargv[0], myargv);
         
-	for( size_t j = 0; j < num; j++ ) {
+	/*for( size_t j = 0; j < num; j++ ) {
 	  delete [] myargv[j];
 	}
 	delete [] myargv;
-	
+	*/
 	perror("execvp");
 	exit(1);
       }
@@ -181,7 +178,7 @@ void Command::execute() {
         perror("fork");
 	exit(2);
       }
-    dup2(fderr, 2); 
+    
     // restore in/out defaults
     dup2(tmpin, 0);
     dup2(tmpout, 1);

@@ -61,8 +61,8 @@ extern int yydebug;
   {
     WORD = 258,
     NOTOKEN = 259,
-    GREAT = 260,
-    NEWLINE = 261,
+    NEWLINE = 260,
+    GREAT = 261,
     GREATGREAT = 262,
     PIPE = 263,
     AMPERSAND = 264,
@@ -75,8 +75,8 @@ extern int yydebug;
 /* Tokens.  */
 #define WORD 258
 #define NOTOKEN 259
-#define GREAT 260
-#define NEWLINE 261
+#define NEWLINE 260
+#define GREAT 261
 #define GREATGREAT 262
 #define PIPE 263
 #define AMPERSAND 264
