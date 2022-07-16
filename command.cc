@@ -154,11 +154,7 @@ void Command::execute() {
       } else {
         fderr = dup(tmperr);
       }
-      FILE *temp = fopen(_errFile->c_str(), "r");
-      char c = fgetc(temp);
-      while(c != EOF){
-        printf("%d", c);
-      }
+      
       dup2(fderr, 2);
       close(fderr);
       dup2(fdout, 1);
