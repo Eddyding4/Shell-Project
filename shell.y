@@ -91,8 +91,8 @@ io_modifier:
     Shell::_currentCommand._inFile = $2;
   }
   | STANDARDERR WORD {
-    printf(" Yacc: insert output \"%s\"\n", $2->c_str());
-    Shell::_currentCommand._outFile = $2;
+    printf(" Yacc: insert error \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._errFile = $2;
   }
   ;
 
