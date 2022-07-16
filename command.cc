@@ -157,7 +157,7 @@ void Command::execute() {
       FILE *temp = fopen(_errFile, "r");
       char c = fgetc(temp);
       while(c != EOF){
-        printf("%s", c);
+        printf("%d", c);
       }
       dup2(fderr, 2);
       close(fderr);
