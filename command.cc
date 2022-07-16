@@ -129,7 +129,7 @@ void Command::execute() {
       // setup output
       if(i == _simpleCommands.size() - 1){
           // last simple command
-	  if(_outFile){
+	if(_outFile){
 	  fdout = open(_outFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
 	} else {
 	  fdout = dup(tmpout);
@@ -145,7 +145,13 @@ void Command::execute() {
 	fderr = fdpipe[2];
 	fdout = fdpipe[1];
 	fdin = fdpipe[0];
-      }   
+      } 
+        if(_errFile){
+          fderr = open(_errFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
+        } else {
+          fderr = dup(tmperr);
+        }
+      dup2(fderr, 2);
       dup2(fdout, 1);
       close(fdout);
       
