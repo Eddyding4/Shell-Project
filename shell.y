@@ -66,7 +66,7 @@ cmd_and_args:
 
 pipe_list:
   cmd_and_args
-  |  pipe_list PIPE cmd_and_args
+  |  pipe_list PIPE cmd_and_args 
   ;
 
 io_modifier:
