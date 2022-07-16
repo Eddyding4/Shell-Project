@@ -150,9 +150,14 @@ void Command::execute() {
       } 
       if(_errFile){
         fderr = open(_errFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
-        fprintf(fderr, stderr);
+        
       } else {
         fderr = dup(tmperr);
+      }
+      FILE *temp = fopen(_errFile, "r");
+      char c = fgetc(temp);
+      while(c != EOF){
+        fprintf("%s", c);
       }
       dup2(fderr, 2);
       close(fderr);
