@@ -175,12 +175,11 @@ void Command::execute() {
 	perror("execvp");
 	exit(1);
       }
+      close(fdin);
       else if (ret < 0) {
         perror("fork");
 	exit(2);
       }
-    dup2(fdin, 0);
-    dup2(fdout, 1);
 
     // restore in/out defaults
     dup2(tmpin, 0);
