@@ -152,8 +152,6 @@ void Command::execute() {
       //create child process
       ret = fork();
       if (ret == 0) {
-        close(fdpipe[0]);
-        close(fdpipe[1]);
         close( tmpin );
         close( tmpout );
         close( tmperr );
