@@ -1388,7 +1388,7 @@ yyreduce:
   case 9:
 #line 73 "shell.y"
                   {
-    _append = true;
+    Shell::_currentCommand._append = true;
     printf(" Yacc: insert output \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
   }
@@ -1407,7 +1407,7 @@ yyreduce:
   case 11:
 #line 82 "shell.y"
                              {
-    _append = true;
+    Shell::_currentCommand._append = true;
     printf(" Yacc: insert output \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
     printf(" Yacc: insert error \"%s\"\n", (yyvsp[0].cpp_string)->c_str());

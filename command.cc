@@ -52,7 +52,9 @@ void Command::clear() {
     // remove all references to the simple commands we've deallocated
     // (basically just sets the size to 0)
     _simpleCommands.clear();
+    bool check = (_outFile == _errFile);
 
+    
     if ( _outFile ) {
         delete _outFile;
     }
@@ -63,11 +65,11 @@ void Command::clear() {
     }
     _inFile = NULL;
 
-    if ( _errFile ) {
+    if ( _errFile & !check) {
         delete _errFile;
     }
     _errFile = NULL;
-
+    _append = false;
     _background = false;
 }
 
