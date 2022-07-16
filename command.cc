@@ -184,8 +184,6 @@ void Command::execute() {
     dup2(tmpout, 1);
     dup2(tmperr, 2);
 
-    close(fdpipe[0]);
-    close(fdpipe[1]);
     close(tmpin);
     close(tmpout);
     close(tmperr);
