@@ -60,7 +60,9 @@ void myunputc(int c) {
   return LESS;
 }
 
-
+. {
+  return NOTOKEN;
+}
 
 [^ \t\n][^ \t\n]*  {
   /* Assume that file names have only alpha chars */
@@ -68,8 +70,6 @@ void myunputc(int c) {
   return WORD;
 }
 
-"." {
-  return NOTOKEN;
-}
+
 
 %%
