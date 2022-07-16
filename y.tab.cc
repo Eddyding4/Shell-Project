@@ -131,7 +131,8 @@ extern int yydebug;
     AMPERSAND = 264,
     GREATGREATAMPERSAND = 265,
     GREATAMPERSAND = 266,
-    LESS = 267
+    LESS = 267,
+    STANDARDERR = 268
   };
 #endif
 /* Tokens.  */
@@ -145,6 +146,7 @@ extern int yydebug;
 #define GREATGREATAMPERSAND 265
 #define GREATAMPERSAND 266
 #define LESS 267
+#define STANDARDERR 268
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -156,7 +158,7 @@ union YYSTYPE
   // Example of using a c++ type in yacc
   std::string *cpp_string;
 
-#line 160 "y.tab.cc"
+#line 162 "y.tab.cc"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -182,7 +184,7 @@ void yyerror(const char * s);
 int yylex();
 
 
-#line 186 "y.tab.cc"
+#line 188 "y.tab.cc"
 
 
 #ifdef short
@@ -490,7 +492,7 @@ union yyalloc
 #define YYLAST   29
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  13
+#define YYNTOKENS  14
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  11
 /* YYNRULES -- Number of rules.  */
@@ -499,7 +501,7 @@ union yyalloc
 #define YYNSTATES  32
 
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   267
+#define YYMAXUTOK   268
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -537,7 +539,7 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11,    12
+       5,     6,     7,     8,     9,    10,    11,    12,    13
 };
 
 #if YYDEBUG
@@ -557,9 +559,9 @@ static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "WORD", "NOTOKEN", "GREAT", "NEWLINE",
   "GREATGREAT", "PIPE", "AMPERSAND", "GREATGREATAMPERSAND",
-  "GREATAMPERSAND", "LESS", "$accept", "goal", "arg_list", "cmd_and_args",
-  "$@1", "pipe_list", "io_modifier", "io_modifier_list", "background_opt",
-  "command_line", "command_list", YY_NULLPTR
+  "GREATAMPERSAND", "LESS", "STANDARDERR", "$accept", "goal", "arg_list",
+  "cmd_and_args", "$@1", "pipe_list", "io_modifier", "io_modifier_list",
+  "background_opt", "command_line", "command_list", YY_NULLPTR
 };
 #endif
 
@@ -569,7 +571,7 @@ static const char *const yytname[] =
 static const yytype_int16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267
+     265,   266,   267,   268
 };
 # endif
 
@@ -639,18 +641,18 @@ static const yytype_int8 yycheck[] =
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     1,     3,     6,    14,    16,    18,    22,    23,     6,
-      17,     0,     8,    20,    22,    15,    16,     5,     7,     9,
-      10,    11,    12,    19,    21,     3,     3,     3,     3,     3,
+       0,     1,     3,     6,    15,    17,    19,    23,    24,     6,
+      18,     0,     8,    21,    23,    16,    17,     5,     7,     9,
+      10,    11,    12,    20,    22,     3,     3,     3,     3,     3,
        3,     6
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    13,    14,    15,    15,    17,    16,    18,    18,    19,
-      19,    19,    19,    19,    20,    20,    21,    21,    22,    22,
-      22,    23,    23
+       0,    14,    15,    16,    16,    18,    17,    19,    19,    20,
+      20,    20,    20,    20,    21,    21,    22,    22,    23,    23,
+      23,    24,    24
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
@@ -1359,7 +1361,7 @@ yyreduce:
     printf(" Yacc: insert argument \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
   }
-#line 1363 "y.tab.cc"
+#line 1365 "y.tab.cc"
     break;
 
   case 5:
@@ -1369,7 +1371,7 @@ yyreduce:
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
   }
-#line 1373 "y.tab.cc"
+#line 1375 "y.tab.cc"
     break;
 
   case 6:
@@ -1378,7 +1380,7 @@ yyreduce:
     Shell::_currentCommand.
     insertSimpleCommand( Command::_currentSimpleCommand );
   }
-#line 1382 "y.tab.cc"
+#line 1384 "y.tab.cc"
     break;
 
   case 9:
@@ -1387,7 +1389,7 @@ yyreduce:
     printf(" Yacc: insert output \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
   }
-#line 1391 "y.tab.cc"
+#line 1393 "y.tab.cc"
     break;
 
   case 10:
@@ -1396,7 +1398,7 @@ yyreduce:
     printf(" Yacc: insert output \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
   }
-#line 1400 "y.tab.cc"
+#line 1402 "y.tab.cc"
     break;
 
   case 11:
@@ -1405,7 +1407,7 @@ yyreduce:
     printf(" Yacc: insert output \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
   }
-#line 1409 "y.tab.cc"
+#line 1411 "y.tab.cc"
     break;
 
   case 12:
@@ -1414,7 +1416,7 @@ yyreduce:
     printf(" Yacc: insert output \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
   }
-#line 1418 "y.tab.cc"
+#line 1420 "y.tab.cc"
     break;
 
   case 13:
@@ -1423,7 +1425,7 @@ yyreduce:
     printf(" Yacc: insert output \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
   }
-#line 1427 "y.tab.cc"
+#line 1429 "y.tab.cc"
     break;
 
   case 18:
@@ -1432,17 +1434,17 @@ yyreduce:
     printf(" Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
-#line 1436 "y.tab.cc"
+#line 1438 "y.tab.cc"
     break;
 
   case 20:
 #line 112 "shell.y"
                  {yyerrok; }
-#line 1442 "y.tab.cc"
+#line 1444 "y.tab.cc"
     break;
 
 
-#line 1446 "y.tab.cc"
+#line 1448 "y.tab.cc"
 
       default: break;
     }

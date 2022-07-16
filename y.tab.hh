@@ -68,7 +68,8 @@ extern int yydebug;
     AMPERSAND = 264,
     GREATGREATAMPERSAND = 265,
     GREATAMPERSAND = 266,
-    LESS = 267
+    LESS = 267,
+    STANDARDERR = 268
   };
 #endif
 /* Tokens.  */
@@ -82,6 +83,7 @@ extern int yydebug;
 #define GREATGREATAMPERSAND 265
 #define GREATAMPERSAND 266
 #define LESS 267
+#define STANDARDERR 268
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -93,7 +95,7 @@ union YYSTYPE
   // Example of using a c++ type in yacc
   std::string *cpp_string;
 
-#line 97 "y.tab.hh"
+#line 99 "y.tab.hh"
 
 };
 typedef union YYSTYPE YYSTYPE;

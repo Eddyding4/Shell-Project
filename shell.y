@@ -89,7 +89,11 @@ io_modifier:
   | LESS WORD {
     printf(" Yacc: insert output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
-  } 
+  }
+  | STANDARDERR WORD {
+    printf(" Yacc: insert output \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._outFile = $2;
+  }
   ;
 
 io_modifier_list:
