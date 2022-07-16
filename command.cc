@@ -154,7 +154,7 @@ void Command::execute() {
 	  perror("pipe");
 	  exit(2);
 	}
-	fderr = fdpipe[2];
+	//fderr = fdpipe[2];
 	fdout = fdpipe[1];
 	fdin = fdpipe[0];
       } 
