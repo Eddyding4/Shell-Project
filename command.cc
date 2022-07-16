@@ -131,8 +131,7 @@ void Command::execute() {
       } else {
         fderr = dup(tmperr);
       }
-
-      dup2(fderr, 2);
+    dup2(fderr, 2);
     for ( size_t i = 0; i < _simpleCommands.size(); i++ ) {
       // redirect input 
       dup2(fdin, 0);
@@ -146,22 +145,17 @@ void Command::execute() {
 	} else {
 	  fdout = dup(tmpout);
 	}
-	dup2(fdout, 1);
-	close(fdout);
       } else {
 	// not last simple command create pipe
-        int fdpipe[2];
+	int fdpipe[2];
         pipe(fdpipe);
-	if(pipe(fdpipe) == -1){
-	  perror("pipe");
-	  exit(2);
-	}
 	fderr = fdpipe[2];
 	fdout = fdpipe[1];
 	fdin = fdpipe[0];
-        dup2(fdpipe[1], 1);
       } 
-      
+      dup2(fdout, 1);
+      dup2(fdin, 0);
+      close(fdout);
       //create child process
       ret = fork();
       if (ret == 0) {
