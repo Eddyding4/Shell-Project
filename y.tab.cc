@@ -1433,8 +1433,8 @@ yyreduce:
   case 14:
 #line 93 "shell.y"
                      {
-    printf(" Yacc: insert output \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
-    Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
+    printf(" Yacc: insert error \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
+    Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
   }
 #line 1440 "y.tab.cc"
     break;
