@@ -158,12 +158,12 @@ void Command::execute() {
       ret = fork();
       if (ret == 0) {
 
-	size_t num = _simpleCommand->_arguments.size();
-        char** myargv = (char **) malloc ((_simpleCommand->_arguments.size() + 1) * sizeof(char*));
+	size_t num = simpleCommand->_arguments.size();
+        char** myargv = (char **) malloc ((simpleCommand->_arguments.size() + 1) * sizeof(char*));
 	for ( size_t j = 0; j < num; j++ ) {
-	  myargv[j] = strdup(_simpleCommand->_arguments[j]->c_str());
+	  myargv[j] = strdup(simpleCommand->_arguments[j]->c_str());
 	}
-	myargv[_simpleCommand->_arguments.size()] = NULL;
+	myargv[simpleCommand->_arguments.size()] = NULL;
         execvp(myargv[0], myargv);
         
 	for( size_t j = 0; j < num; j++ ) {
