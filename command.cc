@@ -139,7 +139,7 @@ void Command::execute() {
       close(fdin);
        count++;
       // setup output
-      if( count == _simpleCommands.size() - 1){
+      if( count == _simpleCommands.size() ){
           // last simple command
 	if(_outFile){
 	  fdout = open(_outFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
