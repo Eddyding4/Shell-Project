@@ -185,7 +185,7 @@ void Command::execute() {
     close(tmpin);
     close(tmpout);
     close(tmperr);
-
+    }
     if (!_background) {
       waitpid(ret, 0, 0);
     }
@@ -196,7 +196,6 @@ void Command::execute() {
     if ( isatty(0) ) {
       Shell::prompt();
     }
-  }
 }
 
 SimpleCommand * Command::_currentSimpleCommand;
