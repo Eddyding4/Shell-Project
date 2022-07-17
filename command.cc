@@ -132,8 +132,7 @@ void Command::execute() {
         fderr = dup(tmperr);
       }
     dup2(fderr, 2);
-    for ( unsigned int i = 0; i < _simpleCommands.size(); i++ ) {
-      printf("%d", (int) _simpleCommands.size());
+    for ( unsigned int i = 0; i < _simpleCommands.size() ; i++ ) {
       // redirect input 
       dup2(fdin, 0);
       close(fdin);
@@ -167,11 +166,11 @@ void Command::execute() {
 	myargv[_simpleCommands[i]->_arguments.size()] = NULL;
         execvp(myargv[0], myargv);
         
-	for( size_t j = 0; j < num; j++ ) {
+	/*for( size_t j = 0; j < num; j++ ) {
 	  delete [] myargv[j];
 	}
 	delete [] myargv;
-	
+	*/
 	perror("execvp");
 	exit(1);	
       }
