@@ -197,9 +197,9 @@ void Command::execute() {
     clear();
 
     // Print new prompt
-    if ( isatty(0) ) {
+    //if ( isatty(0) ) {
       Shell::prompt();
-    }
+    //}
   }
 }
 
