@@ -166,7 +166,8 @@ void Command::execute() {
 	  myargv[j] = strdup(_simpleCommands[i]->_arguments[j]->c_str());
 	}
 	myargv[_simpleCommands[i]->_arguments.size()] = NULL;
-        execvp(myargv[0], myargv);
+        fprintf(stderr, "%s\n", myargv[0]);
+	execvp(myargv[0], myargv);
 	
 	perror("execvp");
 	exit(1);	
