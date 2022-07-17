@@ -132,13 +132,14 @@ void Command::execute() {
         fderr = dup(tmperr);
       }
     dup2(fderr, 2);
-    for ( unsigned int i = 0; i < _simpleCommands.size() ; i++ ) {
+    unsigned int num = _simpleCommands.size();
+    for ( unsigned int i = 0; i < num ; i++ ) {
       // redirect input 
       dup2(fdin, 0);
       close(fdin);
        
       // setup output
-      if( i == _simpleCommands.size() - 1 ){
+      if( i == num - 1 ){
           // last simple command
 	if(_outFile){
 	  fdout = open(_outFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
@@ -196,9 +197,9 @@ void Command::execute() {
     clear();
 
     // Print new prompt
-    //if ( isatty(0) ) {
+    if ( isatty(0) ) {
       Shell::prompt();
-    //}
+    }
   }
 }
 
