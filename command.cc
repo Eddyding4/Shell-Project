@@ -133,6 +133,7 @@ void Command::execute() {
       }
     dup2(fderr, 2);
     for ( unsigned int i = 0; i < _simpleCommands.size(); i++ ) {
+      printf("%d", (int) _simpleCommands.size());
       // redirect input 
       dup2(fdin, 0);
       close(fdin);
