@@ -158,7 +158,7 @@ void Command::execute() {
       ret = fork();
       if (ret == 0) {
 
-	size_t num = _simpleCommands[i]->_arguments.size();
+
         char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
 	for ( unsigned int j = 0; j < num; j++ ) {
 	  myargv[j] = strdup(_simpleCommands[i]->_arguments[j]->c_str());
@@ -166,11 +166,11 @@ void Command::execute() {
 	myargv[_simpleCommands[i]->_arguments.size()] = NULL;
         execvp(myargv[0], myargv);
         
-	/*for( size_t j = 0; j < num; j++ ) {
+	for( size_t j = 0; j < _simpleCommands[i]->_arguments.size(); j++ ) {
 	  delete [] myargv[j];
 	}
 	delete [] myargv;
-	*/
+	
 	perror("execvp");
 	exit(1);	
       }
