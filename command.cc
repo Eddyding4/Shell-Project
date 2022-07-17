@@ -132,8 +132,8 @@ void Command::execute() {
         fderr = dup(tmperr);
       }
     dup2(fderr, 2);
-    unsigned int num = _simpleCommands.size();
-    for ( unsigned int i = 0; i < num ; i++ ) {
+    int num = (int) _simpleCommands.size();
+    for ( int i = 0; i < num ; i++ ) {
       // redirect input 
       dup2(fdin, 0);
       close(fdin);
@@ -197,9 +197,9 @@ void Command::execute() {
     clear();
 
     // Print new prompt
-    //if ( isatty(0) ) {
+    if ( isatty(0) ) {
       Shell::prompt();
-    //}
+    }
   }
 }
 
