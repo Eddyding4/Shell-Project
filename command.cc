@@ -160,7 +160,7 @@ void Command::execute() {
 
 	size_t num = _simpleCommands[i]->_arguments.size();
         char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
-	for ( size_t j = 0; j < num; j++ ) {
+	for ( unsigned j = 0; j < num; j++ ) {
 	  myargv[j] = strdup(_simpleCommands[i]->_arguments[j]->c_str());
 	}
 	myargv[_simpleCommands[i]->_arguments.size()] = NULL;
