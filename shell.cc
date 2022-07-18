@@ -17,8 +17,8 @@ void Shell::prompt() {
 
 
 int main() {
-  /*Shell::prompt();	
-  struct sigaction signalAction;
+  Shell::prompt();	
+  /*struct sigaction signalAction;
   signalAction.sa_handler = disp;
   sigemptyset(&signalAction.sa_mask);
   signalAction.sa_flags = SA_RESTART;
