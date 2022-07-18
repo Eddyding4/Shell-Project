@@ -11,7 +11,7 @@ extern "C" void disp(int sig){
 }
 
 void Shell::prompt() {
-  char s[20]
+  char s[20];
   printf("myshell>");
   fflush(stdout);
   fgets( s, 20, stdin);
