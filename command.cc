@@ -99,6 +99,7 @@ void Command::print() {
 }
 
 void Command::execute() {
+    
     // Don't do anything if there are no simple commands
     if ( _simpleCommands.size() == 0 ) {
        if(isatty(0)){ 
@@ -132,8 +133,7 @@ void Command::execute() {
         fderr = dup(tmperr);
       }
     dup2(fderr, 2);
-    //int num = (int) _simpleCommands.size();
-    for ( unsigned int i = 0; i < _simpleCommands.size() ; i++ ) {
+      for ( unsigned int i = 0; i < _simpleCommands.size() ; i++ ) {
       // redirect input 
       dup2(fdin, 0);
       close(fdin);
