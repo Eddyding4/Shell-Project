@@ -16,7 +16,7 @@ int main() {
   sigemptyset(&signalAction.sa_mask);
   signalAction.sa_flags = SA_RESTART;
 
-  if(sigaction(SIGINT, %signalAction, NULL)){
+  if(sigaction(SIGINT, &signalAction, NULL)){
     perror("sigaction");
     exit(2);
   }
