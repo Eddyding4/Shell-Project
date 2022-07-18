@@ -9,10 +9,11 @@ void Shell::prompt() {
   fflush(stdout);
 }
 
+
 int main() {
   Shell::prompt();
   struct sigaction signalAction;
-  signalAction.sa_handler = sigIntHandler;
+  //signalAction.sa_handler = sigIntHandler;
   sigemptyset(&signalAction.sa_mask);
   signalAction.sa_flags = SA_RESTART;
 
