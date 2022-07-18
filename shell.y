@@ -54,7 +54,10 @@ arg_list:
 
 cmd_and_args:
   WORD {
-    fprintf(stderr, "%d", !strcmp($1->c_str(), "exit"));
+    if (!strcmp($1->c_str(), "exit")){
+       printf("Good bye!!");
+       exit(1);
+    }
     printf(" Yacc: insert command \"%s\"\n", $1->c_str());
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument( $1 );
