@@ -54,8 +54,8 @@ arg_list:
 
 cmd_and_args:
   WORD {
-    if (!strcmp($1->c_str(), "exit\n")){
-       printf("Good bye!!");
+    if (!strcmp($1->c_str(), "exit")){
+       printf("Good Bye!!");
        exit(1);
     }
     printf(" Yacc: insert command \"%s\"\n", $1->c_str());
