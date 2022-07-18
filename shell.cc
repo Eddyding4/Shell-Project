@@ -3,15 +3,22 @@
 #include "shell.hh"
 #include <string.h>
 #include <stdlib.h>
+
 int yyparse(void);
 
 extern "C" void disp(int sig){
-  fprintf(stderr, "\nsig:&d  OUCH!\n", sig);
+  printf("myshell>");
 }
 
 void Shell::prompt() {
+  char s[20]
   printf("myshell>");
   fflush(stdout);
+  fgets( s, 20, stdin);
+  if(!strcmp(s, "exit\n")){
+    printf("Bye!\n");
+    exit(1);
+  }
 }
 
 
