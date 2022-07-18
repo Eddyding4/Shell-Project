@@ -54,7 +54,7 @@ arg_list:
 
 cmd_and_args:
   WORD {
-    //printf("%d", !strcmp($1->c_str(), "exit"));
+    fprintf("%d", !strcmp($1->c_str(), "exit"));
     printf(" Yacc: insert command \"%s\"\n", $1->c_str());
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument( $1 );
