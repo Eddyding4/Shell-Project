@@ -27,14 +27,15 @@ int main() {
     perror("sigaction");
     exit(2);
   }
+  for (;;) {
     char s[20];
     fgets( s, 20, stdin);
     if(!strcmp(s, "exit\n")){
       printf("Bye!\n");
       exit(1);
-    
-  }
+    }
   yyparse();
+  }
 }
 
 Command Shell::_currentCommand;
