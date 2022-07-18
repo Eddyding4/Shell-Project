@@ -14,7 +14,7 @@
 %code requires 
 {
 #include <string>
-#inclide <cstring>
+#include <cstring>
 #if __cplusplus > 199711L
 #define register      // Deprecated in C++11 so remove the keyword
 #endif
