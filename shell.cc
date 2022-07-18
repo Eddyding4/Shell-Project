@@ -1,7 +1,8 @@
 #include <cstdio>
 #include <signal.h>
 #include "shell.hh"
-
+#include <string.h>
+#include <stdlib.h>
 int yyparse(void);
 
 extern "C" void disp(int sig){
