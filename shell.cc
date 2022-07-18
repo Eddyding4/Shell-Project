@@ -17,6 +17,7 @@ void Shell::prompt() {
 
 
 int main() {
+  Shell::prompt();	
   struct sigaction signalAction;
   signalAction.sa_handler = disp;
   sigemptyset(&signalAction.sa_mask);
@@ -26,14 +27,12 @@ int main() {
     perror("sigaction");
     exit(2);
   }
-  for (;;) {
     char s[20];
-    Shell::prompt();
     fgets( s, 20, stdin);
     if(!strcmp(s, "exit\n")){
       printf("Bye!\n");
       exit(1);
-    }
+    
   }
   yyparse();
 }
