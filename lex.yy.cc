@@ -856,14 +856,14 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 66 "shell.l"
+#line 67 "shell.l"
 {
   return NOTOKEN;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 70 "shell.l"
+#line 71 "shell.l"
 {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
@@ -872,7 +872,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 78 "shell.l"
+#line 79 "shell.l"
 ECHO;
 	YY_BREAK
 #line 879 "lex.yy.cc"
@@ -1892,6 +1892,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 78 "shell.l"
+#line 79 "shell.l"
 
 
