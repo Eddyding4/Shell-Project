@@ -12,12 +12,6 @@ extern "C" void disp(int sig){
 
 void Shell::prompt() {
   printf("myshell>");
-  char s[20];
-    fgets( s, 20, stdin);
-    if(!strcmp(s, "exit\n")){
-      printf("Bye!\n");
-      exit(1);
-    }
   fflush(stdout);
 }
 
