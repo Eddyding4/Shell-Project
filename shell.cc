@@ -12,12 +12,6 @@ extern "C" void disp(int sig){
 
 void Shell::prompt() {
   printf("myshell>");
-  fflush(stdout);
-}
-
-
-int main() {
-  Shell::prompt();
   struct sigaction signalAction;
   signalAction.sa_handler = disp;
   sigemptyset(&signalAction.sa_mask);
@@ -27,6 +21,21 @@ int main() {
     perror("sigaction");
     exit(2);
   }
+  fflush(stdout);
+}
+
+
+int main() {
+  Shell::prompt();
+  /*struct sigaction signalAction;
+  signalAction.sa_handler = disp;
+  sigemptyset(&signalAction.sa_mask);
+  signalAction.sa_flags = SA_RESTART;
+
+  if(sigaction(SIGINT, &signalAction, NULL)){
+    perror("sigaction");
+    exit(2);
+  }*/
   for (;;) {
     char s[20];
     fgets( s, 20, stdin);
