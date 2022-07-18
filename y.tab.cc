@@ -1369,7 +1369,7 @@ yyreduce:
   case 5:
 #line 56 "shell.y"
        {
-    printf("%d", !strcmp((yyvsp[0].cpp_string)->c_str(), "exit");
+    printf("%d", !strcmp((yyvsp[0].cpp_string)->c_str(), "exit"));
     printf(" Yacc: insert command \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
