@@ -63,6 +63,7 @@ void myunputc(int c) {
 "2>" {
   return STANDARDERR;
 }
+
 . {
   return NOTOKEN;
 }
