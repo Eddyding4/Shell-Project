@@ -101,7 +101,7 @@ void Command::print() {
     */
 }
 extern "C" void dis(int sig){
-  printf("%d exited", pid);
+  
 }
 
 void Command::execute() {
