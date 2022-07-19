@@ -196,13 +196,14 @@ void Command::execute() {
     }
   
    struct sigaction sa;
-        sa.sa_handler = dis;
-        sigemptyset(&sa.sa_mask);
-        sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
-        if(sigaction(SIGCHLD, &sa, NULL)){
-          printf("%d exited", ret);
-          exit(2);
-        }
+   sa.sa_handler = dis;
+   sigemptyset(&sa.sa_mask);
+   sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
+   if(sigaction(SIGCHLD, &sa, NULL)){
+     waitpid(ret, 0, 0);
+     printf("%d exited", ret);
+     exit(2);
+   }
  // Clear to prepare for next command
   clear();
 
