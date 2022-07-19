@@ -14,7 +14,7 @@ extern "C" void disp(int sig){
 }
 extern "C" void dis(int sig){
   waitpid(getpid(), 0, 0);
-  printf("%d exited\n", getppid());
+  printf("%d exited\n", getpid());
 }
 void Shell::prompt() {
   printf("myshell>");
