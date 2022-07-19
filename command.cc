@@ -203,7 +203,6 @@ void Command::execute() {
           printf("%d exited", ret);
           exit(2);
         }*/
-    }
  // Clear to prepare for next command
   clear();
 
