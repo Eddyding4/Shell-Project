@@ -104,9 +104,6 @@ io_modifier:
     printf(" Yacc: insert error \"%s\"\n", $2->c_str());
     Shell::_currentCommand._errFile = $2;
   } 
-  | AMPERSAND WORD {
-    Shell::_currentCommand._background = true;
-  }
   ;
 
 io_modifier_list:
@@ -115,7 +112,9 @@ io_modifier_list:
   ;
 
 background_opt:
-  AMPERSAND
+  AMPERSAND {
+    Shell::currentCommand._background = true;
+  }
   | /*empty*/
   ;
 
