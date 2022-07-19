@@ -13,8 +13,10 @@ extern "C" void disp(int sig){
   Shell::prompt();
 }
 extern "C" void dis(int sig){
-  waitpid(getpid(), 0, 0);
+  while(waitpid(-1, 0, WNOHAND)){
+ 
   printf("%d exited\n", getpid());
+  }
 }
 void Shell::prompt() {
   printf("myshell>");
