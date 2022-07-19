@@ -13,7 +13,8 @@ extern "C" void disp(int sig){
   Shell::prompt();
 }
 extern "C" void dis(int sig){
-
+  waitpid(getpid(), 0, 0);
+  printf("%d exited", getpid());
 }
 void Shell::prompt() {
   printf("myshell>");
@@ -37,8 +38,7 @@ int main() {
   sigemptyset(&sa.sa_mask);
   sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
   if(sigaction(SIGCHLD, &sa, NULL)){
-    waitpid(getpid(), 0, 0);
-    printf("%d exited", getpid());
+    perror("sigaction");
     exit(2);
   }
   yyparse();
