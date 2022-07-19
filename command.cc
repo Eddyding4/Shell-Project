@@ -176,7 +176,7 @@ void Command::execute() {
 	execvp(myargv[0], myargv);
         
         struct sigaction sa;
-        sa.sa_handler = disp(ret);
+        sa.sa_handler = disp;
         sigemptyset(&sa.sa_mask);
         sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
         	
