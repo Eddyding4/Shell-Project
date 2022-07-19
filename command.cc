@@ -22,6 +22,8 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <string.h>
+#include <signal.h>
+#include <errno.h>
 
 #include <cstring>
 #include "command.hh"
@@ -98,6 +100,13 @@ void Command::print() {
     printf( "\n\n" );
 }
 
+void handle_sigchld(int sig){
+  int saved_errno = errno;
+  while(waitpid((pid_t)(-1), 0, WNOHAND) > 0) {
+  }
+  errno = saved_errrno;
+}
+
 void Command::execute() {
     
     // Don't do anything if there are no simple commands
@@ -168,7 +177,12 @@ void Command::execute() {
 	myargv[_simpleCommands[i]->_arguments.size()] = NULL;
         
 	execvp(myargv[0], myargv);
-	
+        
+        struct sigaction sa;
+        sa.sa_hadnder = &handle_sigchild;
+        sigemptyset(&sa.sa_mask);
+        sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
+        	
 	perror("execvp");
 	exit(1);	
       }

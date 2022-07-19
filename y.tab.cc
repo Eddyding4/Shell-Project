@@ -1370,7 +1370,7 @@ yyreduce:
 #line 56 "shell.y"
        {
     if (!strcmp((yyvsp[0].cpp_string)->c_str(), "exit")){
-       printf("Good Bye!!");
+       printf("Good Bye!!\n");
        exit(1);
     }
     printf(" Yacc: insert command \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
