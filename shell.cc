@@ -35,8 +35,8 @@ int main() {
   sigemptyset(&sa.sa_mask);
   sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
   if(sigaction(SIGCHLD, &sa, NULL)){
-    waitpid(0);
-    printf("%d exited", ret);
+    waitpid(getpid(), 0, 0);
+    printf("%d exited", getpid());
     exit(2);
   }
   yyparse();
