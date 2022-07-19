@@ -100,12 +100,8 @@ void Command::print() {
     printf( "\n\n" );
     */
 }
-
-void handle_sigchld(int sig){
-  int saved_errno = errno;
-  while(waitpid((pid_t)(-1), 0, WNOHANG) > 0) {
-  }
-  errno = saved_errno;
+extern "C" void disp(int pid){
+  printf("%d exited", pid);
 }
 
 void Command::execute() {
@@ -180,7 +176,7 @@ void Command::execute() {
 	execvp(myargv[0], myargv);
         
         struct sigaction sa;
-        sa.sa_handler = &handle_sigchld;
+        sa.sa_handler = disp(ret);
         sigemptyset(&sa.sa_mask);
         sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
         	
