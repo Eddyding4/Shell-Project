@@ -18,7 +18,7 @@ void Shell::prompt() {
 
 int main() {
   Shell::prompt();	
-  struct sigaction signalAction;
+  /*struct sigaction signalAction;
   signalAction.sa_handler = disp;
   sigemptyset(&signalAction.sa_mask);
   signalAction.sa_flags = SA_RESTART;
@@ -26,7 +26,7 @@ int main() {
   if(sigaction(SIGINT, &signalAction, NULL)){
     perror("sigaction");
     exit(2);
-  }
+  }*/
   yyparse();
  
 }
