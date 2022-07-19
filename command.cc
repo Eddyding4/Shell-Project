@@ -191,7 +191,7 @@ void Command::execute() {
     close(tmpin);
     close(tmpout);
     close(tmperr);
-    
+      }
       /*struct sigaction sa;
         sa.sa_handler = dis;
         sigemptyset(&sa.sa_mask);
@@ -203,14 +203,13 @@ void Command::execute() {
     if (!_background) {
       waitpid(ret, 0, 0);
     }
-      }
-    // Clear to prepare for next command
-    clear();
+  // Clear to prepare for next command
+  clear();
 
-    // Print new prompt
-    if ( isatty(0) ) {
-      Shell::prompt();
-    }
+  // Print new prompt
+  if ( isatty(0) ) {
+    Shell::prompt();
+  }
 }
 
 SimpleCommand * Command::_currentSimpleCommand;
