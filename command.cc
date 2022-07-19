@@ -179,7 +179,7 @@ void Command::execute() {
 	execvp(myargv[0], myargv);
         
         struct sigaction sa;
-        sa.sa_hadnder = &handle_sigchild;
+        sa.sa_hadnder = &handle_sigchld;
         sigemptyset(&sa.sa_mask);
         sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
         	
