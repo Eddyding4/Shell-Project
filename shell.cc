@@ -7,7 +7,7 @@
 int yyparse(void);
 
 extern "C" void disp(int sig){
-  printf("myshell>");
+  Shell::prompt();
 }
 
 void Shell::prompt() {
