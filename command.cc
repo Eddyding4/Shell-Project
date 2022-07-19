@@ -100,9 +100,6 @@ void Command::print() {
     printf( "\n\n" );
     
 }
-extern "C" void dis(int sig){
-  
-}
 
 void Command::execute() {
     
@@ -183,15 +180,7 @@ void Command::execute() {
 	exit(2);
       }
     }
-    struct sigaction sa;
-   sa.sa_handler = dis;
-   sigemptyset(&sa.sa_mask);
-   sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
-   if(sigaction(SIGCHLD, &sa, NULL)){
-     waitpid(ret, 0, 0);
-     printf("%d exited", ret);
-     exit(2);
-   }
+   
     // restore in/out defaults
     dup2(tmpin, 0);
     dup2(tmpout, 1);

@@ -10,7 +10,9 @@ extern "C" void disp(int sig){
   printf("\n");
   Shell::prompt();
 }
+extern "C" void dis(int sig){
 
+}
 void Shell::prompt() {
   printf("myshell>");
   fflush(stdout);
@@ -28,6 +30,15 @@ int main() {
     perror("sigaction");
     exit(2);
   }
+  struct sigaction sa;
+   sa.sa_handler = dis;
+   sigemptyset(&sa.sa_mask);
+   sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
+   if(sigaction(SIGCHLD, &sa, NULL)){
+     waitpid(ret, 0, 0);
+     printf("%d exited", ret);
+     exit(2);
+   }
   yyparse();
  
 }
