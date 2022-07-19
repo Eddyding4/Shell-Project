@@ -1452,7 +1452,7 @@ yyreduce:
   case 17:
 #line 115 "shell.y"
             {
-    Shell::currentCommand._background = true;
+    Shell::_currentCommand._background = true;
   }
 #line 1458 "y.tab.cc"
     break;

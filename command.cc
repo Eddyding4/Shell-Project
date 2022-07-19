@@ -182,7 +182,7 @@ void Command::execute() {
         perror("fork");
 	exit(2);
       }
-
+	}
     // restore in/out defaults
     dup2(tmpin, 0);
     dup2(tmpout, 1);
@@ -194,7 +194,7 @@ void Command::execute() {
   if (!_background) {
       waitpid(ret, 0, 0);
     }
-  }
+  
    /*struct sigaction sa;
         sa.sa_handler = dis;
         sigemptyset(&sa.sa_mask);
