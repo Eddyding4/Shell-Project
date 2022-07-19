@@ -139,7 +139,7 @@ void Command::execute() {
         fderr = dup(tmperr);
       }
       dup2(fderr, 2);
-      for ( unsigned int i = 0; i < _simpleCommands.size() ; i++ ) {
+    for ( unsigned int i = 0; i < _simpleCommands.size() ; i++ ) {
       // redirect input 
       dup2(fdin, 0);
       close(fdin);
@@ -191,7 +191,6 @@ void Command::execute() {
     close(tmpin);
     close(tmpout);
     close(tmperr);
-      }
       /*struct sigaction sa;
         sa.sa_handler = dis;
         sigemptyset(&sa.sa_mask);
@@ -203,6 +202,7 @@ void Command::execute() {
     if (!_background) {
       waitpid(ret, 0, 0);
     }
+  }
   // Clear to prepare for next command
   clear();
 
