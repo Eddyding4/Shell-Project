@@ -142,7 +142,7 @@ void Command::execute() {
     for ( unsigned int i = 0; i < _simpleCommands.size() ; i++ ) {
       // redirect input 
       dup2(fdin, 0);
-      close(fdin);
+      //close(fdin);
        
       // setup output
       if( i == _simpleCommands.size() - 1 ){
@@ -176,7 +176,7 @@ void Command::execute() {
 	execvp(myargv[0], myargv);
         	
 	perror("execvp");
-	exit(0);	
+	exit(1);	
       }
       else if (ret < 0) {
         perror("fork");
@@ -184,7 +184,7 @@ void Command::execute() {
       }
 
     // restore in/out defaults
-    dup2(tmpin, 0);
+  dup2(tmpin, 0);
     dup2(tmpout, 1);
     dup2(tmperr, 2);
 
