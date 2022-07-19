@@ -178,11 +178,11 @@ void Command::execute() {
         
 	execvp(myargv[0], myargv);
         
-        struct sigaction sa;
+        /*struct sigaction sa;
         sa.sa_handler = &handle_sigchld;
         sigemptyset(&sa.sa_mask);
         sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
-        	
+        */	
 	perror("execvp");
 	exit(1);	
       }
