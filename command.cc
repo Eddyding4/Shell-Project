@@ -100,7 +100,7 @@ void Command::print() {
     printf( "\n\n" );
     */
 }
-extern "C" void disp(int pid){
+extern "C" void dis(int pid){
   printf("%d exited", pid);
 }
 
@@ -176,7 +176,7 @@ void Command::execute() {
 	execvp(myargv[0], myargv);
         
         struct sigaction sa;
-        sa.sa_handler = disp;
+        sa.sa_handler = dis;
         sigemptyset(&sa.sa_mask);
         sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
         	
