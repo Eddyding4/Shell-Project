@@ -160,7 +160,7 @@ void Command::execute() {
 	fdin = fdpipe[0];
       } 
       dup2(fdout, 1);
-      close(fdout);
+      //close(fdout);
       //create child process
       ret = fork();
       if (ret == 0) {
