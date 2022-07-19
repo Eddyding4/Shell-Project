@@ -176,7 +176,7 @@ void Command::execute() {
 	execvp(myargv[0], myargv);
         	
 	perror("execvp");
-	exit(1);	
+	exit(0);	
       }
       else if (ret < 0) {
         perror("fork");
