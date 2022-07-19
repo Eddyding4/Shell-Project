@@ -102,9 +102,9 @@ void Command::print() {
 
 void handle_sigchld(int sig){
   int saved_errno = errno;
-  while(waitpid((pid_t)(-1), 0, WNOHAND) > 0) {
+  while(waitpid((pid_t)(-1), 0, WNOHANG) > 0) {
   }
-  errno = saved_errrno;
+  errno = saved_errno;
 }
 
 void Command::execute() {
