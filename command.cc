@@ -191,7 +191,11 @@ void Command::execute() {
     close(tmpin);
     close(tmpout);
     close(tmperr);
-      /*struct sigaction sa;
+        if (!_background) {
+      waitpid(ret, 0, 0);
+    }
+  }
+   /*struct sigaction sa;
         sa.sa_handler = dis;
         sigemptyset(&sa.sa_mask);
         sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
@@ -199,11 +203,8 @@ void Command::execute() {
           printf("%d exited", ret);
           exit(2);
         }*/
-    if (!_background) {
-      waitpid(ret, 0, 0);
     }
-  }
-  // Clear to prepare for next command
+ // Clear to prepare for next command
   clear();
 
   // Print new prompt
