@@ -76,7 +76,7 @@ void Command::clear() {
 }
 
 void Command::print() {
-    printf("\n\n");
+  /*  printf("\n\n");
     printf("              COMMAND TABLE                \n");
     printf("\n");
     printf("  #   Simple Commands\n");
@@ -98,6 +98,7 @@ void Command::print() {
             _errFile?_errFile->c_str():"default",
             _background?"YES":"NO");
     printf( "\n\n" );
+    */
 }
 
 void handle_sigchld(int sig){
@@ -178,11 +179,11 @@ void Command::execute() {
         
 	execvp(myargv[0], myargv);
         
-        /*struct sigaction sa;
+        struct sigaction sa;
         sa.sa_handler = &handle_sigchld;
         sigemptyset(&sa.sa_mask);
         sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
-        */	
+        	
 	perror("execvp");
 	exit(1);	
       }
