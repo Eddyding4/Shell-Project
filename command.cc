@@ -142,7 +142,7 @@ void Command::execute() {
     for ( unsigned int i = 0; i < _simpleCommands.size() ; i++ ) {
       // redirect input 
       dup2(fdin, 0);
-      //close(fdin);
+      close(fdin);
        
       // setup output
       if( i == _simpleCommands.size() - 1 ){
@@ -160,7 +160,7 @@ void Command::execute() {
 	fdin = fdpipe[0];
       } 
       dup2(fdout, 1);
-      //close(fdout);
+      close(fdout);
       //create child process
       ret = fork();
       if (ret == 0) {
