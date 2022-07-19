@@ -113,7 +113,7 @@ io_modifier_list:
 
 background_opt:
   AMPERSAND {
-    Shell::currentCommand._background = true;
+    Shell::_currentCommand._background = true;
   }
   | /*empty*/
   ;
