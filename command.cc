@@ -182,20 +182,8 @@ void Command::execute() {
         perror("fork");
 	exit(2);
       }
-	}
-    // restore in/out defaults
-    dup2(tmpin, 0);
-    dup2(tmpout, 1);
-    dup2(tmperr, 2);
-
-    close(tmpin);
-    close(tmpout);
-    close(tmperr);
-  if (!_background) {
-      waitpid(ret, 0, 0);
     }
-  
-   struct sigaction sa;
+    struct sigaction sa;
    sa.sa_handler = dis;
    sigemptyset(&sa.sa_mask);
    sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
@@ -204,6 +192,19 @@ void Command::execute() {
      printf("%d exited", ret);
      exit(2);
    }
+    // restore in/out defaults
+    dup2(tmpin, 0);
+    dup2(tmpout, 1);
+    dup2(tmperr, 2);
+
+    close(tmpin);
+    close(tmpout);
+    close(tmperr);
+    if (!_background) {
+      waitpid(ret, 0, 0);
+    }
+  
+  
  // Clear to prepare for next command
   clear();
 
