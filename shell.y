@@ -103,6 +103,9 @@ io_modifier:
   | STANDARDERR WORD {
     printf(" Yacc: insert error \"%s\"\n", $2->c_str());
     Shell::_currentCommand._errFile = $2;
+  } 
+  | AMPERSAND WORD {
+    Shell::_currentCommand._background = true;
   }
   ;
 

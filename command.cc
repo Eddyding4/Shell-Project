@@ -184,7 +184,7 @@ void Command::execute() {
       }
 
     // restore in/out defaults
-  dup2(tmpin, 0);
+    dup2(tmpin, 0);
     dup2(tmpout, 1);
     dup2(tmperr, 2);
 
