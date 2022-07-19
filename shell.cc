@@ -13,7 +13,7 @@ extern "C" void disp(int sig){
   Shell::prompt();
 }
 extern "C" void dis(int sig){
-  while(waitpid(-1, 0, WNOHANG)){
+  while(waitpid(-1, 0, WNOHANG) > 0 ){
  
   printf("%d exited\n", getpid());
   }
