@@ -11,7 +11,7 @@ extern "C" void disp(int sig){
 }
 
 void Shell::prompt() {
-  //printf("myshell>");
+  printf("myshell>");
   fflush(stdout);
 }
 
