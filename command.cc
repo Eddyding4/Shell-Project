@@ -104,83 +104,83 @@ void Command::print() {
 void Command::execute() {
     
     // Don't do anything if there are no simple commands
-    if ( _simpleCommands.size() == 0 ) {
-       if(isatty(0)){ 
-	Shell::prompt();
-        return;
-       }
-    }  
+  if ( _simpleCommands.size() == 0 ) {
+    if(isatty(0)){ 
+	  Shell::prompt();
+    return;
+    }
+  }  
 
     // Print contents of Command data structure
-    print();
+  print();
     
     // save in and out
-    int tmpin = dup(0);
-    int tmpout = dup(1);
-    int tmperr = dup(2);
+  int tmpin = dup(0);
+  int tmpout = dup(1);
+  int tmperr = dup(2);
     // set initial input
-    int fdin;
-    if (_inFile) {
-      fdin = open(_inFile->c_str(), O_RDONLY);
-    } else {
+  int fdin;
+  if (_inFile) {
+    fdin = open(_inFile->c_str(), O_RDONLY);
+  } else {
       // use default input
-      fdin = dup(tmpin);
-    }
-    int ret;
-    int fdout;
-    int fderr;
-    if(_errFile){
-        fderr = open(_errFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
+    fdin = dup(tmpin);
+  }
+  int ret;
+  int fdout;
+  int fderr;
+  if(_errFile){
+    fderr = open(_errFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
 
-      } else {
-        fderr = dup(tmperr);
-      }
-      dup2(fderr, 2);
-    for ( unsigned int i = 0; i < _simpleCommands.size() ; i++ ) {
-     	
-      // redirect input 
-      dup2(fdin, 0);
-      close(fdin);
+  } else {
+    fderr = dup(tmperr);
+  }
+  dup2(fderr, 2);
+  for ( unsigned int i = 0; i < _simpleCommands.size() ; i++ ) {
+    if(_simpleCommands[i] == "printenv"){
+      printf("hello");
+    }
+    // redirect input 
+    dup2(fdin, 0);
+    close(fdin);
        
-      // setup output
-      if( i == _simpleCommands.size() - 1 ){
-          // last simple command
-	if(_outFile){
-	  fdout = open(_outFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
-	} else {
-	  fdout = dup(tmpout);
-	}
-      } else {
+    // setup output
+    if( i == _simpleCommands.size() - 1 ){
+    // last simple command
+	    if(_outFile){
+	      fdout = open(_outFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
+	    } else {
+	      fdout = dup(tmpout);
+	    }
+    } else {
 	// not last simple command create pipe
-	int fdpipe[2];
-        pipe(fdpipe);
-	fdout = fdpipe[1];
-	fdin = fdpipe[0];
-      } 
-      dup2(fdout, 1);
-      close(fdout);
-      //create child process
-      ret = fork();
-      if (ret == 0) {
+	  int fdpipe[2];
+    pipe(fdpipe);
+	  fdout = fdpipe[1];
+	  fdin = fdpipe[0];
+    } 
+    dup2(fdout, 1);
+    close(fdout);
+    //create child process
+    ret = fork();
+    if (ret == 0) {
+      char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
+	    for ( unsigned int j = 0; j < _simpleCommands[i]->_arguments.size(); j++ ) {
 
-
-        char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
-	for ( unsigned int j = 0; j < _simpleCommands[i]->_arguments.size(); j++ ) {
-
-	  myargv[j] = strdup(_simpleCommands[i]->_arguments[j]->c_str());
-	}
-	myargv[_simpleCommands[i]->_arguments.size()] = NULL;
+	      myargv[j] = strdup(_simpleCommands[i]->_arguments[j]->c_str());
+	    }
+	    myargv[_simpleCommands[i]->_arguments.size()] = NULL;
         
-	execvp(myargv[0], myargv);
+	    execvp(myargv[0], myargv);
         	
-	perror("execvp");
-	exit(1);	
-      }
-      else if (ret < 0) {
-        perror("fork");
-	exit(2);
-      }
+	    perror("execvp");
+	    exit(1);	
     }
+    else if (ret < 0) {
+      perror("fork");
+	    exit(2);
+    }
+  }
    
     // restore in/out defaults
     dup2(tmpin, 0);
