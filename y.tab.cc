@@ -182,7 +182,7 @@ int yyparse (void);
 
 void yyerror(const char * s);
 int yylex();
-std::string* temp;
+std::string temp;
 bool check;
 bool contains;
 
@@ -1371,9 +1371,9 @@ yyreduce:
       } else {
          contains = false;
       }
-      temp += (yyvsp[0].cpp_string);  
+      temp += (yyvsp[0].cpp_string)->c_str();  
       temp += " "; 
-      if (contains && temp != (yyvsp[0].cpp_string)){
+      if (contains && temp != (yyvsp[0].cpp_string)->c_str()){
         Command::_currentSimpleCommand->insertArgument(temp);
         temp.clear();
       } 
