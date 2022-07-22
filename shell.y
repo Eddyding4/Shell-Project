@@ -52,7 +52,7 @@ arg_list:
       check = true;
       temp += $2->c_str();
       if (strchr($2->c_str(), c) != NULL && check){
-        check = false
+        check = false;
       }
       if (!check){
       printf("%s", temp.c_str());  
