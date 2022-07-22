@@ -1371,10 +1371,10 @@ yyreduce:
       } else {
          contains = false;
       }
+      (yyvsp[0].cpp_string).erase(std::remove((yyvsp[0].cpp_string).begin(), (yyvsp[0].cpp_string).end(), '\"'), (yyvsp[0].cpp_string).end());
       temp += (yyvsp[0].cpp_string)->c_str();  
       temp += " "; 
       if (contains && temp != (yyvsp[0].cpp_string)->c_str()){
-        temp.erase(std::remove(temp.begin(), temp.end(), '\"'), temp.end());
         printf(" Yacc: insert argument \"%s\"\n", temp.c_str());
         Command::_currentSimpleCommand->insertArgument(&temp);
         temp.clear();

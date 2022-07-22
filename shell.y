@@ -57,7 +57,7 @@ arg_list:
       } else {
          contains = false;
       }
-      $2.erase(std::remove($2.begin(), $2.end(), '\"'), $2.end());
+      $2->c_str().erase(std::remove($2->c_str().begin(), $2->c_str().end(), '\"'), $2->c_str().end());
       temp += $2->c_str();  
       temp += " "; 
       if (contains && temp != $2->c_str()){
