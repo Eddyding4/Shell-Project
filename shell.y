@@ -52,12 +52,13 @@ arg_list:
     
     if (strchr($2->c_str(), c) != NULL || check){
       check = true;
+      printf("%s", temp.empty());
       if (strchr($2->c_str(), c) != NULL){
          contains = true;
       } else {
          contains = false;
       }
-      if (contains && temp.empty()){
+      if (contains && !temp.empty()){
         printf("%s", temp.c_str());
       }
       temp += $2->c_str();    
