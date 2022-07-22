@@ -1380,7 +1380,7 @@ yyreduce:
       if (contains && temp != temp2){
         temp.pop_back();
         temp = std::regex_replace(temp, std::regex("\""), ""); 
-        std::string result = temp;
+        strcpy(result,temp);
         (yyvsp[0].cpp_string) = &result;
         printf(" Yacc: insert argument \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
         Command::_currentSimpleCommand->insertArgument((yyvsp[0].cpp_string));
