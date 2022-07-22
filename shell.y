@@ -19,7 +19,7 @@
 #define register      // Deprecated in C++11 so remove the keyword
 #endif
 }
-std::string temp;
+
 %union
 {
   char        *string_val;
@@ -43,14 +43,14 @@ int yylex();
 %}
 
 %%
-
+std::string temp;
 goal: command_list;
 
 arg_list:
   arg_list WORD {
     char c = '\"';
     if (strchr($2->c_str(), c) != NULL || check){
-      
+            
     } else {
       printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
       Command::_currentSimpleCommand->insertArgument( $2 );
