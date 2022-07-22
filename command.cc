@@ -121,6 +121,10 @@ void Command::execute() {
         *env = NULL;
       }
     } 
+    for(char **env = environ; *env != 0; env++){
+       char * thisEnv = *env;
+       print("%s", thisEnv);l
+    }
   }
     // Don't do anything if there are no simple commands
   if ( _simpleCommands.size() == 0 ) {
