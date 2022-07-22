@@ -1377,7 +1377,7 @@ yyreduce:
       } else {
          contains = false;
       }
-      %(yyvsp[0].cpp_string).append(1, "C");   
+      (yyvsp[0].cpp_string).c_str().append(1, "C");   
       /*if (contains && temp != temp2){
         temp = std::regex_replace(temp, std::regex("\""), "");
         printf(" Yacc: insert argument \"%s\"\n", ptr->c_str());
