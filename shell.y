@@ -30,7 +30,7 @@
 
 %token <cpp_string> WORD
 %token NOTOKEN GREAT NEWLINE GREATGREAT PIPE AMPERSAND GREATGREATAMPERSAND GREATAMPERSAND LESS STANDARDERR 
-std::string temp;
+
 %{
 //#define yylex yylex
 #include <cstdio>
@@ -38,7 +38,7 @@ std::string temp;
 
 void yyerror(const char * s);
 int yylex();
-
+std::string temp;
 
 %}
 
