@@ -52,9 +52,9 @@ arg_list:
   arg_list WORD {
     char c = '\"';
     char escape = '\\';
-    if (strchr($2->c_str(), escape) != NULL) {
+    /*if (strchr($2->c_str(), escape) != NULL) {
       $2->c_str() = std::regex_replace($2->c_str(), std::regex("\\"), ""); 
-    }
+    }*/
      
     if (strchr($2->c_str(), c) != NULL || check){
       check = true;
