@@ -105,8 +105,9 @@ void Command::execute() {
   if(!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "setenv") ){
     for(char **env = environ; *env != 0; env++){
       char * thisEnv = *env;
-      printf("HEIWEWEIW:%s\n", _simpleCommands[0]->_arguments[1]->c_str());
-      printf("%s", thisEnv);
+      if(!strcmp(_simpleCommands[0]->_arguments[1]->c_str(), thisEnv)){
+        printf("Exists");
+      }
     }
   }
     // Don't do anything if there are no simple commands
