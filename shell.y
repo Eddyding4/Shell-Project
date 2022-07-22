@@ -57,10 +57,10 @@ arg_list:
       } else {
          contains = false;
       }
+      $2.erase(std::remove($2.begin(), $2.end(), '\"'), $2.end());
       temp += $2->c_str();  
       temp += " "; 
       if (contains && temp != $2->c_str()){
-        temp.erase(std::remove(temp.begin(), temp.end(), '\"'), temp.end());
         printf(" Yacc: insert argument \"%s\"\n", temp.c_str());
         Command::_currentSimpleCommand->insertArgument(&temp);
         temp.clear();
