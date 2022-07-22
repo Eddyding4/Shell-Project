@@ -67,7 +67,7 @@ arg_list:
         temp.pop_back();
         temp = std::regex_replace(temp, std::regex("\""), ""); 
         std::string result = temp;
-        $2 = &temp;
+        $2 = &result;
         printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
         Command::_currentSimpleCommand->insertArgument($2);
         temp.clear(); 
