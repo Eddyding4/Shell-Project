@@ -52,6 +52,7 @@ arg_list:
   WORD {
   
   }
+  |
   arg_list WORD {
     printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
     Command::_currentSimpleCommand->insertArgument( $2 );
