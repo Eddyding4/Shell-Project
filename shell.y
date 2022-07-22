@@ -48,7 +48,8 @@ goal: command_list;
 
 arg_list:
   arg_list WORD {
-    printf("%s", typeid($2->c_str()).name());    
+    std::string temp = $2->c_str();
+    printf("%s", $2->c_str());    
 
     printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
     Command::_currentSimpleCommand->insertArgument( $2 );
