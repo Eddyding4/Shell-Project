@@ -123,7 +123,7 @@ void Command::execute() {
     } 
     for(char **env = environ; *env != 0; env++){
        char * thisEnv = *env;
-       print("%s", thisEnv);l
+       print("%s", thisEnv);
     }
   }
     // Don't do anything if there are no simple commands
