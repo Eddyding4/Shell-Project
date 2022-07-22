@@ -137,7 +137,7 @@ void Command::execute() {
   }
   dup2(fderr, 2);
   for ( unsigned int i = 0; i < _simpleCommands.size() ; i++ ) {
-    if(_simpleCommands[i] == "printenv"){
+    if(_simpleCommands[i]->c_str() == "printenv"){
       printf("hello");
     }
     // redirect input 
