@@ -137,7 +137,7 @@ void Command::execute() {
   }
   dup2(fderr, 2);
   for ( unsigned int i = 0; i < _simpleCommands.size() ; i++ ) {
-    printf("%s", _simpleCommands[i]->arguments[0]->c_str());
+    printf("%s", _simpleCommands[i]->_arguments[0]->c_str());
     // redirect input 
     dup2(fdin, 0);
     close(fdin);
