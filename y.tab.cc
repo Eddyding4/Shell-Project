@@ -1385,9 +1385,9 @@ yyreduce:
         temp.pop_back();
         temp = std::regex_replace(temp, std::regex("\""), "");
         std::string result = temp;
-        (yyvsp[0].cpp_string) = &result;
-        printf(" Yacc: insert argument \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
-        Command::_currentSimpleCommand->insertArgument((yyvsp[0].cpp_string));
+        std::string * ptr = &result;
+        printf(" Yacc: insert argument \"%s\"\n", ptr->c_str());
+        Command::_currentSimpleCommand->insertArgument(ptr);
         temp.clear(); 
       } 
     } else {
