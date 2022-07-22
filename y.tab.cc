@@ -1366,7 +1366,7 @@ yyreduce:
                 {
     char c = '\"';
     char escape = '\\';
-    if (strchr((yyvsp[0].cpp_string)->c_str(), escape != NULL) {
+    if (strchr((yyvsp[0].cpp_string)->c_str(), escape) != NULL) {
       (yyvsp[0].cpp_string)->c_str() = std::regex_replace((yyvsp[0].cpp_string)->c_str(), std::regex("\\"), ""); 
     }
      
