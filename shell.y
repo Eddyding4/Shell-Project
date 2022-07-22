@@ -61,7 +61,7 @@ arg_list:
       temp += " "; 
       if (contains && temp != $2->c_str()){
         printf("%s", temp.c_str());
-        temp = NULL;
+        temp.clear();
       } 
     } else {
       printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
