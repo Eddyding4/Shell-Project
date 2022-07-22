@@ -15,7 +15,7 @@
 {
 #include <string>
 #include <cstring>
-#include <algorithm>
+#include <regex>
 #include <iostream>
 #if __cplusplus > 199711L
 #define register      // Deprecated in C++11 so remove the keyword
@@ -62,7 +62,7 @@ arg_list:
       temp += $2->c_str();  
       temp += " "; 
       if (contains && temp != $2->c_str()){
-        std::erase(temp, '\"');
+        temp = std::regex_replace(temp, std::regex('\"'), '');
         printf(" Yacc: insert argument \"%s\"\n", temp.c_str());
         Command::_currentSimpleCommand->insertArgument(&temp);
         temp.clear();
