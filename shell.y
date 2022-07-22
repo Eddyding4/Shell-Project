@@ -52,16 +52,15 @@ arg_list:
     
     if (strchr($2->c_str(), c) != NULL || check){
       check = true;
-      printf("%d", temp.empty());
       if (strchr($2->c_str(), c) != NULL){
          contains = true;
       } else {
          contains = false;
       }
-      if (contains && !temp.empty()){
+      temp += $2->c_str();   
+      if (contains && temp != $2->c_str()){
         printf("%s", temp.c_str());
-      }
-      temp += $2->c_str();    
+      } 
     } else {
       printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
       Command::_currentSimpleCommand->insertArgument( $2 );

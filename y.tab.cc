@@ -1366,7 +1366,7 @@ yyreduce:
     
     if (strchr((yyvsp[0].cpp_string)->c_str(), c) != NULL || check){
       check = true;
-      printf("%s", temp.empty());
+      printf("%d", temp.empty());
       if (strchr((yyvsp[0].cpp_string)->c_str(), c) != NULL){
          contains = true;
       } else {
