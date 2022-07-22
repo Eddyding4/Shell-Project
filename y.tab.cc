@@ -1371,7 +1371,7 @@ yyreduce:
       } else {
          contains = false;
       }
-      if (contains && !temp.empty()){
+      if (!contains && !temp.empty()){
         printf("%s", temp.c_str());
       }
       temp += (yyvsp[0].cpp_string)->c_str();    
