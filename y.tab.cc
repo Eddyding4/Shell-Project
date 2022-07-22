@@ -1371,7 +1371,7 @@ yyreduce:
       } else {
          contains = false;
       }
-      (yyvsp[0].cpp_string).erase(std::remove((yyvsp[0].cpp_string).begin(), (yyvsp[0].cpp_string).end(), '\"'), (yyvsp[0].cpp_string).end());
+      (yyvsp[0].cpp_string)->c_str().erase(std::remove((yyvsp[0].cpp_string)->c_str().begin(), (yyvsp[0].cpp_string)->c_str().end(), '\"'), (yyvsp[0].cpp_string)->c_str().end());
       temp += (yyvsp[0].cpp_string)->c_str();  
       temp += " "; 
       if (contains && temp != (yyvsp[0].cpp_string)->c_str()){
