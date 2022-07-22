@@ -24,7 +24,8 @@
 {
   char        *string_val;
   // Example of using a c++ type in yacc
-  std::string *cpp_string;  
+  std::string *cpp_string;
+  bool check;  
 }
 
 %token <cpp_string> WORD
@@ -51,8 +52,8 @@ arg_list:
     if (strchr($2->c_str(), '\"') != NULL){
       
     } else {
-    printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
-    Command::_currentSimpleCommand->insertArgument( $2 );
+      printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
+      Command::_currentSimpleCommand->insertArgument( $2 );
     }
   } 
   | /*empty*/
