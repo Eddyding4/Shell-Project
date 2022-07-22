@@ -1381,7 +1381,7 @@ yyreduce:
       if (contains && temp != temp2){
         temp.pop_back();
         temp = std::regex_replace(temp, std::regex("\""), "");
-        printf(" Yacc: insert argument \"%s\"\n", temp.c_str());
+        printf(" Yacc: insert argument \"%s\"\n", array.c_str());
         
         ptr = &temp;
         
