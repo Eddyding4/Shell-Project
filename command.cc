@@ -105,6 +105,7 @@ void Command::execute() {
   if(!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "setenv") ){
     for(char **env = environ; *env != 0; env++){
       char * thisEnv = *env;
+      printf("%s", _simpleCommands[0]->_arguments[1]->c_str());
       printf("%s", thisEnv);
     }
   }
