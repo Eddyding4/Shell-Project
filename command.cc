@@ -106,7 +106,7 @@ void Command::execute() {
     for(char **env = environ; *env != 0; env++){
       char * thisEnv = *env;
       char * temp = strtok(thisEnv, "=");
-      if(_simpleCommands[0]->_arguments[1]->c_str().find(temp) != string::npos){
+      if(_simpleCommands[0]->_arguments[1]->c_str().contains(temp)){
         char result [100]; 
         strcpy(result, temp);
         strcat(result, "=");
