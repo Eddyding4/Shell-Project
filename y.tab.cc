@@ -185,11 +185,10 @@ int yyparse (void);
 void yyerror(const char * s);
 int yylex();
 std::string temp;
-std::string * ptr;
 bool check;
 bool contains;
 
-#line 193 "y.tab.cc"
+#line 192 "y.tab.cc"
 
 
 #ifdef short
@@ -551,7 +550,7 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    50,    50,    53,    81,    85,    85,   101,   102,   106,
+       0,    49,    49,    52,    81,    85,    85,   101,   102,   106,
      111,   115,   122,   128,   132,   139,   140,   144,   147,   151,
      155,   156,   160,   161
 };
@@ -1363,7 +1362,7 @@ yyreduce:
   switch (yyn)
     {
   case 3:
-#line 53 "shell.y"
+#line 52 "shell.y"
                 {
     char c = '\"';
     
@@ -1382,6 +1381,7 @@ yyreduce:
         temp.pop_back();
         temp = std::regex_replace(temp, std::regex("\""), ""); 
         std::string result = temp;
+        std::string * ptr = new std::string();
         ptr = &result;
         printf(" Yacc: insert argument \"%s\"\n", ptr->c_str());
         Command::_currentSimpleCommand->insertArgument(ptr);
