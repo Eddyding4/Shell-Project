@@ -40,6 +40,7 @@
 void yyerror(const char * s);
 int yylex();
 std::string temp;
+std::string * ptr;
 bool check;
 bool contains;
 %}
@@ -68,9 +69,9 @@ arg_list:
         temp = std::regex_replace(temp, std::regex("\""), "");
         printf(" Yacc: insert argument \"%s\"\n", temp.c_str());
         
-        std::string * array = &temp;
+        ptr = &temp;
         
-        Command::_currentSimpleCommand->insertArgument(array);
+        Command::_currentSimpleCommand->insertArgument(ptr);
         temp.clear();
       } 
     } else {
