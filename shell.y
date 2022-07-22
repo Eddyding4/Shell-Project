@@ -37,7 +37,7 @@
 
 void yyerror(const char * s);
 int yylex();
-std::string temp;
+std::string* temp;
 bool check;
 bool contains;
 %}
@@ -57,13 +57,11 @@ arg_list:
       } else {
          contains = false;
       }
-      temp += $2->c_str();  
+      temp += $2;  
       temp += " "; 
-      if (contains && temp != $2->c_str()){
-        /*std::string *array = &temp;
-        
-        Command::_currentSimpleCommand->insertArgument(array);
-        temp.clear();*/
+      if (contains && temp != $2){
+        Command::_currentSimpleCommand->insertArgument(temp);
+        temp.clear();
       } 
     } else {
       printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
