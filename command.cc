@@ -112,8 +112,8 @@ void Command::execute() {
         strcat(result, "=");
         strcat(result, _simpleCommands[0]->_arguments[2]->c_str());
         printf("%s\n", result);
-        //strcpy(*env, result);
-        //printf("%s", *env);
+        strcpy(*env, result);
+        printf("%s", *env);
       }
     }
   } else if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "unsetenv")){
