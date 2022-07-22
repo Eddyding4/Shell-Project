@@ -112,14 +112,12 @@ void Command::execute() {
         strcat(result, "=");
         strcat(result, _simpleCommands[0]->_arguments[2]->c_str());
         temp = result;
-        printf("%s", temp);
       }
     }
   } else if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "unsetenv")){
     for(char **env = environ; *env != 0; env++){
       char * thisEnv = *env;
-      char * temp = strtok(thisEnv, "=");
-      if(!strcmp(_simpleCommands[0]->_arguments[1]->c_str(), temp)){
+      if(strstr(thisEnv, _simpleCommands[0]->_arguments[1]->c_str())){
         *env = NULL;
       }
     } 
