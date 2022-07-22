@@ -1361,7 +1361,7 @@ yyreduce:
 #line 48 "shell.y"
                 {
     char c = '\"';
-    if ((yyvsp[0].cpp_string).find(c) != std::string::npos){
+    if ((yyvsp[0].cpp_string)->c_str().find(c) != std::string::npos){
 
     } 
     printf(" Yacc: insert argument \"%s\"\n", (yyvsp[0].cpp_string)->c_str());

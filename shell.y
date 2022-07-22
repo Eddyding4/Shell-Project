@@ -47,7 +47,7 @@ goal: command_list;
 arg_list:
   arg_list WORD {
     char c = '\"';
-    if ($2->c_str().find(c) != std::string::npos){
+    if (strchr($2->c_str(), '\"') != NULL){
 
     } 
     printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
