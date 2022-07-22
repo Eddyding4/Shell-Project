@@ -1365,7 +1365,7 @@ yyreduce:
     if (strchr((yyvsp[0].cpp_string)->c_str(), c) != NULL || check){
       check = true;
       temp += (yyvsp[0].cpp_string)->c_str();
-      printf("%s", temp);      
+      printf("%s", temp.c_str());      
     } else {
       printf(" Yacc: insert argument \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
       Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
