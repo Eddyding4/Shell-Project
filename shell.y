@@ -60,9 +60,10 @@ arg_list:
       temp += $2->c_str();  
       temp += " "; 
       if (contains && temp != $2->c_str()){
-        std::string *array = &temp;
+        /*std::string *array = &temp;
+        
         Command::_currentSimpleCommand->insertArgument(array);
-        temp.clear();
+        temp.clear();*/
       } 
     } else {
       printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
