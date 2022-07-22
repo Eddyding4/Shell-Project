@@ -157,9 +157,9 @@ union YYSTYPE
   char        *string_val;
   // Example of using a c++ type in yacc
   std::string *cpp_string;
-  bool firstCheck = false;
+  /*bool firstCheck = false;
   bool secondCheck = false;
-  std::string temp;
+  std::string temp;*/
 
 #line 165 "y.tab.cc"
 
