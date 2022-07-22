@@ -40,16 +40,18 @@
 void yyerror(const char * s);
 int yylex();
 std::string temp;
-bool check;
-bool contains;
+
 %}
 
 %%
 
 goal: command_list;
 
+
 arg_list:
-  printf("%s", WORD);
+  WORD {
+  
+  }
   arg_list WORD {
       printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
       Command::_currentSimpleCommand->insertArgument( $2 );
