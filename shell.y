@@ -52,9 +52,9 @@ arg_list:
   arg_list WORD {
     char c = '\"';
     char escape = '\\';
-    /*if (strchr($2->c_str(), escape) != NULL) {
+    if (strchr($2->c_str(), escape) != NULL) {
       $2->c_str() = std::regex_replace($2->c_str(), std::regex("\\"), ""); 
-    }*/
+    }
      
     if (strchr($2->c_str(), c) != NULL || check){
       check = true;
@@ -63,13 +63,19 @@ arg_list:
       } else {
          contains = false;
       }
-      $2->c_str().append(1, "C");   
-      /*if (contains && temp != temp2){
+      temp += $2->c_str();   
+      temp += " ";
+      std::string temp2 = $2->c_str();
+      temp2 += " ";
+      if (contains && temp != temp2){
+        temp.pop_back();
         temp = std::regex_replace(temp, std::regex("\""), "");
+        std::string result = temp;
+        std::string * ptr = &result;
         printf(" Yacc: insert argument \"%s\"\n", ptr->c_str());
         Command::_currentSimpleCommand->insertArgument($2);
         temp.clear(); 
-      } */
+      } 
     } else {
       printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
       Command::_currentSimpleCommand->insertArgument( $2 );
