@@ -103,10 +103,7 @@ void Command::print() {
 
 void Command::execute() {
   if(!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "setenv") ){
-    for(int i = 0; i < &environ.size(); i++){
-      if(!strcmp(environ[i], _simpleCommands[0]->_arguments[1])){
-        printf("%s", environ[i]);
-      }
+      printf("%s", environ[0]);
     }
   }
     // Don't do anything if there are no simple commands
