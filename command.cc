@@ -109,6 +109,7 @@ void Command::execute() {
       if(!strcmp(_simpleCommands[0]->_arguments[1]->c_str(), temp)){
         char result [100]; 
         strcpy(result, *temp + "=");
+        printf("first %s", result);
         strcat(result, _simpleCommands[0]->_arguments[2]->c_str());
         printf("%s", result);
       }
