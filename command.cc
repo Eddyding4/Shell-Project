@@ -125,7 +125,7 @@ void Command::execute() {
        char * thisEnv = *env;
        printf("%s", thisEnv);
     }*/
-  }
+  } else {
     // Don't do anything if there are no simple commands
   if ( _simpleCommands.size() == 0 ) {
     if(isatty(0)){ 
@@ -214,7 +214,7 @@ void Command::execute() {
     if (!_background) {
       waitpid(ret, 0, 0);
     }
-  
+  }
   
  // Clear to prepare for next command
   clear();
