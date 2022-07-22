@@ -111,7 +111,7 @@ extern int yydebug;
 
 #include <string>
 #include <cstring>
-#include <algorithm>
+#include <regex>
 #include <iostream>
 #if __cplusplus > 199711L
 #define register      // Deprecated in C++11 so remove the keyword
@@ -1376,7 +1376,7 @@ yyreduce:
       temp += (yyvsp[0].cpp_string)->c_str();  
       temp += " "; 
       if (contains && temp != (yyvsp[0].cpp_string)->c_str()){
-        std::erase(temp, '\"');
+        temp = std::regex_replace(temp, std::regex('\"'), '');
         printf(" Yacc: insert argument \"%s\"\n", temp.c_str());
         Command::_currentSimpleCommand->insertArgument(&temp);
         temp.clear();

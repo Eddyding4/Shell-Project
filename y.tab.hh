@@ -48,7 +48,7 @@ extern int yydebug;
 
 #include <string>
 #include <cstring>
-#include <algorithm>
+#include <regex>
 #include <iostream>
 #if __cplusplus > 199711L
 #define register      // Deprecated in C++11 so remove the keyword
