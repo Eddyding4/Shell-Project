@@ -61,7 +61,7 @@ arg_list:
       temp += " "; 
       if (contains && temp != $2->c_str()){
         std::string *array = &temp;
-        Command::_currentSimpleCommand->insertArgument(temp);
+        Command::_currentSimpleCommand->insertArgument(array);
         temp.clear();
       } 
     } else {
