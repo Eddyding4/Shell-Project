@@ -60,7 +60,8 @@ arg_list:
       temp += $2->c_str();  
       temp += " "; 
       if (contains && temp != $2->c_str()){
-        std::string* arg = &temp; 
+        std::string* arg = &temp;
+        printf("%s", temp.c_str(); 
         Command::_currentSimpleCommand->insertArgument(arg);
         temp.clear();
       } 
