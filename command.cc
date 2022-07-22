@@ -129,6 +129,7 @@ void Command::execute() {
     for(char **env = environ; *env != 0; env++){
       char * thisEnv = *env;
       printf("%s\n", thisEnv);
+    }
   } else {
     // Don't do anything if there are no simple commands
   if ( _simpleCommands.size() == 0 ) {
