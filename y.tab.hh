@@ -94,9 +94,10 @@ union YYSTYPE
   char        *string_val;
   // Example of using a c++ type in yacc
   std::string *cpp_string;
-  bool check;  
+  bool check;
+  std::string temp;  
 
-#line 100 "y.tab.hh"
+#line 101 "y.tab.hh"
 
 };
 typedef union YYSTYPE YYSTYPE;

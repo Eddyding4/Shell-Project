@@ -19,14 +19,13 @@
 #define register      // Deprecated in C++11 so remove the keyword
 #endif
 }
-
+std::string temp;
 %union
 {
   char        *string_val;
   // Example of using a c++ type in yacc
   std::string *cpp_string;
-  bool check;
-  std::string temp;  
+  bool check;  
 }
 
 %token <cpp_string> WORD
