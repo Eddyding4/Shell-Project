@@ -103,8 +103,8 @@ void Command::print() {
 
 void Command::execute() {
   if(!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "setenv") ){
-    for(char **env = envp; *env != 0; env++){
-      char * thisEnv = *env
+    for(char **env = environ; *env != 0; env++){
+      char * thisEnv = *env;
       printf("%s", thisEnv);
     }
   }
