@@ -118,7 +118,7 @@ void Command::execute() {
       char * thisEnv = *env;
       char * temp = strtok(thisEnv, "=");
       if(!strcmp(_simpleCommands[0]->_arguments[1]->c_str(), temp)){
-        *env = null;
+        *env = Null;
       }
     } 
   }
