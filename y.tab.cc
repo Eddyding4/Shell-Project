@@ -1366,9 +1366,9 @@ yyreduce:
                 {
     char c = '\"';
     char escape = '\\';
-    if (strchr((yyvsp[0].cpp_string)->c_str(), escape) != NULL) {
-      (yyvsp[0].cpp_string)->c_str() = std::regex_replace((yyvsp[0].cpp_string)->c_str(), std::regex("\\"), ""); 
-    }
+    /*if (strchr($2->c_str(), escape) != NULL) {
+      $2->c_str() = std::regex_replace($2->c_str(), std::regex("\\"), ""); 
+    }*/
      
     if (strchr((yyvsp[0].cpp_string)->c_str(), c) != NULL || check){
       check = true;
