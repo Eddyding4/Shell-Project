@@ -119,7 +119,6 @@ void Command::execute() {
       char * thisEnv = *env;
       if(strstr(thisEnv, _simpleCommands[0]->_arguments[1]->c_str())){
         *env = NULL;
-        strcpy(*env, thisEnv);
       }
     } 
   } else if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "printenv")){
