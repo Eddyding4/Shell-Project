@@ -157,10 +157,9 @@ union YYSTYPE
   char        *string_val;
   // Example of using a c++ type in yacc
   std::string *cpp_string;
-  bool check;
-  std::string temp;  
+  bool check;  
 
-#line 164 "y.tab.cc"
+#line 163 "y.tab.cc"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -176,7 +175,7 @@ int yyparse (void);
 #endif /* !YY_YY_Y_TAB_HH_INCLUDED  */
 
 /* Second part of user prologue.  */
-#line 35 "shell.y"
+#line 34 "shell.y"
 
 //#define yylex yylex
 #include <cstdio>
@@ -184,10 +183,10 @@ int yyparse (void);
 
 void yyerror(const char * s);
 int yylex();
+std::string temp;
 
 
-
-#line 191 "y.tab.cc"
+#line 190 "y.tab.cc"
 
 
 #ifdef short
@@ -549,9 +548,9 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    48,    48,    51,    60,    64,    64,    80,    81,    85,
-      90,    94,   101,   107,   111,   118,   119,   123,   126,   130,
-     134,   135,   139,   140
+       0,    47,    47,    50,    59,    63,    63,    79,    80,    84,
+      89,    93,   100,   106,   110,   117,   118,   122,   125,   129,
+     133,   134,   138,   139
 };
 #endif
 
@@ -1361,21 +1360,21 @@ yyreduce:
   switch (yyn)
     {
   case 3:
-#line 51 "shell.y"
+#line 50 "shell.y"
                 {
     char c = '\"';
     if (strchr((yyvsp[0].cpp_string)->c_str(), c) != NULL || check){
-      
+            
     } else {
       printf(" Yacc: insert argument \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
       Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
     }
   }
-#line 1375 "y.tab.cc"
+#line 1374 "y.tab.cc"
     break;
 
   case 5:
-#line 64 "shell.y"
+#line 63 "shell.y"
        {
     if (!strcmp((yyvsp[0].cpp_string)->c_str(), "exit")){
        printf("Good Bye!!\n");
@@ -1385,39 +1384,39 @@ yyreduce:
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
   }
-#line 1389 "y.tab.cc"
+#line 1388 "y.tab.cc"
     break;
 
   case 6:
-#line 73 "shell.y"
+#line 72 "shell.y"
            {
     Shell::_currentCommand.
     insertSimpleCommand( Command::_currentSimpleCommand );
   }
-#line 1398 "y.tab.cc"
+#line 1397 "y.tab.cc"
     break;
 
   case 9:
-#line 85 "shell.y"
+#line 84 "shell.y"
                   {
     Shell::_currentCommand._append = true;
     printf(" Yacc: insert output \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
   }
-#line 1408 "y.tab.cc"
+#line 1407 "y.tab.cc"
     break;
 
   case 10:
-#line 90 "shell.y"
+#line 89 "shell.y"
                {
     printf(" Yacc: insert output \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
   }
-#line 1417 "y.tab.cc"
+#line 1416 "y.tab.cc"
     break;
 
   case 11:
-#line 94 "shell.y"
+#line 93 "shell.y"
                              {
     Shell::_currentCommand._append = true;
     printf(" Yacc: insert output \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
@@ -1425,63 +1424,63 @@ yyreduce:
     printf(" Yacc: insert error \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
   }
-#line 1429 "y.tab.cc"
+#line 1428 "y.tab.cc"
     break;
 
   case 12:
-#line 101 "shell.y"
+#line 100 "shell.y"
                         {
     printf(" Yacc: insert output \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
     printf(" Yacc: insert error \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
   }
-#line 1440 "y.tab.cc"
+#line 1439 "y.tab.cc"
     break;
 
   case 13:
-#line 107 "shell.y"
+#line 106 "shell.y"
               {
     printf(" Yacc: insert input \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Shell::_currentCommand._inFile = (yyvsp[0].cpp_string);
   }
-#line 1449 "y.tab.cc"
+#line 1448 "y.tab.cc"
     break;
 
   case 14:
-#line 111 "shell.y"
+#line 110 "shell.y"
                      {
     printf(" Yacc: insert error \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
   }
-#line 1458 "y.tab.cc"
+#line 1457 "y.tab.cc"
     break;
 
   case 17:
-#line 123 "shell.y"
+#line 122 "shell.y"
             {
     Shell::_currentCommand._background = true;
   }
-#line 1466 "y.tab.cc"
+#line 1465 "y.tab.cc"
     break;
 
   case 19:
-#line 130 "shell.y"
+#line 129 "shell.y"
                                                     {
     printf(" Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
-#line 1475 "y.tab.cc"
+#line 1474 "y.tab.cc"
     break;
 
   case 21:
-#line 135 "shell.y"
+#line 134 "shell.y"
                  {yyerrok; }
-#line 1481 "y.tab.cc"
+#line 1480 "y.tab.cc"
     break;
 
 
-#line 1485 "y.tab.cc"
+#line 1484 "y.tab.cc"
 
       default: break;
     }
@@ -1713,7 +1712,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 142 "shell.y"
+#line 141 "shell.y"
 
 
 void

@@ -24,8 +24,7 @@
 {
   char        *string_val;
   // Example of using a c++ type in yacc
-  std::string *cpp_string;
-  bool check;  
+  std::string *cpp_string;  
 }
 
 %token <cpp_string> WORD
@@ -39,7 +38,7 @@
 void yyerror(const char * s);
 int yylex();
 std::string temp;
-
+bool check;
 %}
 
 %%
