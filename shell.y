@@ -40,19 +40,41 @@
 void yyerror(const char * s);
 int yylex();
 std::string temp;
-
+bool check;
+bool contains;
 %}
 
 %%
 
 goal: command_list;
 
-
 arg_list:
   arg_list WORD {
-    printf("%s", $2->c_str());
-    printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
-    Command::_currentSimpleCommand->insertArgument( $2 );
+    char c = '\"';
+    char escape = '\\';
+    if (strchr($2->c_str(), escape) != NULL) {
+      $2->c_str() = std::regex_replace($2->c_str(), std::regex("\\"), ""); 
+    }
+     
+    if (strchr($2->c_str(), c) != NULL || check){
+      check = true;
+      if (strchr($2->c_str(), c) != NULL){
+         contains = true;
+      } else {
+         contains = false;
+      }
+      $2->c_str() += $2->c_str();   
+      $2->c_str() += " ";
+      /*if (contains && temp != temp2){
+        temp = std::regex_replace(temp, std::regex("\""), "");
+        printf(" Yacc: insert argument \"%s\"\n", ptr->c_str());
+        Command::_currentSimpleCommand->insertArgument($2);
+        temp.clear(); 
+      } */
+    } else {
+      printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
+      Command::_currentSimpleCommand->insertArgument( $2 );
+    }
   } 
   | /*empty*/
   ;
