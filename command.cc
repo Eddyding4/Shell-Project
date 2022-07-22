@@ -129,6 +129,8 @@ void Command::execute() {
   } else if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "cd")){
     if (_simpleCommands[0]->_arguments[1]->c_str() != NULL){
       chdir(_simpleCommands[0]->_arguments[1]->c_str());
+    } else {
+      chdir(getenv("HOME"));
     }
   } else {
     // Don't do anything if there are no simple commands
