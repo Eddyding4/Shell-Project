@@ -106,9 +106,8 @@ void Command::execute() {
     for(char **env = environ; *env != 0; env++){
       char * thisEnv = *env;
       char * temp = strtok(thisEnv, "=");
-      if(!strcmp(_simpleCommands[0]->_arguments[1]->c_str(), temp)){
+      if(_simpleCommands[0]->_arguments[1]->c_str().find(temp) != string::npos){
         char result [100]; 
-        printf("%s", temp);
         strcpy(result, temp);
         strcat(result, "=");
         strcat(result, _simpleCommands[0]->_arguments[2]->c_str());
