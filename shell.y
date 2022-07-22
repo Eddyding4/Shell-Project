@@ -60,7 +60,7 @@ arg_list:
       temp += $2->c_str();  
       temp += " "; 
       if (contains && temp != $2->c_str()){
-        printf("%s", temp.c_str());
+        Command::_currentSimpleCommand->insertArgument(temp);
         temp.clear();
       } 
     } else {

@@ -1375,7 +1375,7 @@ yyreduce:
       temp += " "; 
       if (contains && temp != (yyvsp[0].cpp_string)->c_str()){
         printf("%s", temp.c_str());
-        temp = NULL;
+        temp.clear();
       } 
     } else {
       printf(" Yacc: insert argument \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
