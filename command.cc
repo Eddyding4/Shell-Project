@@ -113,7 +113,7 @@ void Command::execute() {
         strcat(result, _simpleCommands[0]->_arguments[2]->c_str());
       }
     }
-  } else if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "unsetenv"){
+  } else if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "unsetenv")){
     for(char **env = environ; *env != 0; env++){
       char * thisEnv = *env;
       char * temp = strtok(thisEnv, "=");
