@@ -1366,7 +1366,7 @@ yyreduce:
       check = true;
       temp += (yyvsp[0].cpp_string)->c_str();
       if (strchr((yyvsp[0].cpp_string)->c_str(), c) != NULL && check){
-        check = false
+        check = false;
       }
       if (!check){
       printf("%s", temp.c_str());  
