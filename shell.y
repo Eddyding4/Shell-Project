@@ -52,7 +52,7 @@ arg_list:
     
     if (strchr($2->c_str(), c) != NULL || check){
       check = true;
-      printf("%s", temp.empty());
+      printf("%d", temp.empty());
       if (strchr($2->c_str(), c) != NULL){
          contains = true;
       } else {
