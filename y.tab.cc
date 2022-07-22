@@ -182,7 +182,7 @@ int yyparse (void);
 
 void yyerror(const char * s);
 int yylex();
-std::string temp;
+std::string temp = NULL;
 bool check;
 bool contains;
 

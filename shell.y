@@ -37,7 +37,7 @@
 
 void yyerror(const char * s);
 int yylex();
-std::string temp = NULL;
+std::string temp;
 bool check;
 bool contains;
 %}
@@ -61,6 +61,7 @@ arg_list:
       temp += " "; 
       if (contains && temp != $2->c_str()){
         printf("%s", temp.c_str());
+        temp = NULL;
       } 
     } else {
       printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
