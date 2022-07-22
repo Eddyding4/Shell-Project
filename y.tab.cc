@@ -1362,7 +1362,7 @@ yyreduce:
                 {
     char c = '\"';
     if (strchr((yyvsp[0].cpp_string)->c_str(), '\"') != NULL){
-
+       printf("hello");
     } 
     printf(" Yacc: insert argument \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
