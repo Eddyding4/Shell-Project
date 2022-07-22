@@ -105,7 +105,9 @@ void Command::execute() {
   if(!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "setenv") ){
     for(char **env = environ; *env != 0; env++){
       char * thisEnv = *env;
-      if(!strcmp(_simpleCommands[0]->_arguments[1]->c_str(), thisEnv)){
+      char * temp = strtok(thisEnv, '=');
+      printf("%s", temp);
+      if(!strcmp(_simpleCommands[0]->_arguments[1]->c_str(), temp)){
         printf("Exists");
       }
     }
