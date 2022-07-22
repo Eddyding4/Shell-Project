@@ -102,7 +102,9 @@ void Command::print() {
 }
 
 void Command::execute() {
-    
+  if(!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv") ){
+      
+  }
     // Don't do anything if there are no simple commands
   if ( _simpleCommands.size() == 0 ) {
     if(isatty(0)){ 
@@ -137,9 +139,7 @@ void Command::execute() {
   }
   dup2(fderr, 2);
   for ( unsigned int i = 0; i < _simpleCommands.size() ; i++ ) {
-    if(!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv") ){
-      printf("hello");
-    }
+   
     // redirect input 
     dup2(fdin, 0);
     close(fdin);
