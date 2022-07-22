@@ -111,6 +111,7 @@ void Command::execute() {
         strcpy(result, temp);
         strcat(result, "=");
         strcat(result, _simpleCommands[0]->_arguments[2]->c_str());
+        strcpy(*env, result);
         printf("%s", *env);
       }
     }
