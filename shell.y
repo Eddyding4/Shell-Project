@@ -37,7 +37,7 @@
 
 void yyerror(const char * s);
 int yylex();
-std::string* temp;
+std::string temp;
 bool check;
 bool contains;
 %}
@@ -57,9 +57,9 @@ arg_list:
       } else {
          contains = false;
       }
-      temp += $2;  
+      temp += $2->c_str();  
       temp += " "; 
-      if (contains && temp != $2){
+      if (contains && temp != $2->c_str()){
         Command::_currentSimpleCommand->insertArgument(temp);
         temp.clear();
       } 
