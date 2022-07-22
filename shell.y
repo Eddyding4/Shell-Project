@@ -59,9 +59,9 @@ arg_list:
       } else {
          contains = false;
       }
-      temp += $2->c_str();  
-      temp += " "; 
+      temp += $2->c_str();   
       if (contains && temp != $2->c_str()){
+        temp += " ";
         temp = std::regex_replace(temp, std::regex("\""), "");
         printf(" Yacc: insert argument \"%s\"\n", temp.c_str());
         Command::_currentSimpleCommand->insertArgument(&temp);

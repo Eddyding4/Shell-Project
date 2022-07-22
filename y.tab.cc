@@ -1376,7 +1376,7 @@ yyreduce:
       temp += (yyvsp[0].cpp_string)->c_str();  
       temp += " "; 
       if (contains && temp != (yyvsp[0].cpp_string)->c_str()){
-        temp = std::regex_replace(temp, std::regex('\"'), '');
+        temp = std::regex_replace(temp, std::regex("\""), "");
         printf(" Yacc: insert argument \"%s\"\n", temp.c_str());
         Command::_currentSimpleCommand->insertArgument(&temp);
         temp.clear();
