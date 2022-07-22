@@ -49,7 +49,8 @@ arg_list:
   arg_list WORD {
     char c = '\"';
     if (strchr($2->c_str(), c) != NULL || check){
-            
+      check = true;
+      temp += $2->c_str();      
     } else {
       printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
       Command::_currentSimpleCommand->insertArgument( $2 );
