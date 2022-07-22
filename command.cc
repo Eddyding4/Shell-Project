@@ -117,7 +117,7 @@ void Command::execute() {
   } else if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "unsetenv")){
     for(char **env = environ; *env != 0; env++){
       char * thisEnv = *env;
-      if(!strstr(thisEnv, _simpleCommands[0]->_arguments[1]->c_str())){
+      if(strstr(thisEnv, _simpleCommands[0]->_arguments[1]->c_str())){
         *env = NULL;
       }
     } 
