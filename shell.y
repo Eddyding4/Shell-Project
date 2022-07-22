@@ -50,7 +50,8 @@ arg_list:
     char c = '\"';
     if (strchr($2->c_str(), c) != NULL || check){
       check = true;
-      temp += $2->c_str();      
+      temp += $2->c_str();
+      printf("%s", temp);      
     } else {
       printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
       Command::_currentSimpleCommand->insertArgument( $2 );
