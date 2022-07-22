@@ -1360,7 +1360,7 @@ yyreduce:
   case 3:
 #line 48 "shell.y"
                 {
-    if ((yyvsp[0].cpp_string)->c_str().contains("\"")){
+    if ((yyvsp[0].cpp_string).contains("\"")){
     } 
     printf(" Yacc: insert argument \"%s\"\n", (yyvsp[0].cpp_string)->c_str());
     Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
