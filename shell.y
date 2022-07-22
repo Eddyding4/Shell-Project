@@ -46,7 +46,9 @@ goal: command_list;
 
 arg_list:
   arg_list WORD {
-    //printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
+    if ($2->c_str().contains("\"")){
+    } 
+    printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
     Command::_currentSimpleCommand->insertArgument( $2 );
   } 
   | /*empty*/
