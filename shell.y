@@ -46,7 +46,9 @@ goal: command_list;
 
 arg_list:
   arg_list WORD {
-    if ($2->contains('\"')){
+    char c = '\"';
+    if ($2.find(c) != std::string::npos){
+
     } 
     printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
     Command::_currentSimpleCommand->insertArgument( $2 );
