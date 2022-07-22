@@ -48,7 +48,7 @@ goal: command_list;
 
 arg_list:
   arg_list WORD {
-    printf("%s", typeof($2->c_str()));    
+    printf("%s", typeid($2->c_str()).name());    
 
     printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
     Command::_currentSimpleCommand->insertArgument( $2 );
