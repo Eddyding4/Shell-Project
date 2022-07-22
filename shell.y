@@ -60,6 +60,7 @@ arg_list:
       temp += $2->c_str();  
       temp += " "; 
       if (contains && temp != $2->c_str()){
+        string *array = temp;
         Command::_currentSimpleCommand->insertArgument(temp);
         temp.clear();
       } 
