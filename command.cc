@@ -127,7 +127,7 @@ void Command::execute() {
       printf("%s\n", thisEnv);
     }
   } else if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "cd")){
-    if (_simpleCommands[0]->_arguments[1]->c_str() != NULL){
+    if (_simpleCommands[0]->_arguments[1] != NULL){
       chdir(_simpleCommands[0]->_arguments[1]->c_str());
     } else {
       chdir(getenv("HOME"));
