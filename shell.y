@@ -63,7 +63,7 @@ arg_list:
       } else {
          contains = false;
       }
-      %$2.append(1, "C");   
+      $2.c_str().append(1, "C");   
       /*if (contains && temp != temp2){
         temp = std::regex_replace(temp, std::regex("\""), "");
         printf(" Yacc: insert argument \"%s\"\n", ptr->c_str());
