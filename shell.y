@@ -57,7 +57,8 @@ arg_list:
       } else {
          contains = false;
       }
-      temp += $2->c_str();   
+      temp += $2->c_str();  
+      temp += " "; 
       if (contains && temp != $2->c_str()){
         printf("%s", temp.c_str());
       } 
