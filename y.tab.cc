@@ -1374,8 +1374,8 @@ yyreduce:
       temp += (yyvsp[0].cpp_string)->c_str();  
       temp += " "; 
       if (contains && temp != (yyvsp[0].cpp_string)->c_str()){
-        std::string* arg = &temp;
-        printf("%s", temp.c_str()); 
+        std::string* arg = new string();
+        arg = &temp; 
         Command::_currentSimpleCommand->insertArgument(arg);
         temp.clear();
       } 
