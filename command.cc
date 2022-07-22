@@ -111,9 +111,16 @@ void Command::execute() {
         strcpy(result, temp);
         strcat(result, "=");
         strcat(result, _simpleCommands[0]->_arguments[2]->c_str());
-        printf("%s", result);
       }
     }
+  } else if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "unsetenv"){
+    for(char **env = environ; *env != 0; env++){
+      char * thisEnv = *env;
+      char * temp = strtok(thisEnv, "=");
+      if(!strcmp(_simpleCommands[0]->_arguments[1]->c_str(), temp)){
+        *env = null;
+      }
+    } 
   }
     // Don't do anything if there are no simple commands
   if ( _simpleCommands.size() == 0 ) {
