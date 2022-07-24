@@ -150,23 +150,29 @@ void Command::execute() {
     Shell::prompt();
     return;
   } else if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "unsetenv")){
-    for(char **env = environ; *env != 0; env++){
-      char * thisEnv = *env;
-      if(strstr(thisEnv, _simpleCommands[i]->_arguments[1]->c_str())){
-        strcpy(*env, "");
-      }
-    } 
-  } else if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")){
-    for(char **env = environ; *env != 0; env++){
-      char * thisEnv = *env;
-      printf("%s\n", thisEnv);
-    }
+    int error = unsetenv(_simpleCommands[i]->_arguments[1]);
+		if(error) {
+			perror("unsetenv");
+		}
+		clear();
+		prompt();
+    return;
+
   } else if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "cd")){
-    if (_simpleCommands[i]->_arguments[1] != NULL){
-      chdir(_simpleCommands[i]->_arguments[1]->c_str());
-    } else {
-      chdir(getenv("HOME"));
-    }
+    int error;
+		if(_simpleCommands[i]->_numOfArguments == 1){
+			error = chdir(getenv("HOME"));
+		} else {
+			error = chdir(_simpleCommands[i]->_arguments[1]);
+		}
+
+		if(error < 0){
+			perror("cd");
+		}
+
+		clear();
+		prompt();
+    return;
   }
     // redirect input 
     dup2(fdin, 0);
@@ -192,6 +198,11 @@ void Command::execute() {
     //create child process
     ret = fork();
     if (ret == 0) {
+      if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")){
+        for(char **env = environ; *env != 0; env++){
+        char * thisEnv = *env;
+        printf("%s\n", thisEnv);
+      }
       if(strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "source") == 0){
         FILE * fp = fopen(_simpleCommands[i]->_arguments[1]->c_str(), O_RDONLY);
         char line[1024];
