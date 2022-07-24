@@ -968,7 +968,7 @@ YY_RULE_SETUP
     temp++;
   }
   escape[i] = '\0';
-  yyval.string_val = strdup(escape);
+  yylval.string_val = strdup(escape);
   return WORD;
 }
 	YY_BREAK

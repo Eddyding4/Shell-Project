@@ -6,7 +6,59 @@
 #include "simpleCommand.hh"
 
 SimpleCommand::SimpleCommand() {
+
   _arguments = std::vector<std::string *>();
+}
+
+SimpleCommand::checkExpansion(char * arg) {
+  char * ptr = strdup(arg);
+  char * dollar = strchr(ptr, '$');
+  char * bracket = strchr(ptr, '{');
+  char * replace = (char *) malloc (sizeof(arg) + 100);
+  char * temp = replace;
+
+  if(dollar && bracket){
+    while(*ptr != '$'){
+      *temp = *ptr;
+      ptr++;
+      temp++;
+    }
+    *temp = '\0'
+    while(dollar){
+      if(dollar[1] == '{' && dollar[2] == '}'){
+        char * temp2 = dollar + 2;
+        char * env = (char * ) malloc (1024);
+        char * tempenv = env;
+        while(*temp2 != '}'){
+          *tempenv = *temp2;
+          tempenv++;
+          temp2++;
+        }
+        *tempenv = '\0';
+        char * get = getenv(env);
+        strcat(replace, get);
+
+        while(*(ptr - 1) != '}'){
+          ptr++;
+        }
+        char * buf = (char *) malloc (1024);
+        char * tempbuf = buf;
+
+        while(*ptr != '$' && *ptr){
+          *tempbuf = *ptr;
+          tempbuf++;
+          ptr++;
+        }
+        *tempbuf = '\0';
+        strcat(replace, buf);
+      }
+      dollar++;
+      dollar = strchr(dollar, '$');
+    }
+    arg = strdup(replace);
+    return arg;
+  }
+  return NULL;
 }
 
 SimpleCommand::~SimpleCommand() {
