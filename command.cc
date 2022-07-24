@@ -142,7 +142,7 @@ void Command::execute() {
   for ( unsigned int i = 0; i < _simpleCommands.size() ; i++ ) {
 
   if(!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv") ){
-    int error = setenv(_simpleCommands[i]->_arguments[1], _simpleCommands[i]->_arguments[2], 1);
+    int error = setenv(_simpleCommands[i]->_arguments[1]->c_str(), _simpleCommands[i]->_arguments[2]->c_str(), 1);
 		if(error) {
 			perror("setenv");
 		}
