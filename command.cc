@@ -239,7 +239,7 @@ void Command::execute() {
       waitpid(ret, 0, 0);
     }
   }
-  
+  }
  // Clear to prepare for next command
   clear();
 
