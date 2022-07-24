@@ -244,8 +244,7 @@ void Command::execute() {
         int i = 0;
         while (read(fdpipeout[0], &c, 1)){
           if (c != '\n'){
-            i++;
-            buf[i] = c;
+            buf[i++] = c;
           }
         }
         buf[i] = '\0';

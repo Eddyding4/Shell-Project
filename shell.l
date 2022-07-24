@@ -114,11 +114,9 @@ void myunputc(int c) {
 
   while(read(fdout[0], &c, 1)){
     if(c == '\n'){
-      i++;
-      buf[i] = ' ';
+      buf[i++] = ' ';
     } else {
-      i++;
-      buf[i] = c;
+      buf[i++] = c;
     }
   }
   buf[i] = '\0';
@@ -132,6 +130,23 @@ void myunputc(int c) {
   int i = 0;
   char * escape = (char *) malloc (1024);
   char * temp = yytext;
+
+  while(*temp){
+    if(*temp == '\\'){
+      if(*(temp + 1) == '\\'){
+        temp = temp + 2;
+        escape[i++] = '\\';
+      } else {
+        escape[i++] = *(++temp);
+      }
+    } else {
+      escape[i++] = *temp;
+    }
+    temp++;
+  }
+  escape[i] = '\0';
+  yyval.string_val = strdup(escape);
+  return WORD;
 }
 
 [^ \t\n][^ \t\n]*  {
