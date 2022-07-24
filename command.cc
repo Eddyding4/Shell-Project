@@ -258,7 +258,7 @@ void Command::execute() {
       perror("fork");
 	    exit(2);
     }
-  
+  }
    
     // restore in/out defaults
     dup2(tmpin, 0);
@@ -271,7 +271,6 @@ void Command::execute() {
     if (!_background) {
       waitpid(ret, 0, 0);
     }
-  }
   
  // Clear to prepare for next command
   clear();
