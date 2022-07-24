@@ -73,6 +73,12 @@ void myunputc(int c) {
   if(command[yyleng -2 ] == '`'){
     command[yyleng - 2] = '\0';
   }
+
+  int tmpin = dup(0);
+  int tmpout = dup(1);
+
+  int fdin[2];
+  int fdout[2];
 }
 
 [^ \t\n][^ \t\n]*  {
