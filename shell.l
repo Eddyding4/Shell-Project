@@ -128,6 +128,12 @@ void myunputc(int c) {
   }
 }
 
+[^ \t\n|><&]*\\[^ \t\n]* {
+  int i = 0;
+  char * escape = (char *) malloc (1024);
+  char * temp = yytext;
+}
+
 [^ \t\n][^ \t\n]*  {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
