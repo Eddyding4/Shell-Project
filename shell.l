@@ -113,71 +113,60 @@ void myunputc(int c) {
 	return WORD;
 }
 
-\$\([^\n\$]*\)|`[^\n`]*` {
-	//subshell
-	int i=0;
-	std::string * command = new std::string(yytext);
-	command->pop_back();
+`[^\n`]*` {
+	char * command = strdup(yytext+1);
 
-  if(strchr(command->c_str(), '`') != NULL){
-    command = new std::string(yytext + 1);
-    command->pop_back();
-  } else {
-    command = new std::string(yytext + 2);
-    command->pop_back();
-  }
+	if(command[yyleng-2] == '`')
+		command[yyleng-2] = '\0';
+	
+	int tmpin = dup(0);
+	int tmpout = dup(1);
 
-  int tmpin = dup(0);
-  int tmpout = dup(1);
+	int fdpipein[2];
+	int fdpipeout[2];
 
-  int fdin[2];
-  int fdout[2];
+	pipe(fdpipein);
+	pipe(fdpipeout);
 
-  pipe(fdin);
-  pipe(fdout);
+	write(fdpipein[1], command, strlen(command));
+	write(fdpipein[1], "\n", 1);
+	write(fdpipein[1], "exit", 4);
+	write(fdpipein[1], "\n", 1);
 
-  write(fdin[1], command->c_str(), command->size());
-  write(fdin[1], "\n", 1);
-  write(fdin[1], "exit", 4);
-  write(fdin[1], "\n", 1);
-  close(fdin[1]);
+	close(fdpipein[1]);
 
-  dup2(fdin[0], 0);
-  close(fdin[0]);
-  dup2(fdout[1], 1);
-  close(fdout[1]);
+	dup2(fdpipein[0], 0);
+	close(fdpipein[0]);
+	dup2(fdpipeout[1], 1);
+	close(fdpipeout[1]);
 
-  int ret = fork();
-  if(ret == 0){
-    execvp("/proc/self/exe", NULL);
-    exit(1);
-  } else if (ret < 0){
-    perror("fork");
-    exit(1);
-  }
+	int ret = fork();
+	if (ret == 0) {
+		execvp("/proc/self/exe", NULL);
+		_exit(1);
+	} else if (ret < 0) {
+		perror("fork");
+		exit(1);
+	}
 
-  //restore defaults
-  dup2(tmpin, 0);
-  dup2(tmpout, 1);
-  close(tmpin);
-  close(tmpout);
+	dup2(tmpin, 0);
+	dup2(tmpout, 1);
+	close(tmpin);
+	close(tmpout);
 
-  char c;
-  size_t size = 0;
-  i = 0;
+	char ch;
+	char * buffer = (char *) malloc (4096);
+	int i = 0;
+	
+	// Read from the pipe the output of the subshell
+	while (read(fdpipeout[0], &ch, 1)) {
+		if (ch == '\n') buffer[i++] = ' ';
+		else buffer[i++] = ch;
+	}
+	buffer[i] = '\0';
 
-  char * buf = new char[1024];
-  while(read(fdout[0], &c, 1)){
-    if(c == '\n' ){
-      buf[i++] = ' ';
-    } else {
-      buf[i++] = c;
-    }
-  }
-  buf[i] = '\0';
-  i = strlen(buf) - 1;
-  for (i ; i >= 0; i--) {
-		unput(buf[i]);
+	for (i = strlen(buffer); i >= 0; i--) {
+		unput(buffer[i]);
 	}
 }
 
