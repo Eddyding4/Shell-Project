@@ -74,6 +74,10 @@ void SimpleCommand::insertArgument( std::string * argument ) {
   // simply add the argument to the vector
   _arguments.push_back(argument);
   std::string * temp = expansion(argument);
+  if(temp){
+    argument = temp;
+  }
+  _arguments[arguments.size()] = argument;
 }
 
 // Print out the simple command
