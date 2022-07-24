@@ -258,11 +258,10 @@ void Command::execute() {
     // last simple command
 	    if(_outFile){
 	      if(_append){ // if append is true
-			  fdout = open(_errFile->c_str(), O_WRONLY | O_APPEND | O_CREAT, 0655);
+			    fdout = open(_outFile->c_str(), O_WRONLY | O_APPEND | O_CREAT, 0655);
+		    } else {
+			    fdout = open(_outFile->c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0655);
 		    }
-		    else {
-			  fdout = open(_errFile->c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0655);
-		}
 	    } else {
 	      fdout = dup(tmpout);
 	    }
