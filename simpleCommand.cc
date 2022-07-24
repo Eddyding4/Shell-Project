@@ -10,7 +10,7 @@ SimpleCommand::SimpleCommand() {
   _arguments = std::vector<std::string *>();
 }
 
-SimpleCommand::~checkExpansion(char * arg) {
+SimpleCommand::checkExpansion(char * arg) {
   char * ptr = strdup(arg);
   char * dollar = strchr(ptr, '$');
   char * bracket = strchr(ptr, '{');
@@ -23,7 +23,7 @@ SimpleCommand::~checkExpansion(char * arg) {
       ptr++;
       temp++;
     }
-    *temp = '\0'
+    *temp = '\0';
     while(dollar){
       if(dollar[1] == '{' && dollar[2] == '}'){
         char * temp2 = dollar + 2;
