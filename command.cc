@@ -200,7 +200,7 @@ void Command::execute() {
         FILE * fp = fopen(_simpleCommands[i]->_arguments[1]->c_str(), O_RDONLY);
         char line[1024];
         fgets(line, 1023, fp);
-        close(fp);
+        fclose(fp);
         int tmp2in = dup(0);
         int tmp2out = dup(1);
         int fdpipein[2];
@@ -219,7 +219,7 @@ void Command::execute() {
         close(fdpipeout[1]);
         int pid = fork();
         if(pid == 0){
-          execvp("/proc/self/exe", NULL);
+          execvp("/proc/self/exe");
           _exit(1);
         } else if (pid < 0) {
           perror("fork");
@@ -233,13 +233,13 @@ void Command::execute() {
         char c;
         char * buf = (char *) malloc(1000);
         int i = 0;
-        while (read(fdpipeout[0], &ch, 1)){
+        while (read(fdpipeout[0], &c, 1)){
           if (c != '\n'){
             i++;
             buf[i] = c;
           }
         }
-        buf = '\0';
+        buf[i] = '\0';
         printf("%s\n", buf);
       } else {
         char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
