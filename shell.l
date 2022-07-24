@@ -68,86 +68,37 @@ void myunputc(int c) {
   return NOTOKEN;
 }
 
-`[^\n`]*` {
-  char * command = strdup(yytext + 1);
-  if(command[yyleng -2 ] == '`'){
-    command[yyleng - 2] = '\0';
-  }
-
-  int tmpin = dup(0);
-  int tmpout = dup(1);
-
-  int fdin[2];
-  int fdout[2];
-  pipe(fdin);
-  pipe(fdout);
-
-  write(fdin[1], command, strlen(command));
-  write(fdin[1], "\n", 1);
-  write(fdin[1], "exit", 4);
-  write(fdin[1], "\n", 1);
-
-  close(fdin[1]);
-
-  dup2(fdin[0], 0);
-  close(fdin[0]);
-  dup2(fdout[1], 1);
-  close(fdout[1]);
-
-  int ret = fork();
-  if(ret == 0){
-    execvp("/proc/self/exe", NULL);
-    _exit(1);
-  } else if (ret < 0) {
-    perror("fork");
-    exit(1);
-  }
-
-  dup2(tmpin, 0);
-  dup2(tmpout, 1);
-  close(tmpin);
-  close(tmpout);
-
-  char c;
-  char * buf = (char *) malloc (1024);
-  int i = 0;
-
-  while(read(fdout[0], &c, 1)){
-    if(c == '\n'){
-      buf[i++] = ' ';
-    } else {
-      buf[i++] = c;
-    }
-  }
-  buf[i] = '\0';
-  
-  for(i = strlen(buf); i >=0; i--){
-    unput(buf[1]);
-  }
+source {
+  BEGIN(src);
 }
 
-[^ \t\n|><&]*\\[^ \t\n]* {
-  int i = 0;
-  char * escape = (char *) malloc (1024);
-  char * temp = yytext;
 
-  while(*temp){
-    if(*temp == '\\'){
-      if(*(temp + 1) == '\\'){
-        temp = temp + 2;
-        escape[i++] = '\\';
-      } else {
-        escape[i++] = *(++temp);
-      }
-    } else {
-      escape[i++] = *temp;
+
+~[^ \n\t]* {
+  std::string str = std::string(yytext);
+  std::string home = getenv("HOME");
+  if (str.size() == 1) {
+    yylval.cpp_string = new std::string(home);
+  } 
+  else {
+    if (str[1] == '/') {
+      str = home + str.substr(1, -1);
+    } 
+    else {
+      str = std::string("/homes/") + str.substr(1,-1);
     }
-    temp++;
+    yylval.cpp_string = new std::string(str);
   }
-  escape[i] = '\0';
-  yylval.string_val = strdup(escape);
   return WORD;
 }
+
+\"[^\n\"]*\" {
+  std::string str = std::string(yytext);
+  str = str.substr(1,str.size()-2);
+  yylval.cpp_string = new std::string(str);
+  return WORD;
+}
+
 
 [^ \t\n][^ \t\n]*  {
   /* Assume that file names have only alpha chars */
