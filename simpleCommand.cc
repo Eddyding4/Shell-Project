@@ -57,7 +57,7 @@ std::string * SimpleCommand::expansion(std::string * arg) {
     }
     char * str = strdup(replace);
     std::string string = std::string(str);
-    return string;
+    return *string;
   }
   return NULL;
 }
