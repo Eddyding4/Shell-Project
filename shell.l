@@ -66,7 +66,7 @@ void myunputc(int c) {
   return STANDARDERR;
 }
 
-[^ \t\n|><&]*\\[^ \t\n]* {
+[^ \t\n|><&]*\\[^ \t\n|><&]* {
   //escape
 	int i=0;
 	char * escChar;
