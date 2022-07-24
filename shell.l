@@ -68,6 +68,13 @@ void myunputc(int c) {
   return NOTOKEN;
 }
 
+`[^\n`]*` {
+  char * command = strdup(yytext + 1);
+  if(command[yyleng -2 ] == '`'){
+    command[yyleng - 2] = '\0';
+  }
+}
+
 [^ \t\n][^ \t\n]*  {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
