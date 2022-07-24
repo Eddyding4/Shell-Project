@@ -20,6 +20,7 @@ SimpleCommand::~SimpleCommand() {
 void SimpleCommand::insertArgument( std::string * argument ) {
   // simply add the argument to the vector
   _arguments.push_back(argument);
+  
 }
 
 // Print out the simple command

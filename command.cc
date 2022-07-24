@@ -140,7 +140,9 @@ void Command::execute() {
   }
   dup2(fderr, 2);
   for ( unsigned int i = 0; i < _simpleCommands.size() ; i++ ) {
-
+    // redirect input 
+    dup2(fdin, 0);
+    close(fdin);
   if(!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv") ){
     int error = setenv(_simpleCommands[i]->_arguments[1]->c_str(), _simpleCommands[i]->_arguments[2]->c_str(), 1);
 		if(error) {
@@ -174,38 +176,7 @@ void Command::execute() {
 		Shell::prompt();
     return;
   }
-    // redirect input 
-    dup2(fdin, 0);
-    close(fdin);
-       
-    // setup output
-    if( i == _simpleCommands.size() - 1 ){
-    // last simple command
-	    if(_outFile){
-	      fdout = open(_outFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
-	    } else {
-	      fdout = dup(tmpout);
-	    }
-    } else {
-	// not last simple command create pipe
-	  int fdpipe[2];
-    pipe(fdpipe);
-	  fdout = fdpipe[1];
-	  fdin = fdpipe[0];
-    } 
-    dup2(fdout, 1);
-    close(fdout);
-    //create child process
-    ret = fork();
-    if (ret == 0) {
-      if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")){
-        char ** env = environ;
-				while(*env){
-					printf("%s\n", *env);
-					env++;
-				}
-      }
-      if(strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "source") == 0){
+  if(strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "source") == 0){
         FILE * fp = fopen(_simpleCommands[i]->_arguments[1]->c_str(), O_RDONLY);
         char line[1024];
         fgets(line, 1023, fp);
@@ -252,7 +223,35 @@ void Command::execute() {
         clear();
         Shell::prompt();
         return;
-      } else {
+
+       
+    // setup output
+    if( i == _simpleCommands.size() - 1 ){
+    // last simple command
+	    if(_outFile){
+	      fdout = open(_outFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
+	    } else {
+	      fdout = dup(tmpout);
+	    }
+    } else {
+	// not last simple command create pipe
+	  int fdpipe[2];
+    pipe(fdpipe);
+	  fdout = fdpipe[1];
+	  fdin = fdpipe[0];
+    } 
+    dup2(fdout, 1);
+    close(fdout);
+    //create child process
+    ret = fork();
+    if (ret == 0) {
+      if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")){
+        char ** env = environ;
+				while(*env){
+					printf("%s\n", *env);
+					env++;
+				}
+      }
         char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
 	      for ( unsigned int j = 0; j < _simpleCommands[i]->_arguments.size(); j++ ) {
 
