@@ -66,10 +66,6 @@ void myunputc(int c) {
   return STANDARDERR;
 }
 
-. {
-  return NOTOKEN;
-}
-
 [^ \t\n|><&]*\\[^ \t\n]* {
   //escape
 	int i=0;
@@ -118,12 +114,12 @@ void myunputc(int c) {
 	cmd->pop_back();
 
 	// string check
-	if (strchr(cmd->c_str(), '`') != NULL) { // if `...`
+	if (strchr(cmd->c_str(), '`') != NULL) { 
 		cmd = new std::string(yytext+1);
 		cmd->pop_back();
 	}
 	else {
-		cmd = new std::string(yytext+2);  // if $(...)
+		cmd = new std::string(yytext+2);  
 		cmd->pop_back();
 	}
 
