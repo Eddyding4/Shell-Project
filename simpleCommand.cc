@@ -10,7 +10,7 @@ SimpleCommand::SimpleCommand() {
   _arguments = std::vector<std::string *>();
 }
 
-char * SimpleCommand::expansion(char * arg) {
+std::string * SimpleCommand::expansion(std::string * arg) {
   char * ptr = strdup(arg);
   char * dollar = strchr(ptr, '$');
   char * bracket = strchr(ptr, '{');
@@ -71,6 +71,7 @@ SimpleCommand::~SimpleCommand() {
 void SimpleCommand::insertArgument( std::string * argument ) {
   // simply add the argument to the vector
   _arguments.push_back(argument);
+  char * temp = expansion(argument)
 }
 
 // Print out the simple command

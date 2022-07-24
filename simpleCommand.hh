@@ -13,8 +13,8 @@ struct SimpleCommand {
   ~SimpleCommand();
   void insertArgument( std::string * argument );
   void print();
-  char * expansion(char * arg);
-  char * tilde(char * arg);
+  std::string * expansion(std::string * arg);
+  std::string * tilde(std::string * arg);
 };
 
 #endif
