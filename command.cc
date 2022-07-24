@@ -102,7 +102,10 @@ void Command::print() {
 }
 
 void Command::execute() {
- 
+  if(strcmp(_simpleCommands[i]->_arguments[0]->c_str(),"exit") == 0){
+		printf("Good bye!!\n");
+		exit(1);
+	}
 
     // Don't do anything if there are no simple commands
   if ( _simpleCommands.size() == 0 ) {
@@ -138,7 +141,37 @@ void Command::execute() {
   }
   dup2(fderr, 2);
   for ( unsigned int i = 0; i < _simpleCommands.size() ; i++ ) {
-   
+
+  if(!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv") ){
+    for(char **env = environ; *env != 0; env++){
+      char * thisEnv = *env;
+      if(strstr(thisEnv, _simpleCommands[i]->_arguments[1]->c_str())){
+        char * temp = strtok(thisEnv, "=");
+        char result [100]; 
+        strcpy(result, temp);
+        strcat(result, "=");
+        strcat(result, _simpleCommands[i]->_arguments[2]->c_str());
+        strcpy(*env, result);
+      }
+    }
+  } else if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "unsetenv")){
+    for(char **env = environ; *env != 0; env++){
+      char * thisEnv = *env;
+      if(strstr(thisEnv, _simpleCommands[i]->_arguments[1]->c_str())){
+        strcpy(*env, "");
+      }
+    } 
+  } else if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")){
+    for(char **env = environ; *env != 0; env++){
+      char * thisEnv = *env;
+      printf("%s\n", thisEnv);
+    }
+  } else if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "cd")){
+    if (_simpleCommands[i]->_arguments[1] != NULL){
+      chdir(_simpleCommands[i]->_arguments[1]->c_str());
+    } else {
+      chdir(getenv("HOME"));
+    }
     // redirect input 
     dup2(fdin, 0);
     close(fdin);
