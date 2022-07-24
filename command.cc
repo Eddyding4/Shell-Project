@@ -230,7 +230,7 @@ void Command::execute() {
         close(tmp2out);
 
         char c;
-        char * buf = (char *) malloc(200);
+        char * buf = (char *) malloc(1024);
         int i = 0;
         while (read(fdpipeout[0], &c, 1)){
           if (c != '\n'){

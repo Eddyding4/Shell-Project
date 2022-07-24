@@ -102,6 +102,16 @@ void myunputc(int c) {
     perror("fork");
     exit(1);
   }
+
+  dup2(tmpin, 0);
+  dup2(tmpout, 1);
+  close(tmpin);
+  close(tmpout);
+
+  char c;
+  char * buf = (char *) malloc (1024);
+  int i = 0;
+  
 }
 
 [^ \t\n][^ \t\n]*  {
