@@ -199,10 +199,11 @@ void Command::execute() {
     ret = fork();
     if (ret == 0) {
       if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")){
-        for(char **env = environ; *env != 0; env++){
-        char * thisEnv = *env;
-        printf("%s\n", thisEnv);
-        } 
+        char ** env = environ;
+				while(*env){
+					printf("%s\n", *env);
+					env++;
+				}
       }
       if(strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "source") == 0){
         FILE * fp = fopen(_simpleCommands[i]->_arguments[1]->c_str(), O_RDONLY);
