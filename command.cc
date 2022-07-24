@@ -155,7 +155,7 @@ void Command::execute() {
 			perror("unsetenv");
 		}
 		clear();
-		prompt();
+		Shell::prompt();
     return;
 
   } else if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "cd")){
@@ -171,7 +171,7 @@ void Command::execute() {
 		}
 
 		clear();
-		prompt();
+		Shell::prompt();
     return;
   }
     // redirect input 
