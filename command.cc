@@ -144,8 +144,12 @@ void Command::execute() {
   int fdout;
   int fderr;
   if(_errFile){
-    fderr = open(_errFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
-
+    if(_append){
+			fderr = open(_errFile->c_str(), O_WRONLY | O_APPEND | O_CREAT, 0655);
+		}
+		else {
+			fderr = open(_errFile->c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0655);
+		}
   } else {
     fderr = dup(tmperr);
   }
@@ -253,7 +257,12 @@ void Command::execute() {
     if( i == _simpleCommands.size() - 1 ){
     // last simple command
 	    if(_outFile){
-	      fdout = open(_outFile->c_str(), O_WRONLY|O_CREAT|O_TRUNC, 0664);
+	      if(_append){ // if append is true
+			  fdout = open(_errFile->c_str(), O_WRONLY | O_APPEND | O_CREAT, 0655);
+		    }
+		    else {
+			  fdout = open(_errFile->c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0655);
+		}
 	    } else {
 	      fdout = dup(tmpout);
 	    }
