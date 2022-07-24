@@ -19,12 +19,11 @@ extern "C" void dis(int sig){
   }
 }
 void Shell::prompt() {
-  if ( isatty(0) ) {
+  /*if ( isatty(0) ) {
     printf("myshell>");
     fflush(stdout);
-  }
-
-
+  }*/
+  fflush(stdout);
 }
 
 
