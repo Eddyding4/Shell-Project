@@ -102,6 +102,10 @@ void Command::print() {
 }
 
 void Command::execute() {
+  if(strcmp(_simpleCommands[0]->_arguments[0],"exit") == 0){
+		printf("Good bye!!\n");
+		exit(1);
+	}
   if(!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "setenv") ){
     for(char **env = environ; *env != 0; env++){
       char * thisEnv = *env;
