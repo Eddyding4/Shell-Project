@@ -86,6 +86,22 @@ void myunputc(int c) {
   write(fdin[1], "\n", 1);
   write(fdin[1], "exit", 4);
   write(fdin[1], "\n", 1);
+
+  close(fdin[1]);
+
+  dup2(fdin[0], 0);
+  close(fdin[0]);
+  dup2(fdout[1], 1);
+  close(fdout[1]);
+
+  int ret = fork();
+  if(ret == 0){
+    execvp("/proc/self/exe", NULL);
+    _exit(1);
+  } else if (ret < 0) {
+    perror("fork");
+    exit(1);
+  }
 }
 
 [^ \t\n][^ \t\n]*  {
