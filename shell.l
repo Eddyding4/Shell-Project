@@ -143,35 +143,37 @@ void myunputc(int c) {
 	}
 }
 
-["][^\n\"]*["] { 
-	yylval.string_val = strdup(yytext+1);
+["][^\n\"]*["] {
+	
+	yylval.cpp_string = new std::string(yytext);
+	*yylval.cpp_string = yylval.cpp_string->substr(1, yylval.cpp_string->length()-2);
 
-    if (yylval.string_val[yyleng-2] == '"')
-		yylval.string_val[yyleng-2] = 0;
+	/*printf("after dequote, string = %s\n",yylval.cpp_string);*/
 	return WORD;
-} 
+}
 
 [^ \t\n|><&]*\\[^ \t\n]* {
+
+	char * str = strdup(yytext);
+	char * newstr = (char*) malloc (100);
+	//printf("before deescaping, string = %s\n", str);
+
 	int i = 0;
-	char * escape = (char *)malloc(200);
-	char * temp = yytext;
-
-	while(*temp){
-		if (*temp == '\\'){
-			if(*(temp+1) == '\\'){
-				temp = temp + 2;
-				escape[i++] = '\\';
-			} else {
-				escape[i++] = *(++temp);
-			} 
-		} else {
-			escape[i++] = *temp;
+	while (*str){
+		if (*str == '\\'){
+			if (*(str+1) == '\\'){
+				str = str +2;
+				newstr[i++] = '\\';
+			}else{
+				newstr[i++] = *(++str);
+			}
+		}else{
+			newstr[i++] = *str;
 		}
-		temp++;
+		str++;
 	}
-
-	escape[i] = '\0';
-	yylval.string_val = strdup(escape);
+	newstr[i] = '\0';
+	yylval.cpp_string = new std::string(newstr);
 	return WORD;
 }
 
