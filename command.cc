@@ -271,7 +271,7 @@ void Command::execute() {
     if (!_background) {
       waitpid(ret, 0, 0);
     }
-  
+  }
   
  // Clear to prepare for next command
   clear();
@@ -281,6 +281,5 @@ void Command::execute() {
     Shell::prompt();
   }*/
   Shell::prompt();
-}
 }
 SimpleCommand * Command::_currentSimpleCommand;
