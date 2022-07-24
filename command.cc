@@ -221,17 +221,13 @@ void Command::execute() {
         write(fdpipein[1], line, strlen(line));
         write(fdpipein[1], "\n", 1);
 
-        close(fdpipein[1]);
         dup2(fdpipein[0], 0);
         close(fdpipein[0]);
         dup2(fdpipeout[1], 1);
         close(fdpipeout[1]);
         int pid = fork();
         if(pid == 0){
-          char ** args = new char*[2];
-          args[0] = (char*)"/proc/self/exe";
-          args[1] = NULL;
-          execvp(args[0], args);
+          execvp("/proc/self/exe", NULL);
           exit(1);
         } else if (pid < 0) {
           perror("fork");
@@ -252,6 +248,10 @@ void Command::execute() {
         }
         buf[i] = '\0';
         printf("%s\n", buf);
+        fflush(stdout);
+        clear();
+        Shell::prompt();
+        return;
       } else {
         char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
 	      for ( unsigned int j = 0; j < _simpleCommands[i]->_arguments.size(); j++ ) {
