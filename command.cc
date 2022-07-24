@@ -196,17 +196,64 @@ void Command::execute() {
     //create child process
     ret = fork();
     if (ret == 0) {
-      char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
-	    for ( unsigned int j = 0; j < _simpleCommands[i]->_arguments.size(); j++ ) {
+      if(strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "source") == 0){
+        FILE * fp = fopen(_simpleCommands[i]->arguments[1]->c_str(), RD_ONLY);
+        char line[1024];
+        fgets(line, 1023, fp);
+        close(fp);
+        int tmp2in = dup(0);
+        int tmp2out = dup(1);
+        int fdpipein[2];
+        int fdpipeout[2];
 
-	      myargv[j] = strdup(_simpleCommands[i]->_arguments[j]->c_str());
-	    }
-	    myargv[_simpleCommands[i]->_arguments.size()] = NULL;
+        pipe(fdpipein);
+        pipe(fdpipeout);
+
+        write(fdpipein[1], line, strlen(line));
+        write(fdpipein[1], "\n", 1);
+
+        close(fdpipein[1]);
+        dup2(fdpipein[0], 0);
+        close(fdpipein[0]);
+        dup2(fdpipeout[1], 1);
+        close(fdpipeout[1]);
+        int pid = fork();
+        if(pid == 0){
+          exevcp("/proc/self/exe", NULL);
+          _exit(1);
+        } else if (pid < 0) {
+          perror("fork");
+          exit(2);
+        }
+        dup2(tmp2in, 0);
+        dup2(tmp2out, 1);
+        close(tmp2in);
+        close(tmp2out);
+
+        char c;
+        char * buff = (char *) malloc(1000);
+        int i = 0;
+        while (read(fdpipeout[0], &ch, 1)){
+          if (c != '\n'){
+            i++;
+            buf[i] = c;
+          }
+        }
+        buf = '\0';
+        printf("%s\n", buffer);
+      } else {
+        char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
+	      for ( unsigned int j = 0; j < _simpleCommands[i]->_arguments.size(); j++ ) {
+
+	        myargv[j] = strdup(_simpleCommands[i]->_arguments[j]->c_str());
+	      }
+	      myargv[_simpleCommands[i]->_arguments.size()] = NULL;
         
-	    execvp(myargv[0], myargv);
+	      execvp(myargv[0], myargv);
         	
-	    perror("execvp");
-	    exit(1);	
+	      perror("execvp");
+	      exit(1);	
+      }
     }
     else if (ret < 0) {
       perror("fork");
