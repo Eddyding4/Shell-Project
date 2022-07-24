@@ -56,9 +56,9 @@ std::string * SimpleCommand::expansion(std::string * arg) {
       dollar = strchr(dollar, '$');
     }
     char * str = strdup(replace);
-    std::string * string = * (std::string(str));
+    arg = std::string*(str);
     
-    return string;
+    return arg;
   }
   return NULL;
 }
