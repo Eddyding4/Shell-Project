@@ -223,7 +223,7 @@ void Command::execute() {
         clear();
         Shell::prompt();
         return;
-
+    }
        
     // setup output
     if( i == _simpleCommands.size() - 1 ){
@@ -262,8 +262,7 @@ void Command::execute() {
 	      execvp(myargv[0], myargv);
         	
 	      perror("execvp");
-	      exit(1);	
-        } 
+	      exit(1);	 
       } else if (ret < 0) {
       perror("fork");
 	    exit(2);
