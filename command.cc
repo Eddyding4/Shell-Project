@@ -211,13 +211,13 @@ void Command::execute() {
 
         char c;
         char * buf = (char *) malloc(1024);
-        int i = 0;
+        int j = 0;
         while (read(fdpipeout[0], &c, 1)){
           if (c != '\n'){
-            buf[i++] = c;
+            buf[j++] = c;
           }
         }
-        buf[i] = '\0';
+        buf[j] = '\0';
         printf("%s\n", buf);
         fflush(stdout);
         clear();
