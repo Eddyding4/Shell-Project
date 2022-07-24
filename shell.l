@@ -68,12 +68,6 @@ void myunputc(int c) {
   return NOTOKEN;
 }
 
-source {
-  BEGIN(src);
-}
-
-
-
 ~[^ \n\t]* {
   std::string str = std::string(yytext);
   std::string home = getenv("HOME");

@@ -14,7 +14,6 @@ struct SimpleCommand {
   void insertArgument( std::string * argument );
   void print();
   std::string * expansion(std::string * arg);
-  std::string * tilde(std::string * arg);
 };
 
 #endif
