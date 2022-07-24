@@ -11,7 +11,7 @@ SimpleCommand::SimpleCommand() {
 }
 
 std::string * SimpleCommand::expansion(std::string * arg) {
-  char * ptr = strdup(arg);
+  char * ptr = strdup(arg->c_str());
   char * dollar = strchr(ptr, '$');
   char * bracket = strchr(ptr, '{');
   char * replace = (char *) malloc (sizeof(arg) + 100);
