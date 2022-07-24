@@ -56,8 +56,8 @@ std::string * SimpleCommand::expansion(std::string * arg) {
       dollar = strchr(dollar, '$');
     }
     char * str = strdup(replace);
-    arg = &(std::string(str));
-    
+    std::string result = std::string(str);
+    arg = &result;
     return arg;
   }
   return NULL;
@@ -73,7 +73,7 @@ SimpleCommand::~SimpleCommand() {
 void SimpleCommand::insertArgument( std::string * argument ) {
   // simply add the argument to the vector
   _arguments.push_back(argument);
-  std::string * temp = expansion(argument)
+  std::string * temp = expansion(argument);
 }
 
 // Print out the simple command
