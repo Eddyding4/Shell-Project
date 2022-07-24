@@ -122,6 +122,10 @@ void myunputc(int c) {
     }
   }
   buf[i] = '\0';
+  
+  for(i = strlen(buf); i >=0; i--){
+    unput(buf[1]);
+  }
 }
 
 [^ \t\n][^ \t\n]*  {
