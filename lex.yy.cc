@@ -990,44 +990,46 @@ YY_RULE_SETUP
 case 14:
 YY_RULE_SETUP
 #line 146 "shell.l"
-{ 
-	yylval.string_val = strdup(yytext+1);
+{
+	
+	yylval.cpp_string = new std::string(yytext);
+	*yylval.cpp_string = yylval.cpp_string->substr(1, yylval.cpp_string->length()-2);
 
-    if (yylval.string_val[yyleng-2] == '"')
-		yylval.string_val[yyleng-2] = 0;
+	/*printf("after dequote, string = %s\n",yylval.cpp_string);*/
 	return WORD;
-} 
+}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 154 "shell.l"
+#line 155 "shell.l"
 {
+
+	char * str = strdup(yytext);
+	char * newstr = (char*) malloc (100);
+	//printf("before deescaping, string = %s\n", str);
+
 	int i = 0;
-	char * escape = (char *)malloc(200);
-	char * temp = yytext;
-
-	while(*temp){
-		if (*temp == '\\'){
-			if(*(temp+1) == '\\'){
-				temp = temp + 2;
-				escape[i++] = '\\';
-			} else {
-				escape[i++] = *(++temp);
-			} 
-		} else {
-			escape[i++] = *temp;
+	while (*str){
+		if (*str == '\\'){
+			if (*(str+1) == '\\'){
+				str = str +2;
+				newstr[i++] = '\\';
+			}else{
+				newstr[i++] = *(++str);
+			}
+		}else{
+			newstr[i++] = *str;
 		}
-		temp++;
+		str++;
 	}
-
-	escape[i] = '\0';
-	yylval.string_val = strdup(escape);
+	newstr[i] = '\0';
+	yylval.cpp_string = new std::string(newstr);
 	return WORD;
 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 178 "shell.l"
+#line 180 "shell.l"
 {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
@@ -1036,10 +1038,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 186 "shell.l"
+#line 188 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1043 "lex.yy.cc"
+#line 1045 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2056,6 +2058,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 186 "shell.l"
+#line 188 "shell.l"
 
 

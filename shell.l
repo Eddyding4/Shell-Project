@@ -144,7 +144,7 @@ void myunputc(int c) {
 }
 
 ["][^\n\"]*["] {
-	
+	//quotes
 	yylval.cpp_string = new std::string(yytext);
 	*yylval.cpp_string = yylval.cpp_string->substr(1, yylval.cpp_string->length()-2);
 
@@ -152,8 +152,10 @@ void myunputc(int c) {
 	return WORD;
 }
 
-[^ \t\n|><&]*\\[^ \t\n]* {
 
+
+[^ \t\n|><&]*\\[^ \t\n]* {
+  //escape
 	char * str = strdup(yytext);
 	char * newstr = (char*) malloc (100);
 	//printf("before deescaping, string = %s\n", str);
@@ -175,6 +177,30 @@ void myunputc(int c) {
 	newstr[i] = '\0';
 	yylval.cpp_string = new std::string(newstr);
 	return WORD;
+}
+
+$\{[^ \}\n]*\}([^ \n]*|$\{[^ \}\n]*\})* {
+  //dollar sign
+  std::string str = std::string(yytext);
+  std::string result = "";
+  std::size_t found = str.find('$');
+  while(found!=-1) {
+    std::string component;
+    result += str.substr(0, found);
+    if (str[found+1] == '{') {
+      std::size_t end = str.find('}');
+      if (end != -1) {
+        component = str.substr(found+2, end-found-2);
+        if (getenv(component.c_str())) result += getenv(component.c_str());
+        else result += component;      
+        str = str.substr(end+1,-1);
+      }
+    }
+    found = str.find('$');
+  }
+  result += str;
+  yylval.cpp_string = new std::string(result);
+  return WORD;
 }
 
 [^ \t\n][^ \t\n]*  {
