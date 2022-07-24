@@ -40,6 +40,8 @@ Command::Command() {
     _inFile = NULL;
     _errFile = NULL;
     _background = false;
+    _append = false;
+    _count = 0;
 }
 
 void Command::insertSimpleCommand( SimpleCommand * simpleCommand ) {
@@ -75,6 +77,7 @@ void Command::clear() {
     _errFile = NULL;
     _append = false;
     _background = false;
+    _count = 0;
 }
 
 void Command::print() {
@@ -104,6 +107,12 @@ void Command::print() {
 }
 
 void Command::execute() {
+  if (_count > 1) {
+		printf("Ambiguous output redirect.\n");
+		clear();
+		Shell::prompt();
+		return;
+	}
   if(strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "exit") == 0){
     printf("Good Bye!!\n");
     _exit(1);

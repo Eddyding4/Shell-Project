@@ -76,32 +76,30 @@ pipe_list:
 io_modifier:
   GREATGREAT WORD {
     Shell::_currentCommand._append = true;
-    //printf(" Yacc: insert output \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._count++;
     Shell::_currentCommand._outFile = $2;
   }
   | GREAT WORD {
-    //printf(" Yacc: insert output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
+    Shell::_currentCommand._count++;
   }
   | GREATGREATAMPERSAND WORD {
     Shell::_currentCommand._append = true;
-    //printf(" Yacc: insert output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
-    //printf(" Yacc: insert error \"%s\"\n", $2->c_str());
     Shell::_currentCommand._errFile = $2;
+    Shell::_currentCommand._count++;
   }
   | GREATAMPERSAND WORD {
-    //printf(" Yacc: insert output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
-    //printf(" Yacc: insert error \"%s\"\n", $2->c_str());
     Shell::_currentCommand._errFile = $2;
+    Shell::_currentCommand._count++;
   }
   | LESS WORD {
-    //printf(" Yacc: insert input \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._count++;
     Shell::_currentCommand._inFile = $2;
   }
   | STANDARDERR WORD {
-    //printf(" Yacc: insert error \"%s\"\n", $2->c_str());
+    Shell::_currentCommand._count++;
     Shell::_currentCommand._errFile = $2;
   } 
   ;
