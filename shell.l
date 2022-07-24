@@ -11,6 +11,8 @@
 
 #include <cstring>
 #include "y.tab.hh"
+#include <sys/wait.h>
+#include <sys/types.h>
 
 static  void yyunput (int c,char *buf_ptr  );
 
@@ -250,8 +252,8 @@ $\{[^ \}\n]*\}([^ \n]*|$\{[^ \}\n]*\})* {
   
     int BUFSIZE = 1024;
     char* c = new char[BUFSIZE];
-    int rd = read(pout[0], c, BUFSIZE);
-    close(pout[0]);
+    int rd = read(fdout[0], c, BUFSIZE);
+    close(fdout[0]);
     for (int i = rd - 12; i >= 0; --i ) {
       if (c[i] == '\n') {
         c[i] = '\t';
