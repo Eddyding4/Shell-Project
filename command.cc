@@ -219,7 +219,7 @@ void Command::execute() {
         close(fdpipeout[1]);
         int pid = fork();
         if(pid == 0){
-          execvp("/proc/self/exe");
+          execvp("/proc/self/exe", NULL);
           _exit(1);
         } else if (pid < 0) {
           perror("fork");
