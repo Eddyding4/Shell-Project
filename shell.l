@@ -127,11 +127,6 @@ void myunputc(int c) {
 		cmd->pop_back();
 	}
 
-	char * command = cmd->c_str());
-
-	if(command[yyleng-2] == '`')
-		command[yyleng-2] = '\0';
-	
 	int tmpin = dup(0);
 	int tmpout = dup(1);
 
@@ -141,7 +136,7 @@ void myunputc(int c) {
 	pipe(fdpipein);
 	pipe(fdpipeout);
 
-	write(fdpipein[1], command, strlen(command));
+	write(fdpipein[1], cmd->c_str(), cmd->size());
 	write(fdpipein[1], "\n", 1);
 	write(fdpipein[1], "exit", 4);
 	write(fdpipein[1], "\n", 1);
