@@ -231,7 +231,7 @@ void Command::execute() {
         close(tmp2out);
 
         char c;
-        char * buff = (char *) malloc(1000);
+        char * buf = (char *) malloc(1000);
         int i = 0;
         while (read(fdpipeout[0], &ch, 1)){
           if (c != '\n'){
@@ -240,7 +240,7 @@ void Command::execute() {
           }
         }
         buf = '\0';
-        printf("%s\n", buffer);
+        printf("%s\n", buf);
       } else {
         char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
 	      for ( unsigned int j = 0; j < _simpleCommands[i]->_arguments.size(); j++ ) {
