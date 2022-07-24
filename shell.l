@@ -93,6 +93,39 @@ void myunputc(int c) {
   return WORD;
 }
 
+[^ \\\t\n]*(\\[^nt])((\\[^nt])|[^ \\\t\n])* {
+  std::string str = std::string(yytext);
+  std::size_t found = str.find('\\');
+  while(found!=-1) {
+    str = str.substr(0,found) + str.substr(found+1,std::string::npos);
+    found = str.find('\\', found+1);
+  }
+  yylval.cpp_string = new std::string(str);
+  return WORD;
+}
+
+$\{[^ \}\n]*\}([^ \n]*|$\{[^ \}\n]*\})* {
+  std::string str = std::string(yytext);
+  std::string result = "";
+  std::size_t found = str.find('$');
+  while(found!=-1) {
+    std::string component;
+    result += str.substr(0, found);
+    if (str[found+1] == '{') {
+      std::size_t end = str.find('}');
+      if (end != -1) {
+        component = str.substr(found+2, end-found-2);
+        if (getenv(component.c_str())) result += getenv(component.c_str());
+        else result += component;      
+        str = str.substr(end+1,-1);
+      }
+    }
+    found = str.find('$');
+  }
+  result += str;
+  yylval.cpp_string = new std::string(result);
+  return WORD;
+}
 
 [^ \t\n][^ \t\n]*  {
   /* Assume that file names have only alpha chars */
