@@ -177,52 +177,65 @@ void Command::execute() {
     return;
   }
   if(strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "source") == 0){
-        FILE * fp = fopen(_simpleCommands[i]->_arguments[1]->c_str(), O_RDONLY);
-        char line[1024];
-        fgets(line, 1023, fp);
-        fclose(fp);
-        int tmp2in = dup(0);
-        int tmp2out = dup(1);
-        int fdpipein[2];
-        int fdpipeout[2];
+    std::string cmd;
+		std::ifstream fd;
 
-        pipe(fdpipein);
-        pipe(fdpipeout);
+		fd.open(_simpleCommands[i]->_arguments[1]->c_str());
 
-        write(fdpipein[1], line, strlen(line));
-        write(fdpipein[1], "\n", 1);
+		std::getline(fd, cmd);
+		fd.close();
 
-        dup2(fdpipein[0], 0);
-        close(fdpipein[0]);
-        dup2(fdpipeout[1], 1);
-        close(fdpipeout[1]);
-        int pid = fork();
-        if(pid == 0){
-          execvp("/proc/self/exe", NULL);
-          exit(1);
-        } else if (pid < 0) {
-          perror("fork");
-          exit(2);
-        }
-        dup2(tmp2in, 0);
-        dup2(tmp2out, 1);
-        close(tmp2in);
-        close(tmp2out);
+		// save in/out
+		int tmpin=dup(0);
+		int tmpout=dup(1);
 
-        char c;
-        char * buf = (char *) malloc(1024);
-        int j = 0;
-        while (read(fdpipeout[0], &c, 1)){
-          if (c != '\n'){
-            buf[j++] = c;
-          }
-        }
-        buf[j] = '\0';
-        printf("%s\n", buf);
-        fflush(stdout);
-        clear();
-        Shell::prompt();
-        return;
+		// input command
+		int fdpipein[2];
+		pipe(fdpipein);
+		write(fdpipein[1], cmd.c_str(), strlen(cmd.c_str()));
+		write(fdpipein[1], "\n", 1);
+
+		close(fdpipein[1]);
+
+		int fdpipeout[2];
+		pipe(fdpipeout);
+
+		dup2(fdpipein[0], 0);
+		close(fdpipein[0]);
+		dup2(fdpipeout[1], 1);
+		close(fdpipeout[1]);
+
+		int ret_source = fork();
+		if (ret_source == 0) {
+			execvp("/proc/self/exe", NULL);
+			exit(1);
+		} else if (ret < 0) {
+			perror("fork");
+			exit(1);
+	 }
+
+		dup2(tmpin, 0);
+		dup2(tmpout, 1);
+		close(tmpin);
+		close(tmpout);	
+
+		char ch;
+		char * buffer = new char[i];
+	 int r = 0;
+
+				// read output 
+		while (read(fdpipeout[0], &ch, 1)) {
+			//if (ch == '\n' ? buffer[i++] = '\n' : buffer[i++] = ch) {};
+			if (ch != '\n')  buffer[r++] = ch;
+		}
+
+		buffer[r] = '\0';
+		printf("%s\n",buffer);
+
+		fflush(stdout);
+    clear();
+		Shell::prompt();
+		return;
     }
        
     // setup output
