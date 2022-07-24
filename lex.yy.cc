@@ -1039,7 +1039,7 @@ YY_RULE_SETUP
     }
   }
   buf[i] = '\0';
-  i = strlen(buf) - 1
+  i = strlen(buf) - 1;
   for (i ; i >= 0; i--) {
 		unput(buffer[i]);
 	}
