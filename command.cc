@@ -150,7 +150,7 @@ void Command::execute() {
     Shell::prompt();
     return;
   } else if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "unsetenv")){
-    int error = unsetenv(_simpleCommands[i]->_arguments[1]);
+    int error = unsetenv(_simpleCommands[i]->_arguments[1]->c_str());
 		if(error) {
 			perror("unsetenv");
 		}
@@ -163,7 +163,7 @@ void Command::execute() {
 		if(_simpleCommands[i]->_numOfArguments == 1){
 			error = chdir(getenv("HOME"));
 		} else {
-			error = chdir(_simpleCommands[i]->_arguments[1]);
+			error = chdir(_simpleCommands[i]->_arguments[1]->c_str());
 		}
 
 		if(error < 0){
