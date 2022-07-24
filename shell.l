@@ -79,6 +79,13 @@ void myunputc(int c) {
 
   int fdin[2];
   int fdout[2];
+  pipe(fdin);
+  pipe(fdout);
+
+  write(fdin[1], command, strlen(command));
+  write(fdin[1], "\n", 1);
+  write(fdin[1], "exit", 4);
+  write(fdin[1], "\n", 1);
 }
 
 [^ \t\n][^ \t\n]*  {
