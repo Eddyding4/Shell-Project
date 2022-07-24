@@ -24,6 +24,7 @@
 #include <string.h>
 #include <signal.h>
 #include <errno.h>
+#include <iostream>
 
 #include <cstring>
 #include "command.hh"
