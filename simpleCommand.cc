@@ -17,7 +17,7 @@ SimpleCommand::~SimpleCommand() {
   }
 }
 std::string * SimpleCommand::expansion(std::string * argument){
-  char * arg = argument->c_str();
+  char * arg = strdup(argument->c_str());
 	char * checkDollar = strchr(arg, '$');
 	char * checkBraces = strchr(arg, '{');
 
