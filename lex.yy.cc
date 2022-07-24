@@ -656,6 +656,8 @@ char *yytext_ptr;
 
 #include <cstring>
 #include "y.tab.hh"
+#include <sys/wait.h>
+#include <sys/types.h>
 
 static  void yyunput (int c,char *buf_ptr  );
 
@@ -663,8 +665,8 @@ void myunputc(int c) {
   unput(c);
 }
 
-#line 667 "lex.yy.cc"
-#line 668 "lex.yy.cc"
+#line 669 "lex.yy.cc"
+#line 670 "lex.yy.cc"
 
 #define INITIAL 0
 
@@ -881,10 +883,10 @@ YY_DECL
 		}
 
 	{
-#line 25 "shell.l"
+#line 27 "shell.l"
 
 
-#line 888 "lex.yy.cc"
+#line 890 "lex.yy.cc"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -954,84 +956,84 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 27 "shell.l"
+#line 29 "shell.l"
 {
   return NEWLINE;
 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 31 "shell.l"
+#line 33 "shell.l"
 {
   /* Discard spaces and tabs */
 }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 35 "shell.l"
+#line 37 "shell.l"
 {
   return GREAT;
 }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 39 "shell.l"
+#line 41 "shell.l"
 {
   return GREATGREAT;
 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 43 "shell.l"
+#line 45 "shell.l"
 {
   return PIPE;
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 47 "shell.l"
+#line 49 "shell.l"
 {
   return AMPERSAND;
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 51 "shell.l"
+#line 53 "shell.l"
 {
   return GREATGREATAMPERSAND;
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 55 "shell.l"
+#line 57 "shell.l"
 {
   return GREATAMPERSAND;
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 59 "shell.l"
+#line 61 "shell.l"
 {
   return LESS;
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 63 "shell.l"
+#line 65 "shell.l"
 {
   return STANDARDERR;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 67 "shell.l"
+#line 69 "shell.l"
 {
   return NOTOKEN;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 71 "shell.l"
+#line 73 "shell.l"
 {
   std::string str = std::string(yytext);
   std::string home = getenv("HOME");
@@ -1052,7 +1054,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 89 "shell.l"
+#line 91 "shell.l"
 {
 	char * command = strdup(yytext+1);
 
@@ -1112,7 +1114,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 146 "shell.l"
+#line 148 "shell.l"
 {
 	//quotes
 	yylval.cpp_string = new std::string(yytext);
@@ -1124,7 +1126,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 157 "shell.l"
+#line 159 "shell.l"
 {
   //escape
 	char * str = strdup(yytext);
@@ -1152,7 +1154,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 182 "shell.l"
+#line 184 "shell.l"
 {
   //dollar sign
   std::string str = std::string(yytext);
@@ -1179,7 +1181,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 206 "shell.l"
+#line 208 "shell.l"
 {
   std::string str = std::string(yytext);
   if (str.at(0) == '$') {
@@ -1227,8 +1229,8 @@ YY_RULE_SETUP
   
     int BUFSIZE = 1024;
     char* c = new char[BUFSIZE];
-    int rd = read(pout[0], c, BUFSIZE);
-    close(pout[0]);
+    int rd = read(fdout[0], c, BUFSIZE);
+    close(fdout[0]);
     for (int i = rd - 12; i >= 0; --i ) {
       if (c[i] == '\n') {
         c[i] = '\t';
@@ -1241,7 +1243,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 265 "shell.l"
+#line 267 "shell.l"
 {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
@@ -1250,10 +1252,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 273 "shell.l"
+#line 275 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1257 "lex.yy.cc"
+#line 1259 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2270,6 +2272,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 273 "shell.l"
+#line 275 "shell.l"
 
 

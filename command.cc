@@ -228,8 +228,11 @@ void Command::execute() {
         close(fdpipeout[1]);
         int pid = fork();
         if(pid == 0){
-          execvp("/proc/self/exe", NULL);
-          _exit(1);
+          char ** args = new char*[2];
+          args[0] = (char*)"/proc/self/exe";
+          args[1] = NULL;
+          execvp(args[0], args);
+          exit(1);
         } else if (pid < 0) {
           perror("fork");
           exit(2);
