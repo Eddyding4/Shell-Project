@@ -374,8 +374,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 		YY_FATAL_ERROR( "token too large, exceeds YYLMAX" ); \
 	yy_flex_strncpy( yytext, (yytext_ptr), yyleng + 1 ); \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 16
-#define YY_END_OF_BUFFER 17
+#define YY_NUM_RULES 15
+#define YY_END_OF_BUFFER 16
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -385,13 +385,13 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[64] =
     {   0,
-        0,    0,   17,   11,    2,    1,   11,   11,    6,   11,
-        9,    3,   11,   11,    5,   15,   15,   12,   15,    0,
-       13,   15,   12,   15,   10,    8,    4,   12,   12,   12,
-       15,    0,   15,   12,   14,   13,   13,   12,   12,   12,
-       12,   15,    0,   15,   14,   12,    7,   14,   14,   12,
-       12,   12,   12,   12,   14,   14,   12,   12,   12,   12,
-       12,   12,    0
+        0,    0,   16,   14,    2,    1,   14,   14,    6,   14,
+        9,    3,   11,   14,    5,   14,   14,   11,   14,    0,
+       12,   14,   11,   14,   10,    8,    4,   11,   11,   11,
+       14,    0,   14,   11,   13,   12,   12,   11,   11,   11,
+       11,   14,    0,   14,   13,   11,    7,   13,   13,   11,
+       11,   11,   11,   11,   13,   13,   11,   11,   11,   11,
+       11,   11,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -515,9 +515,9 @@ static const flex_int16_t yy_chk[230] =
     } ;
 
 /* Table of booleans, true if rule could match eol. */
-static const flex_int32_t yy_rule_can_match_eol[17] =
+static const flex_int32_t yy_rule_can_match_eol[16] =
     {   0,
-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,     };
+1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -922,13 +922,6 @@ case 11:
 YY_RULE_SETUP
 #line 69 "shell.l"
 {
-  return NOTOKEN;
-}
-	YY_BREAK
-case 12:
-YY_RULE_SETUP
-#line 73 "shell.l"
-{
   //escape
 	int i=0;
 	char * escChar;
@@ -950,9 +943,9 @@ YY_RULE_SETUP
 	
 }
 	YY_BREAK
-case 13:
+case 12:
 YY_RULE_SETUP
-#line 95 "shell.l"
+#line 91 "shell.l"
 {
 	//quotes
 	int i = 0;
@@ -974,20 +967,20 @@ YY_RULE_SETUP
 	return WORD;
 }
 	YY_BREAK
-case 14:
+case 13:
 YY_RULE_SETUP
-#line 116 "shell.l"
+#line 112 "shell.l"
 {
   std::string * cmd = new std::string(yytext);
 	cmd->pop_back();
 
 	// string check
-	if (strchr(cmd->c_str(), '`') != NULL) { // if `...`
+	if (strchr(cmd->c_str(), '`') != NULL) { 
 		cmd = new std::string(yytext+1);
 		cmd->pop_back();
 	}
 	else {
-		cmd = new std::string(yytext+2);  // if $(...)
+		cmd = new std::string(yytext+2);  
 		cmd->pop_back();
 	}
 
@@ -1042,21 +1035,21 @@ YY_RULE_SETUP
 	}
 }
 	YY_BREAK
-case 15:
+case 14:
 YY_RULE_SETUP
-#line 182 "shell.l"
+#line 178 "shell.l"
 {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
   return WORD;
 }
 	YY_BREAK
-case 16:
+case 15:
 YY_RULE_SETUP
-#line 190 "shell.l"
+#line 186 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1060 "lex.yy.cc"
+#line 1053 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2073,6 +2066,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 190 "shell.l"
+#line 186 "shell.l"
 
 
