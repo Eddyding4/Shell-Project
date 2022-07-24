@@ -146,8 +146,9 @@ void Command::execute() {
 		if(error) {
 			perror("setenv");
 		}
-		clear();
-		prompt();
+    clear();
+    Shell::prompt();
+    return;
   } else if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "unsetenv")){
     for(char **env = environ; *env != 0; env++){
       char * thisEnv = *env;
