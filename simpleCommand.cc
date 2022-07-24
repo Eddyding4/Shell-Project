@@ -73,11 +73,11 @@ SimpleCommand::~SimpleCommand() {
 void SimpleCommand::insertArgument( std::string * argument ) {
   // simply add the argument to the vector
 
-  std::string * temp = expansion(argument);
+  /*std::string * temp = expansion(argument);
   if(temp){
     argument = temp;
   }
-  _arguments[_arguments.size()] = argument;
+  _arguments[_arguments.size()] = argument;*/
   _arguments.push_back(argument);
 }
 
