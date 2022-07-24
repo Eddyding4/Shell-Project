@@ -50,7 +50,7 @@ goal: command_list;
 
 arg_list:
   arg_list WORD {
-      printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
+      //printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
       Command::_currentSimpleCommand->insertArgument( $2 );
   } 
   | /*empty*/
@@ -58,7 +58,7 @@ arg_list:
 
 cmd_and_args:
   WORD {
-    printf(" Yacc: insert command \"%s\"\n", $1->c_str());
+    //printf(" Yacc: insert command \"%s\"\n", $1->c_str());
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument( $1 );
   }
@@ -76,32 +76,32 @@ pipe_list:
 io_modifier:
   GREATGREAT WORD {
     Shell::_currentCommand._append = true;
-    printf(" Yacc: insert output \"%s\"\n", $2->c_str());
+    //printf(" Yacc: insert output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
   }
   | GREAT WORD {
-    printf(" Yacc: insert output \"%s\"\n", $2->c_str());
+    //printf(" Yacc: insert output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
   }
   | GREATGREATAMPERSAND WORD {
     Shell::_currentCommand._append = true;
-    printf(" Yacc: insert output \"%s\"\n", $2->c_str());
+    //printf(" Yacc: insert output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
-    printf(" Yacc: insert error \"%s\"\n", $2->c_str());
+    //printf(" Yacc: insert error \"%s\"\n", $2->c_str());
     Shell::_currentCommand._errFile = $2;
   }
   | GREATAMPERSAND WORD {
-    printf(" Yacc: insert output \"%s\"\n", $2->c_str());
+    //printf(" Yacc: insert output \"%s\"\n", $2->c_str());
     Shell::_currentCommand._outFile = $2;
-    printf(" Yacc: insert error \"%s\"\n", $2->c_str());
+    //printf(" Yacc: insert error \"%s\"\n", $2->c_str());
     Shell::_currentCommand._errFile = $2;
   }
   | LESS WORD {
-    printf(" Yacc: insert input \"%s\"\n", $2->c_str());
+    //printf(" Yacc: insert input \"%s\"\n", $2->c_str());
     Shell::_currentCommand._inFile = $2;
   }
   | STANDARDERR WORD {
-    printf(" Yacc: insert error \"%s\"\n", $2->c_str());
+    //printf(" Yacc: insert error \"%s\"\n", $2->c_str());
     Shell::_currentCommand._errFile = $2;
   } 
   ;
@@ -120,7 +120,7 @@ background_opt:
 
 command_line:
   pipe_list io_modifier_list background_opt NEWLINE {
-    printf(" Yacc: Execute command\n");
+    //printf(" Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
   | NEWLINE 
