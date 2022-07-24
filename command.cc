@@ -197,7 +197,7 @@ void Command::execute() {
     ret = fork();
     if (ret == 0) {
       if(strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "source") == 0){
-        FILE * fp = fopen(_simpleCommands[i]->arguments[1]->c_str(), RD_ONLY);
+        FILE * fp = fopen(_simpleCommands[i]->_arguments[1]->c_str(), O_RDONLY);
         char line[1024];
         fgets(line, 1023, fp);
         close(fp);
@@ -219,7 +219,7 @@ void Command::execute() {
         close(fdpipeout[1]);
         int pid = fork();
         if(pid == 0){
-          exevcp("/proc/self/exe", NULL);
+          execvp("/proc/self/exe", NULL);
           _exit(1);
         } else if (pid < 0) {
           perror("fork");
