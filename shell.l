@@ -111,7 +111,17 @@ void myunputc(int c) {
   char c;
   char * buf = (char *) malloc (1024);
   int i = 0;
-  
+
+  while(read(fdout[0], &c, 1)){
+    if(c == '\n'){
+      i++;
+      buf[i] = ' ';
+    } else {
+      i++;
+      buf[i] = c;
+    }
+  }
+  buf[i] = '\0';
 }
 
 [^ \t\n][^ \t\n]*  {
