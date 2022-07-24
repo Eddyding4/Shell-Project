@@ -13,7 +13,6 @@ struct SimpleCommand {
   ~SimpleCommand();
   void insertArgument( std::string * argument );
   void print();
-  std::string expansion(std::string * arg);
 };
 
 #endif
