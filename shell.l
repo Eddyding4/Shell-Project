@@ -113,6 +113,74 @@ void myunputc(int c) {
 	return WORD;
 }
 
+\$\([^\n\$]*\)|`[^\n`]*` {
+	//subshell
+	int i=0;
+	std::string * command = new std::string(yytext);
+	command->pop_back();
+
+  if(strchr(command->c_str(), '`') != NULL){
+    command = new std::string(yytext + 1);
+    command->pop_back();
+  } else {
+    command = new std::string(yytext + 2);
+    command->pop_back();
+  }
+
+  int tmpin = dup(0);
+  int tmpout = dup(1);
+
+  int fdin[2];
+  int fdout[2];
+
+  pipe(fdin);
+  pipe(fdout);
+
+  write(fdin[1], command->c_str(), command->size());
+  write(fdin[1], "\n", 1);
+  write(fdin[1], "exit", 4);
+  write(fdin[1], "\n", 1);
+  close(fdin[1]);
+
+  dup2(fdin[0], 0);
+  close(fdin[0]);
+  dup2(fdout[1], 1);
+  close(fdout[1]);
+
+  int ret = fork();
+  if(ret == 0){
+    execvp("/proc/self/exe", NULL);
+    exit(1);
+  } else if (ret < 0){
+    perror("fork");
+    exit(1);
+  }
+
+  //restore defaults
+  dup2(tmpin, 0);
+  dup2(tmpout, 1);
+  close(tmpin);
+  close(tmpout);
+
+  char c;
+  size_t size = 0;
+  i = 0;
+
+  char * buf = new char[1024];
+  while(read(fdout[0], &c, 1)){
+    if(c == '\n' ){
+      buf[i++] = ' ';
+    } else {
+      buf[i++] = c;
+    }
+  }
+  buf[i] = '\0';
+  i = strlen(buf) - 1
+  for (i ; i >= 0; i--) {
+		unput(buffer[i]);
+	}
+}
+
 
 [^ \t\n][^ \t\n]*  {
   /* Assume that file names have only alpha chars */
