@@ -253,12 +253,12 @@ void Command::execute() {
         	
 	      perror("execvp");
 	      exit(1);	
-      }
-    else if (ret < 0) {
+        } 
+      } else if (ret < 0) {
       perror("fork");
 	    exit(2);
     }
-  }
+  
    
     // restore in/out defaults
     dup2(tmpin, 0);
