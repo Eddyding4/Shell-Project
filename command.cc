@@ -102,11 +102,7 @@ void Command::print() {
 }
 
 void Command::execute() {
-  if(strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "exit") == 0){
-		printf("Good bye!!\n");
-		exit(1);
-	}
-
+  
     // Don't do anything if there are no simple commands
   if ( _simpleCommands.size() == 0 ) {
     if(isatty(0)){ 
