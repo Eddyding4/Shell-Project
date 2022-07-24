@@ -171,6 +171,7 @@ void Command::execute() {
     } else {
       chdir(getenv("HOME"));
     }
+  }
     // redirect input 
     dup2(fdin, 0);
     close(fdin);
@@ -253,7 +254,6 @@ void Command::execute() {
 	      perror("execvp");
 	      exit(1);	
       }
-    }
     else if (ret < 0) {
       perror("fork");
 	    exit(2);
