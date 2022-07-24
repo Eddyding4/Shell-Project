@@ -283,6 +283,7 @@ void Command::execute() {
 					printf("%s\n", *env);
 					env++;
 				}
+        exit(1);
       }
         char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
 	      for ( unsigned int j = 0; j < _simpleCommands[i]->_arguments.size(); j++ ) {
