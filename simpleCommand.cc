@@ -16,12 +16,17 @@ SimpleCommand::~SimpleCommand() {
     delete arg;
   }
 }
+std::string * SimpleCommand::expansion(std::string * argument){
+  
+}
 
 void SimpleCommand::insertArgument( std::string * argument ) {
   // simply add the argument to the vector
   _arguments.push_back(argument);
-  
+
 }
+
+
 
 // Print out the simple command
 void SimpleCommand::print() {
