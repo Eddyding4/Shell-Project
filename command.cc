@@ -283,5 +283,5 @@ void Command::execute() {
   }*/
   Shell::prompt();
 }
-
+}
 SimpleCommand * Command::_currentSimpleCommand;
