@@ -77,7 +77,7 @@ void SimpleCommand::insertArgument( std::string * argument ) {
   if(temp){
     argument = temp;
   }
-  _arguments[arguments.size()] = argument;
+  _arguments[_arguments.size()] = argument;
 }
 
 // Print out the simple command
