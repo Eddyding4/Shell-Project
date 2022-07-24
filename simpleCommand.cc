@@ -10,7 +10,7 @@ SimpleCommand::SimpleCommand() {
   _arguments = std::vector<std::string *>();
 }
 
-char * SimpleCommand::checkExpansion(char * arg) {
+char * SimpleCommand::expansion(char * arg) {
   char * ptr = strdup(arg);
   char * dollar = strchr(ptr, '$');
   char * bracket = strchr(ptr, '{');
