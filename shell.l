@@ -113,8 +113,21 @@ void myunputc(int c) {
 	return WORD;
 }
 
-`[^\n`]*` {
-	char * command = strdup(yytext+1);
+\$\([^\n\$]*\)|`[^\n`]*` {
+  std::string * cmd = new std::string(yytext);
+	cmd->pop_back();
+
+	// string check
+	if (strchr(cmd->c_str(), '`') != NULL) { // if `...`
+		cmd = new std::string(yytext+1);
+		cmd->pop_back();
+	}
+	else {
+		cmd = new std::string(yytext+2);  // if $(...)
+		cmd->pop_back();
+	}
+
+	char * command = cmd->c_str());
 
 	if(command[yyleng-2] == '`')
 		command[yyleng-2] = '\0';
