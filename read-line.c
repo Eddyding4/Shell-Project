@@ -81,7 +81,6 @@ char * read_line() {
 
       // add char to buffer.
       if(current_pos != line_length) {
-        char c;
         int i;
         line_length++;
 
