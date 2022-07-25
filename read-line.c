@@ -199,7 +199,7 @@ char * read_line() {
       char ch2;
       read(0, &ch1, 1);
       read(0, &ch2, 1);
-      if (ch1==91 && (ch2==65 || ch2 == 66)) {
+  if (ch1==91 && ch2==65) {
 	// Up arrow. Print next line in history.
 
 	// Erase old line
@@ -224,17 +224,52 @@ char * read_line() {
   right_side = 0;
 
 	// Copy line from history
-	strcpy(line_buffer, history[history_index]);
-	line_length = strlen(line_buffer);
-  int temp = history_full?history_length:history_index;
-  int upDown = ch2 == 65? - 1 : 1;
-	history_rev=(history_rev + upDown)%temp;
-  if (history_rev == -1) {
-    history_rev = temp - 1;
-  }
+	if(history_length > 0 && history_index >= 0){
+		strcpy(line_buffer, history[history_index--]);
+		history_index=(history_index)%history_length;
+		if(history_index == -1){
+			history_index = history_length - 1;
+		}
+
+		line_length = strlen(line_buffer);
+	}
 	// echo line
 	write(1, line_buffer, line_length);
 
+  } else if (ch1 == 91 && ch2 == 66) {
+    // Down arrow. Print prev line in history.
+
+	// Erase old line
+	// Print backspaces
+	int i = 0;
+	for (i =0; i < line_length; i++) {
+	  ch = 8;
+	  write(1,&ch,1);
+	}
+
+	// Print spaces on top
+	for (i =0; i < line_length; i++) {
+	  ch = ' ';
+	  write(1,&ch,1);
+	}
+
+	// Print backspaces
+	for (i =0; i < line_length; i++) {
+	  ch = 8;
+	  write(1,&ch,1);
+	}	
+
+	// Copy line from history
+	if(history_length > 0 && history_index <= history_length-1)
+		strcpy(line_buffer, history[history_index++]);
+	else if(history_index == history_length){
+		history_index = history_length - 1;
+		strcpy(line_buffer,"");
+	}
+
+	line_length = strlen(line_buffer);
+	// echo line
+	write(1, line_buffer, line_length);
   } else if (ch1 == 91 && ch2 == 68) {
     //left arrow
     if(line_length == 0) {
