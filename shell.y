@@ -142,6 +142,13 @@ int max = 30;
 int num = 0;
 char ** entries;
 
+int cmp (const void *file1, const void *file2) 
+{
+	const char *_file1 = *(const char **)file1;
+	const char *_file2 = *(const char **)file2;
+	return strcmp(_file1, _file2);
+}
+
 void expandWildcardsIfNecessary(std::string * arg){
   char * temp = (char *) malloc(arg->length()+1);
   strcpy(temp, arg->c_str());
@@ -166,13 +173,6 @@ void expandWildcardsIfNecessary(std::string * arg){
 	return;
 }
 
-
-int cmp (const void *file1, const void *file2) 
-{
-	const char *_file1 = *(const char **)file1;
-	const char *_file2 = *(const char **)file2;
-	return strcmp(_file1, _file2);
-}
 
 
 void expandWildCards(char * prefix, char * arg){
