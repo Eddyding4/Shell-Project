@@ -231,7 +231,7 @@ char * read_line() {
 	      }	
         right_side = 0;
 	      // Copy line from history
-	      strcpy(line_buffer, history[history_rev]);
+	      strcpy(line_buffer, history[history_index]);
 	      line_length = strlen(line_buffer);
         history_index=(history_index + 1) % history_length;
        
@@ -243,7 +243,7 @@ char * read_line() {
         // Erase old line
         // Print backspaces
         int i = 0;
-        for (i =line_length - current_pos; i < line_length; i++) {
+        for (i =line_length - current; i < line_length; i++) {
           ch = 8;
             write(1,&ch,1);
         }
