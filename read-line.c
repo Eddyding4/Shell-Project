@@ -21,14 +21,13 @@ int line_length;
 char line_buffer[MAX_BUFFER_LINE];
 char right_buf[MAX_BUFFER_LINE];
 int right_side;
-int current_pos;
+int current;
 
 // Simple history array
 // This history does not change. 
 // Yours have to be updated.
 int history_index = 0;
 char ** history = NULL;
-int history_length = 32;
 int history_size = 10;
 /*char * history [] = {
   "ls -al | grep x", 
