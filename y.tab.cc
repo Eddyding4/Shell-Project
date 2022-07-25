@@ -190,7 +190,7 @@ int yylex();
 static std::vector<char *> _sortArgument = std::vector<char *>();
 
 void expandWildcardsIfNecessary(std::string * arg);
-int cmpfunc (const void *file1, const void *file2);
+bool cmpfunc (const void *file1, const void *file2);
 void expandWildCards(char * prefix, char * arg);
 
 
