@@ -100,7 +100,6 @@ char * read_line() {
       }
     }
     else if (ch==10) {
-      /*
       // <Enter> was typed. Return line
       if (right_side) {
         for (int i=right_side-1; i>=0; i--) {
@@ -113,18 +112,21 @@ char * read_line() {
 
       if (line_length != 0) {
         if (history[history_index]==NULL) 
-          history[history_index] = (char *)malloc(MAX_BUFFER_LINE);
+        history[history_index] = (char *)malloc(MAX_BUFFER_LINE);
   
         strcpy(history[history_index], line_buffer);
+        history_index_rev = history_index;
         history_index++;
+        if (history_index>=history_length) {
+          history_index = 0;
+          history_full = 1;
+        }
       }
 
       right_side=0;
       // Print newline
       write(1,&ch,1);
-
       break;
-      */
     }
     else if (ch == 1) {
       // ctrl-A was typed. The cursor moves to the beginning of the line
