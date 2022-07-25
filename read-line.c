@@ -21,14 +21,15 @@ int line_length;
 char line_buffer[MAX_BUFFER_LINE];
 char right_buf[MAX_BUFFER_LINE];
 int right_side;
+int current_pos;
 
 // Simple history array
 // This history does not change. 
 // Yours have to be updated.
 int history_index = 0;
-int history_rev;
-int history_full = 0;
-char * history[HISTORY_SIZE];
+char ** history = NULL;
+int history_length = 32;
+int history_size = 10;
 /*char * history [] = {
   "ls -al | grep x", 
   "ps -e",
@@ -64,7 +65,7 @@ char * read_line() {
 
   line_length = 0;
   right_side = 0;
-
+  current = 0;
   // Read one line until enter is typed
   while (1) {
 
@@ -141,6 +142,7 @@ char * read_line() {
         right_buf[right_side] = line_buffer[line_length-1];
         right_side++;
         line_length--;
+        current++;
       }
     }
     else if (ch == 4) {
@@ -173,6 +175,7 @@ char * read_line() {
         line_buffer[line_length]=right_buf[right_side-1];
         right_side--;
         line_length++;
+        current--;
       }
     }
     
@@ -201,6 +204,7 @@ char * read_line() {
 
       // Remove one character from buffer
       line_length--;
+      current--;
     }
     else if (ch==27) {
       // Escape sequence. Read two chars more
@@ -212,25 +216,26 @@ char * read_line() {
       char ch2;
       read(0, &ch1, 1);
       read(0, &ch2, 1);
-      if (ch1==91 && (ch2==65 || ch2==66)) {
+      if (ch1==91 && ch2==65 && history_length > 0) {
 	      // Up arrow. Print next line in history.
        
 	      // Erase old line
 	      // Print backspaces
 	      int i = 0;
-	      for (i =0; i < line_length; i++) {
+        int current = 
+	      for (i =0; i < line_length - ; i++) {
 	        ch = 8;
 	        write(1,&ch,1);
 	      }
        
 	      // Print spaces on top
-	      for (i =0; i < line_length+right_side; i++) {
+	      for (i =0; i < line_length; i++) {
 	        ch = ' ';
 	        write(1,&ch,1);
 	      }
        
 	      // Print backspaces
-	      for (i =0; i < line_length+right_side; i++) {
+	      for (i =0; i < line_length; i++) {
 	        ch = 8;
 	        write(1,&ch,1);
 	      }	
@@ -238,16 +243,55 @@ char * read_line() {
 	      // Copy line from history
 	      strcpy(line_buffer, history[history_rev]);
 	      line_length = strlen(line_buffer);
-        int tmp = history_full?history_length:history_index;
-        int up_down = ch2 == 65? -1 : 1;
-	      history_rev=(history_rev+up_down)%tmp;
-        if (history_rev == -1) history_rev = tmp-1;
+        history_index=(history_index + 1) % history_length;
        
 	      // echo line
 	      write(1, line_buffer, line_length);
-      } 
-      else if (ch1==91 && ch2==68) {
-        // Left arrow. 
+        current = line_length;
+      } if (ch1 == 91 && ch2 == 66){
+        // down arrow
+        // Erase old line
+        // Print backspaces
+        int i = 0;
+        for (i =line_length - current_pos; i < line_length; i++) {
+          ch = 8;
+            write(1,&ch,1);
+        }
+
+        // Print spaces on top
+        for (i =0; i < line_length; i++) {
+          ch = ' ';
+          write(1,&ch,1);
+        }
+
+        // Print backspaces
+        for (i =0; i < line_length; i++) {
+            ch = 8;
+            write(1,&ch,1);
+        }	
+
+        if(history_index > 0)
+        {
+          // Copy line from history
+          strcpy(line_buffer, history[history_index]);
+          line_length = strlen(line_buffer);
+          history_index=(history_index+1)%history_length;
+
+          // echo line
+          write(1, line_buffer, line_length);
+          current_pos = line_length;
+        }
+        else
+        {
+          strcpy(line_buffer, "");
+          line_length = strlen(line_buffer);
+
+          write(1, line_buffer, line_length);
+          current_pos = line_length;
+        }
+
+      } if (ch1==91 && ch2==68) {
+        // left arrow. 
 
         // Move the cursor to the left
         if (line_length == 0) continue;
@@ -257,6 +301,7 @@ char * read_line() {
         right_buf[right_side] = line_buffer[line_length-1];
         right_side++;
         line_length--;
+        current--;
       }
       else if (ch1==91 && ch2==67) {
         // right arrow. 
@@ -268,6 +313,7 @@ char * read_line() {
         line_buffer[line_length]=right_buf[right_side-1];
         line_length++;
         right_side--;
+        current++;
       }
       
     }
