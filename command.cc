@@ -216,6 +216,7 @@ void Command::execute() {
     //create child process
     ret = fork();
     if (ret == 0) {
+      printf("%s", _simpleCommands[i]->_arguments[1]->c_str());
       if (!strcmp(_simpleCommands[i]->_arguments[1]->c_str(), "$")){
         printf("HELLO");
       }
