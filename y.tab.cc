@@ -1800,7 +1800,8 @@ void expandWildCards(char * prefix, char * arg){
     struct dirent * ent;
     while ((ent = readdir(dir)) != NULL){
       if (regexec(&re, ent->d_name, 1, NULL, 0) == 0) {
-        Command::_currentSimpleCommand->insertArgument(strdup(ent->d_name));
+        std::string * insert = new std::string(ent->d_name);
+        Command::_currentSimpleCommand->insertArgument(insert);
       }
     }
     closedir(dir);
