@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <termios.h>
 
 #define MAX_BUFFER_LINE 2048
 #define HISTORY_SIZE 16
@@ -56,6 +57,9 @@ void read_line_print_usage()
  * Input a line with some basic editing.
  */
 char * read_line() {
+
+  struct termios original_attribute;
+	tcgetattr(0, &original_attribute);
 
   // Set terminal in raw mode
   tty_raw_mode();
@@ -277,5 +281,6 @@ char * read_line() {
   line_length++;
   line_buffer[line_length]=0;
 
+  tcsetattr(0, TCSANOW, &original_attribute);
   return line_buffer;
 }
