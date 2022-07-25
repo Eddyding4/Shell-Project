@@ -1462,8 +1462,8 @@ YY_RULE_SETUP
   }
   result += str;
   if(strcmp(result.c_str(), "$") == 0){
-	std::string temp = std::to_string(getpid());
-	printf("%s", temp.c_str());
+	//std::string temp = std::to_string(getpid());
+	printf("hello");
 	//yylval.cpp_string = &temp;
   } else {
     yylval.cpp_string = new std::string(result);

@@ -234,14 +234,10 @@ $\{[^ \}\n]*\}([^ \n]*|$\{[^ \}\n]*\})* {
     found = str.find('$');
   }
   result += str;
+  yylval.cpp_string = new std::string(result);
   if(strcmp(result.c_str(), "$") == 0){
-	//std::string temp = std::to_string(getpid());
 	printf("hello");
-	//yylval.cpp_string = &temp;
-  } else {
-    yylval.cpp_string = new std::string(result);
   }
-
   return WORD;
 }
 
