@@ -172,7 +172,7 @@ char * read_line() {
       ch = 8;
       write(1,&ch,1);
 
-      for(int i=right_side_ - 1; i >=0 ; i--) {
+      for(int i = right_side - 1; i >=0 ; i--) {
         char c = right_buf[i];
         write(1,&c,1);
       }
