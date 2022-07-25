@@ -192,13 +192,11 @@ void Command::execute() {
     return;
   }
   if(strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "source") == 0){
-    std::string cmd;
-		std::ifstream fd;
+    FILE * fp = fopen(_simpleCommands[i]->_arguments[1]->c_str(), O_RDWR);
+    char cmdline [1024];
 
-		fd.open(_simpleCommands[i]->_arguments[1]->c_str());
-
-		std::getline(fd, cmd);
-		fd.close();
+		fgets(cmdline, 1023, fp);
+		fclose(fp);
 
 		// save in/out
 		int tmpin=dup(0);
@@ -207,7 +205,7 @@ void Command::execute() {
 		// input command
 		int fdpipein[2];
 		pipe(fdpipein);
-		write(fdpipein[1], cmd.c_str(), strlen(cmd.c_str()));
+		write(fdpipein[1], cmdline, strlen(cmdline));
 		write(fdpipein[1], "\n", 1);
 
 		close(fdpipein[1]);
@@ -234,14 +232,17 @@ void Command::execute() {
 		close(tmpin);
 		close(tmpout);	
 
-		char ch;
-		char * buffer = new char[i];
+	 char ch;
+	 char * buffer = (char *) malloc (1024);
 	 int r = 0;
 
 				// read output 
 		while (read(fdpipeout[0], &ch, 1)) {
-			//if (ch == '\n' ? buffer[i++] = '\n' : buffer[i++] = ch) {};
-			if (ch != '\n')  buffer[r++] = ch;
+			if (ch != '\n') { 
+        buffer[r++] = ch;
+      } else {
+        buffer[r++] = '\n';
+      }
 		}
 
 		buffer[r] = '\0';
