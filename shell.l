@@ -235,7 +235,8 @@ $\{[^ \}\n]*\}([^ \n]*|$\{[^ \}\n]*\})* {
   }
   result += str;
   if(strcmp(result.c_str(), "$") == 0){
-	std::string temp = std::string(getpid());
+	int pid = getpid();
+	std::string temp = std::to_string(pid);
 	yylval.cpp_string = new std::string(temp);
   } else {
     yylval.cpp_string = new std::string(result);
