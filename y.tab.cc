@@ -1804,7 +1804,7 @@ void expandWildcardsIfNecessary(std::string * arg) {
 
 void expandWildcard(char * prefix, char * suffix) {
   if (suffix[0] == 0) {
-    _argument.push_back(strdup(prefix));
+    _arguments.push_back(strdup(prefix));
     return;
   }
   char Prefix[MAXFILENAME];

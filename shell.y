@@ -229,7 +229,7 @@ void expandWildcardsIfNecessary(std::string * arg) {
 
 void expandWildcard(char * prefix, char * suffix) {
   if (suffix[0] == 0) {
-    _arguments.push_back(strdup(prefix));
+    _sortArgument.push_back(strdup(prefix));
     return;
   }
   char Prefix[MAXFILENAME];
