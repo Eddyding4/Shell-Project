@@ -1463,7 +1463,7 @@ YY_RULE_SETUP
   result += str;
   if(strcmp(result.c_str(), "$") == 0){
 	std::string result = "pidof shell";
-	yylval.cpp_string = new std::string(result);
+	yylval.cpp_string = result;
   } else {
     yylval.cpp_string = new std::string(result);
   }
