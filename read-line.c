@@ -97,7 +97,7 @@ char * read_line() {
       // <Enter> was typed. Return line
       if(right_side) {
         for(int i = right_side - 1; i >= 0; i--){
-          char c = right_side[i];
+          char c = right_buf[i];
           line_buffer[line_length] = c;
           line_length++;
         }
