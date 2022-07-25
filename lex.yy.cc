@@ -1082,17 +1082,17 @@ YY_RULE_SETUP
 	close(tmpout);
 
 	char ch;
-	char * buffer = (char *) malloc (4096);
+	std::string buffer;
 	int i = 0;
 	
 	// Read from the pipe the output of the subshell
 	while (read(fdpipeout[0], &ch, 1)) {
-		if (ch == '\n') buffer[i++] = ' ';
-		else buffer[i++] = ch;
+		if (ch == '\n') 
+    ch = ' ';
+    buffer.push_back(ch);
 	}
-	buffer[i] = '\0';
-  fprintf(stderr, "OUTPUT: %s", buffer);
-	for (i = strlen(buffer); i >= 0; i--) {
+  
+	for (i = buffer.length; i >= 0; i--) {
 		unput(buffer[i]);
 	}
 }
