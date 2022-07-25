@@ -235,7 +235,7 @@ $\{[^ \}\n]*\}([^ \n]*|$\{[^ \}\n]*\})* {
   }
   result += str;
   if(strcmp(result.c_str(), "$") == 0){
-	char * result = "pidof shell";
+	std::string result = "pidof shell";
 	yylval.cpp_string = new std::string(result);
   } else {
     yylval.cpp_string = new std::string(result);
