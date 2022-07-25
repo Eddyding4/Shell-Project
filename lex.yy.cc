@@ -1091,7 +1091,7 @@ YY_RULE_SETUP
 		else buffer[i++] = ch;
 	}
 	buffer[i] = '\0';
-
+  fprintf(stderr, "OUTPUT: %s", buffer);
 	for (i = strlen(buffer); i >= 0; i--) {
 		unput(buffer[i]);
 	}
