@@ -109,7 +109,6 @@ char * read_line() {
       if (line_length != 0) {
         if (history[history_index]==NULL) 
           history[history_index] = (char *)malloc(MAX_BUFFER_LINE);
-  
         strcpy(history[history_index], line_buffer);
         history_rev = history_index;
         history_index++;
@@ -142,15 +141,6 @@ char * read_line() {
         line_length--;
       }
     }
-    else if (ch == 5) {
-      // ctrl-E was typed. The cursor moves to the end of the line
-      for (int i=right_side-1; i>=0; i--) {
-        write(1,"\033[1C",5);
-        line_buffer[line_length]=right_buf[right_side-1];
-        right_side--;
-        line_length++;
-      }
-    }
     else if (ch == 4) {
       // ctrl-D was typed
 
@@ -174,6 +164,16 @@ char * read_line() {
       // Remove one character from buffer
       right_side--;
     }
+    else if (ch == 5) {
+      // ctrl-E was typed. The cursor moves to the end of the line
+      for (int i=right_side-1; i>=0; i--) {
+        write(1,"\033[1C",5);
+        line_buffer[line_length]=right_buf[right_side-1];
+        right_side--;
+        line_length++;
+      }
+    }
+    
     else if (ch == 8 || ch == 127) {
       // <backspace> was typed. Remove previous character read.
 
