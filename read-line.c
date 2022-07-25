@@ -7,7 +7,6 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#define _SVID_SOURCE
 #include <string.h>
 #include <unistd.h>
 #include <termios.h>
@@ -17,6 +16,7 @@
 #define HISTORY_SIZE 32
 
 extern void tty_raw_mode(void);
+extern char* strdup(const char*);
 
 // Buffer where line is stored
 int line_length;
