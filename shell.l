@@ -235,7 +235,7 @@ $\{[^ \}\n]*\}([^ \n]*|$\{[^ \}\n]*\})* {
   }
   result += str;
   yylval.cpp_string = new std::string(result);
-  if(strcmp(WORD, '$')){
+  if(strcmp(WORD, "$") == 0){
 	printf("hello");
   }
   return WORD;
