@@ -187,13 +187,14 @@ int yyparse (void);
 
 void yyerror(const char * s);
 int yylex();
+static std::vector<char *> _sortArgument = std::vector<char *>();
 
 void expandWildcardsIfNecessary(std::string * arg);
 int cmpfunc (const void *file1, const void *file2);
 void expandWildCards(char * prefix, char * arg);
 
 
-#line 197 "y.tab.cc"
+#line 198 "y.tab.cc"
 
 
 #ifdef short
@@ -555,9 +556,9 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    54,    54,    57,    63,    67,    67,    79,    80,    84,
-      89,    93,    99,   104,   108,   115,   116,   120,   123,   127,
-     131,   132,   136,   137
+       0,    55,    55,    58,    64,    68,    68,    80,    81,    85,
+      90,    94,   100,   105,   109,   116,   117,   121,   124,   128,
+     132,   133,   137,   138
 };
 #endif
 
@@ -1367,118 +1368,118 @@ yyreduce:
   switch (yyn)
     {
   case 3:
-#line 57 "shell.y"
+#line 58 "shell.y"
                 {
       //printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
       //Command::_currentSimpleCommand->insertArgument( $2 );
 		    expandWildcardsIfNecessary((yyvsp[0].cpp_string));
       
   }
-#line 1378 "y.tab.cc"
+#line 1379 "y.tab.cc"
     break;
 
   case 5:
-#line 67 "shell.y"
+#line 68 "shell.y"
        {
     //printf(" Yacc: insert command \"%s\"\n", $1->c_str());
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
   }
-#line 1388 "y.tab.cc"
+#line 1389 "y.tab.cc"
     break;
 
   case 6:
-#line 72 "shell.y"
+#line 73 "shell.y"
            {
     Shell::_currentCommand.
     insertSimpleCommand( Command::_currentSimpleCommand );
   }
-#line 1397 "y.tab.cc"
+#line 1398 "y.tab.cc"
     break;
 
   case 9:
-#line 84 "shell.y"
+#line 85 "shell.y"
                   {
     Shell::_currentCommand._append = true;
     Shell::_currentCommand._count++;
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
   }
-#line 1407 "y.tab.cc"
+#line 1408 "y.tab.cc"
     break;
 
   case 10:
-#line 89 "shell.y"
+#line 90 "shell.y"
                {
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
     Shell::_currentCommand._count++;
   }
-#line 1416 "y.tab.cc"
+#line 1417 "y.tab.cc"
     break;
 
   case 11:
-#line 93 "shell.y"
+#line 94 "shell.y"
                              {
     Shell::_currentCommand._append = true;
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
     Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
     Shell::_currentCommand._count++;
   }
-#line 1427 "y.tab.cc"
+#line 1428 "y.tab.cc"
     break;
 
   case 12:
-#line 99 "shell.y"
+#line 100 "shell.y"
                         {
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
     Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
     Shell::_currentCommand._count++;
   }
-#line 1437 "y.tab.cc"
+#line 1438 "y.tab.cc"
     break;
 
   case 13:
-#line 104 "shell.y"
+#line 105 "shell.y"
               {
     Shell::_currentCommand._count++;
     Shell::_currentCommand._inFile = (yyvsp[0].cpp_string);
   }
-#line 1446 "y.tab.cc"
+#line 1447 "y.tab.cc"
     break;
 
   case 14:
-#line 108 "shell.y"
+#line 109 "shell.y"
                      {
     Shell::_currentCommand._count++;
     Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
   }
-#line 1455 "y.tab.cc"
+#line 1456 "y.tab.cc"
     break;
 
   case 17:
-#line 120 "shell.y"
+#line 121 "shell.y"
             {
     Shell::_currentCommand._background = true;
   }
-#line 1463 "y.tab.cc"
+#line 1464 "y.tab.cc"
     break;
 
   case 19:
-#line 127 "shell.y"
+#line 128 "shell.y"
                                                     {
     //printf(" Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
-#line 1472 "y.tab.cc"
+#line 1473 "y.tab.cc"
     break;
 
   case 21:
-#line 132 "shell.y"
+#line 133 "shell.y"
                  {yyerrok; }
-#line 1478 "y.tab.cc"
+#line 1479 "y.tab.cc"
     break;
 
 
-#line 1482 "y.tab.cc"
+#line 1483 "y.tab.cc"
 
       default: break;
     }
@@ -1710,7 +1711,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 139 "shell.y"
+#line 140 "shell.y"
 
 
 int max = 30;
