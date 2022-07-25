@@ -1786,7 +1786,8 @@ void expandWildCards(char * prefix, char * arg){
 		*r = '$';
 		r++;
 		*r = '\0';
-    int expbuf = regcomp(reg, REG_EXTENDED|REG_NOSUB);
+    regex_t re;
+    int expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
     if (expbuf != 0) {
       perror("regcomp");
       return;
@@ -1798,7 +1799,7 @@ void expandWildCards(char * prefix, char * arg){
     }
     struct dirent * ent;
     while ((ent = readdir(dir)) != NULL){
-      if (regexec(ent->d_name, re) == 0) {
+      if (regexec(ent->d_name, reg) == 0) {
         Command::_currentSimpleCommand->insertArgument(strdup(end->d_name));
       }
     }
