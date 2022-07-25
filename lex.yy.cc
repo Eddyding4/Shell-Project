@@ -1462,7 +1462,7 @@ YY_RULE_SETUP
   }
   result += str;
   yylval.cpp_string = new std::string(result);
-  if(strcmp(WORD, "$") == 0){
+  if(strcmp(result, "$") == 0){
 	printf("hello");
   }
   return WORD;
