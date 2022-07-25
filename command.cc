@@ -157,21 +157,8 @@ void Command::execute() {
   for ( unsigned int i = 0; i < _simpleCommands.size() ; i++ ) {
     // redirect input 
     dup2(fdin, 0);
-    close(fdin);
+    close(fdin); 
 
-  //implement env variables  
-  if (!strcmp(_simpleCommands[i]->_arguments[1]->c_str(), "$")){
-    int pid = getpid();
-	  std::string temp = std::to_string(pid);
-	  _simpleCommands[i]->_arguments[1] = new std::string(temp);
-  }
-  /*if (!strcmp(_simpleCommands[i]->_arguments[1]->c_str(), "?")){
-    int status;
-    waitpid(ret, &status, 0);
-    int exit_status = WEXITSTATUS(status);
-    std::string temp = std::to_string(exit_status);
-    _simpleCommands[i]->_arguments[1] = new std::string(temp);
-  }*/
 
   //implement the env
   if(!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv") ){
