@@ -28,6 +28,7 @@ int current;
 // Simple history array
 // This history does not change. 
 // Yours have to be updated.
+int history_rev;
 int history_index = 0;
 char ** history = NULL;
 int history_size = 10;
@@ -115,11 +116,10 @@ char * read_line() {
         history[history_index] = (char *)malloc(MAX_BUFFER_LINE);
   
         strcpy(history[history_index], line_buffer);
-        history_index_rev = history_index;
+        history_rev = history_index;
         history_index++;
         if (history_index>=history_length) {
           history_index = 0;
-          history_full = 1;
         }
       }
 
