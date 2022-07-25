@@ -90,15 +90,13 @@ char * read_line() {
         write(1, &c, 1);
       }
     }
-    else if (ch==10) {
+    else if (ch == 10) {
       // <Enter> was typed. Return line
-      if(right_side) {
-        for(int i = right_side - 1; i >= 0; i--){
-          char c = right_buf[i];
-          line_buffer[line_length] = c;
-          line_length++;
-        }
-      }
+      // Print newline
+      write(1,&ch,1);
+
+      break;
+    }
 
       if(!line_length == 0){
         if(history[history_index] == NULL){
@@ -123,7 +121,27 @@ char * read_line() {
       read_line_print_usage();
       line_buffer[0]=0;
       break;
-    } else if (ch == 1) {
+
+    } else if (ch == 8) {
+    // <backspace> was typed. Remove previous character read.
+
+    // Go back one character
+      ch = 8;
+      write(1,&ch,1);
+
+    // Write a space to erase the last character read
+      ch = ' ';
+      write(1,&ch,1);
+
+    // Go back one character
+      ch = 8;
+      write(1,&ch,1);
+
+    // Remove one character from buffer
+      line_length--;
+      line_loc--;
+    }
+    else if (ch == 1) {
       //ctrl-a
       int temp = line_length;
       for(int i = 0; i < temp; i++){
@@ -160,33 +178,34 @@ char * read_line() {
       right_side --;
     }
     else if (ch == 127) {
+      //backspace
       // <backspace> was typed. Remove previous character read.
       if(line_length > 0){
-				ch = 8;
-				write(1,&ch,1);
-				// Write a space to erase the last character read
-				ch = ' ';
-				write(1,&ch,1);
+        ch = 8;
+        write(1,&ch,1);
+        // Write a space to erase the last character read
+        ch = ' ';
+        write(1,&ch,1);
 
-				// Go back one character
-				ch = 8;
-				write(1,&ch,1);
-				// Remove one character from buffer
-				line_length--;
-				line_loc--;
-			}
-			continue;
+        // Go back one character
+        ch = 8;
+        write(1,&ch,1);
+        // Remove one character from buffer
+        line_length--;
+        line_loc--;
+      }
+      continue;
       write(1,&ch,1);
 
-		// If max number of character reached return.
-		if (line_length==MAX_BUFFER_LINE-2) 
-			break; 
+      // If max number of character reached return.
+      if (line_length==MAX_BUFFER_LINE-2) 
+        break; 
 
-		// add char to buffer.
-		line_buffer[line_length]=ch;
-		if(line_loc == line_length)
-			line_length++;
-		line_loc++;
+      // add char to buffer.
+      line_buffer[line_length]=ch;
+      if(line_loc == line_length)
+        line_length++;
+      line_loc++;
     }
     else if (ch==27) {
       // Escape sequence. Read two chars more
@@ -194,12 +213,13 @@ char * read_line() {
       // HINT: Use the program "keyboard-example" to
       // see the ascii code for the different chars typed.
       //
-      char ch1; 
+      cchar ch1; 
       char ch2;
       read(0, &ch1, 1);
       read(0, &ch2, 1);
-      if (ch1==91 && (ch2==65 || ch2 == 66)) {
+      if (ch1==91 && ch2==65) {
 	// Up arrow. Print next line in history.
+	
 
 	// Erase old line
 	// Print backspaces
@@ -210,17 +230,16 @@ char * read_line() {
 	}
 
 	// Print spaces on top
-	for (i =0; i < line_length + right_side; i++) {
+	for (i =0; i < line_length; i++) {
 	  ch = ' ';
 	  write(1,&ch,1);
 	}
 
 	// Print backspaces
-	for (i =0; i < line_length + right_side; i++) {
+	for (i =0; i < line_length; i++) {
 	  ch = 8;
 	  write(1,&ch,1);
-	}	
-  right_side = 0;
+	}
 
 	// Copy line from history
 	strcpy(line_buffer, history[history_index]);
