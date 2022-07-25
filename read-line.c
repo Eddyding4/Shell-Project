@@ -227,8 +227,11 @@ char * read_line() {
 	strcpy(line_buffer, history[history_index]);
 	line_length = strlen(line_buffer);
   int temp = history_full?history_length:history_index;
-	history_index=(history_index+1)%history_length;
-
+  int upDown = ch2 == 65? - 1 : 1;
+	history_rev=(history_index + upDown)%temp;
+  if (history_rev == -1) {
+    history_rev = temp - 1;
+  }
 	// echo line
 	write(1, line_buffer, line_length);
       }
