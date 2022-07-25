@@ -168,7 +168,7 @@ void myunputc(int c) {
     ch = ' ';
     buffer.push_back(ch);
 	}
-  
+  fprintf(stderr, "%s", buffer.c_str());
 	for (i = buffer.length() - 1; i >= 0; i--) {
 		unput(buffer[i]);
 	}
