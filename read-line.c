@@ -154,6 +154,13 @@ char * read_line() {
         char c = right_buf[i];
         write(1, &c, 1);
       }
+
+      ch = ' ';
+      write(1, &ch, 1);
+      for(int i = 0; i < right_side; i++){
+        char c = 8;
+        write(1, &c, 1);
+      }
     }
     else if (ch == 8) {
       // <backspace> was typed. Remove previous character read.
