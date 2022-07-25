@@ -152,7 +152,7 @@ void expandWildcardsIfNecessary(std::string * arg) {
   char * a;
   std::string path;
   if (strchr(arg_c,'?')==NULL & strchr(arg_c,'*')==NULL) {
-    //printf("No '?' or '*' was found\n");
+    
     Command::_currentSimpleCommand->insertArgument(arg);
     return;
   }
