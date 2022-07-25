@@ -13,6 +13,7 @@
 #include "y.tab.hh"
 #include <sys/wait.h>
 #include <sys/types.h>
+#include "shell.hh"
 
 static  void yyunput (int c,char *buf_ptr  );
 
