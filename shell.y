@@ -224,7 +224,7 @@ void expandWildCards(char * prefix, char * arg){
     }
     struct dirent * ent;
     while ((ent = readdir(dir)) != NULL){
-      if (regexec(&re, ent->d_name, expbuf) == 0) {
+      if (regexec(&re, ent->d_name, 1, NULL, 0) == 0) {
         Command::_currentSimpleCommand->insertArgument(strdup(end->d_name));
       }
     }
