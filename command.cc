@@ -158,6 +158,10 @@ void Command::execute() {
     // redirect input 
     dup2(fdin, 0);
     close(fdin);
+     printf("%s", _simpleCommands[i]->_arguments[1]->c_str());
+      if (!strcmp(_simpleCommands[i]->_arguments[1]->c_str(), "$")){
+        printf("HELLO");
+      }
   if(!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv") ){
     int error = setenv(_simpleCommands[i]->_arguments[1]->c_str(), _simpleCommands[i]->_arguments[2]->c_str(), 1);
 		if(error) {
@@ -216,10 +220,6 @@ void Command::execute() {
     //create child process
     ret = fork();
     if (ret == 0) {
-      printf("%s", _simpleCommands[i]->_arguments[1]->c_str());
-      if (!strcmp(_simpleCommands[i]->_arguments[1]->c_str(), "$")){
-        printf("HELLO");
-      }
       if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")){
         char ** env = environ;
 				while(*env){
