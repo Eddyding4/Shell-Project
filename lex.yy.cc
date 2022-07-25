@@ -1462,7 +1462,7 @@ YY_RULE_SETUP
   }
   result += str;
   if(strcmp(result.c_str(), "$") == 0){
-	yylval.cpp_string = new std::string(getpid(0));
+	yylval.cpp_string = new std::string(getpid());
   } else {
     yylval.cpp_string = new std::string(result);
   }
