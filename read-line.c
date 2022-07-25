@@ -56,7 +56,8 @@ void read_line_print_usage()
  * Input a line with some basic editing.
  */
 char * read_line() {
-
+  struct termios original_attribute;
+	tcgetattr(0, &original_attribute);
   // Set terminal in raw mode
   tty_raw_mode();
   if(history == NULL)
