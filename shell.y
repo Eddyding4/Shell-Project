@@ -327,6 +327,7 @@ void expandWildcard(char * prefix, char * suffix) {
   regfree(&re);
   free(reg);
 }
+}
 void
 yyerror(const char * s)
 {

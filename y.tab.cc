@@ -1786,26 +1786,121 @@ void expandWildCards(char * prefix, char * arg){
 		*r = '$';
 		r++;
 		*r = '\0';
-    regex_t re;
-    int expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
-    if (expbuf != 0) {
-      perror("regcomp");
-      return;
-    }
-    DIR * dir = opendir(".");
-    if (dir == NULL) {
-      perror("oopendir");
-      return;
-    }
-    struct dirent * ent;
-    while ((ent = readdir(dir)) != NULL){
-      if (regexec(&re, ent->d_name, 1, NULL, 0) == 0) {
-        std::string * insert = new std::string(ent->d_name);
-        Command::_currentSimpleCommand->insertArgument(insert);
+     regex_t re;
+  int expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
+  if (expbuf != 0) {
+    perror("regcomp");
+    return;
+  }
+
+  std::vector<char *> sortArgument = std::vector<char *>();
+  struct dirent * ent;
+  while ( (ent=readdir(dir)) != NULL) {
+    if (regexec(&re, ent->d_name, 1, NULL, 0) == 0) {
+      if (reg[1] == '.') {
+        if (ent->d_name[0] != '.') {
+          std::string name(ent->d_name);
+          name = path + name;
+          sortArgument.push_back(strdup((char *)name.c_str()));
+        }
+      } else {
+        std::string name(ent->d_name);
+        name = path + name;
+        sortArgument.push_back(strdup((char *)name.c_str()));
       }
     }
-    closedir(dir);
   }
+
+  closedir(dir);
+  regfree(&re);
+
+  std::sort(sortArgument.begin(), sortArgument.end(), cmpfunction);
+  
+  for (auto a: sortArgument) {
+    std::string * argToInsert = new std::string(a);
+    Command::_currentSimpleCommand->insertArgument(argToInsert);
+  }
+
+  sortArgument.clear();
+}
+
+void expandWildcard(char * prefix, char * suffix) {
+  if (suffix[0] == 0) {
+    _sortArgument.push_back(strdup(prefix));
+    return;
+  }
+  char Prefix[MAXFILENAME];
+  if (prefix[0] == 0) {
+    if (suffix[0] == '/') {suffix += 1; sprintf(Prefix, "%s/", prefix);}
+    else strcpy(Prefix, prefix);
+  }
+  else
+    sprintf(Prefix, "%s/", prefix);
+
+  char * s = strchr(suffix, '/');
+  char component[MAXFILENAME];
+  if (s != NULL) {
+    strncpy(component, suffix, s-suffix);
+    component[s-suffix] = 0;
+    suffix = s + 1;
+  }
+  else {
+    strcpy(component, suffix);
+    suffix = suffix + strlen(suffix);
+  }
+
+  char newPrefix[MAXFILENAME];
+  if (strchr(component,'?')==NULL & strchr(component,'*')==NULL) {
+    if (Prefix[0] == 0) strcpy(newPrefix, component);
+    else sprintf(newPrefix, "%s/%s", prefix, component);
+    expandWildcard(newPrefix, suffix);
+    return;
+  }
+  
+  char * reg = (char*)malloc(2*strlen(component)+10);
+  char * r = reg;
+  *r = '^'; r++;
+  int i = 0;
+  while (component[i]) {
+    if (component[i] == '*') {*r='.'; r++; *r='*'; r++;}
+    else if (component[i] == '?') {*r='.'; r++;}
+    else if (component[i] == '.') {*r='\\'; r++; *r='.'; r++;}
+    else {*r=component[i]; r++;}
+    i++;
+  }
+  *r='$'; r++; *r=0;
+
+  regex_t re;
+  int expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
+  
+  char * dir;
+  if (Prefix[0] == 0) dir = (char*)"."; else dir = Prefix;
+  DIR * d = opendir(dir);
+  if (d == NULL) {
+    return;
+  }
+  struct dirent * ent;
+  bool find = false;
+  while ((ent = readdir(d)) != NULL) {
+    if(regexec(&re, ent->d_name, 1, NULL, 0) == 0) {
+      find = true;
+      if (Prefix[0] == 0) strcpy(newPrefix, ent->d_name);
+      else sprintf(newPrefix, "%s/%s", prefix, ent->d_name);
+
+      if (reg[1] == '.') {
+        if (ent->d_name[0] != '.') expandWildcard(newPrefix, suffix);
+      } else 
+        expandWildcard(newPrefix, suffix);
+    }
+  }
+  if (!find) {
+    if (Prefix[0] == 0) strcpy(newPrefix, component);
+    else sprintf(newPrefix, "%s/%s", prefix, component);
+    expandWildcard(newPrefix, suffix);
+  }
+  closedir(d);
+  regfree(&re);
+  free(reg);
 }
 void
 yyerror(const char * s)
