@@ -220,7 +220,9 @@ void Command::execute() {
 
 		int ret_source = fork();
 		if (ret_source == 0) {
-			execvp("/proc/self/exe", NULL);
+      char** myargv2 = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
+      myargv2[0] = strdup(_simpleCommands[i]->_arguments[1]->c_str());
+			execvp(myargv[2], NULL);
 			exit(1);
 		} else if (ret < 0) {
 			perror("fork");
