@@ -282,11 +282,7 @@ void Command::execute() {
         buffer[r] = '\0';
         printf("%s\n",buffer);
 
-        fflush(stdout);
-        clear();
-        Shell::prompt();
-        return;
-        }
+        } else {
         char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
 	      for ( unsigned int j = 0; j < _simpleCommands[i]->_arguments.size(); j++ ) {
 
@@ -298,6 +294,7 @@ void Command::execute() {
         	
 	      perror("execvp");
 	      exit(1);	 
+        }
       } else if (ret < 0) {
       perror("fork");
 	    exit(2);
