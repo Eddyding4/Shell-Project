@@ -69,7 +69,7 @@ char * read_line() {
     char ch;
     read(0, &ch, 1);
 
-    if (ch>=32) {
+    if (ch>=32 && ch != 127) {
       // It is a printable character. 
 
       // Do echo
@@ -104,7 +104,7 @@ char * read_line() {
         }
       }
 
-      if(!line_length == 0){
+      if(line_length != 0){
         if(history[history_index] == NULL){
           history[history_index] = (char *)malloc(MAX_BUFFER_LINE);
         }
@@ -150,7 +150,7 @@ char * read_line() {
       if(line_length == 0) {
         continue;
       }
-      for(int i = right_side - 1; i >= 0; i--){
+      for(int i = right_side - 2; i >= 0; i--){
         char c = right_buf[i];
         write(1, &c, 1);
       }
@@ -182,7 +182,7 @@ char * read_line() {
 
       // Go back one character
       for(int i = 0; i < right_side + 1; i++){
-        ch = 8;
+        char ch = 8;
         write(1,&ch,1);
       }
 
@@ -228,7 +228,7 @@ char * read_line() {
 	line_length = strlen(line_buffer);
   int temp = history_full?history_length:history_index;
   int upDown = ch2 == 65? - 1 : 1;
-	history_rev=(history_index + upDown)%temp;
+	history_rev=(history_rev + upDown)%temp;
   if (history_rev == -1) {
     history_rev = temp - 1;
   }
@@ -246,6 +246,7 @@ char * read_line() {
     right_side++;
     line_length--;
   } else if (ch1 == 91 && ch2 == 67) {
+    //right arrow
     if (right_side == 0) {
       continue;
     }
