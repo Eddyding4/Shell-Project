@@ -11,30 +11,38 @@
 #include <unistd.h>
 
 #define MAX_BUFFER_LINE 2048
-
+#define HISTORY_SIZE 32
 extern void tty_raw_mode(void);
 
 // Buffer where line is stored
 int line_length;
 char line_buffer[MAX_BUFFER_LINE];
+char right_buf[MAX_BUFFER_LINE];
+int right_side;
 
 // Simple history array
 // This history does not change. 
 // Yours have to be updated.
 int history_index = 0;
-char * history [] = {
+int history_rev;
+int history_full = 0;
+/*char * history [] = {
   "ls -al | grep x", 
   "ps -e",
   "cat read-line-example.c",
   "vi hello.c",
   "make",
   "ls -al | grep xxx | grep yyy"
-};
-int history_length = sizeof(history)/sizeof(char *);
+};*/
+int history_length = HISTORY_SIZE;
 
 void read_line_print_usage()
 {
   char * usage = "\n"
+    "ctrl-a        Move to beginning of line\n"
+    "ctrl-e        Move to end of line\n"
+    "ctrl-h        Remove char at position before cursor\n"
+    "ctrl-d        Remove char at cursor\n"
     " ctrl-?       Print usage\n"
     " Backspace    Deletes last character\n"
     " up arrow     See last command in the history\n";
@@ -51,6 +59,7 @@ char * read_line() {
   tty_raw_mode();
 
   line_length = 0;
+  right_side = 0;
 
   // Read one line until enter is typed
   while (1) {
@@ -71,10 +80,34 @@ char * read_line() {
       // add char to buffer.
       line_buffer[line_length]=ch;
       line_length++;
+
+      //check right_sidee
+      if(right_side) {
+        for(int i = right_side - 1; i >= 0; i++){
+          char c = right_side[i];
+          write(1, &c, 1);
+        }
+      }
+      for (int i = 0; i < right_side.length; i++){
+        char c = 8;
+        write(1, &c, 1);
+      }
     }
     else if (ch==10) {
       // <Enter> was typed. Return line
-      
+      if(right_side) {
+        for(int i = right_side - 1; i >= 0; i--){
+          char c = right_side[i];
+          line_buffer[line_length] = c;
+          line_length++;
+        }
+      }
+
+      if(!line_length == 0){
+        if(history[history_index] == NULL){
+          
+        }
+      }
       // Print newline
       write(1,&ch,1);
 
