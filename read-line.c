@@ -10,8 +10,8 @@
 #include <string.h>
 #include <unistd.h>
 
-#define MAX_BUFFER_LINE 2048
-#define HISTORY_SIZE 16
+#define MAX_BUFFER_LINE 1024
+#define HISTORY_SIZE 32
 
 extern void tty_raw_mode(void);
 
@@ -277,6 +277,5 @@ char * read_line() {
   line_length++;
   line_buffer[line_length]=0;
 
-  tty_raw_mode;
   return line_buffer;
 }
