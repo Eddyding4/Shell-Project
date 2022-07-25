@@ -17,13 +17,16 @@ extern void tty_raw_mode(void);
 // Buffer where line is stored
 int line_length;
 char line_buffer[MAX_BUFFER_LINE];
+char right_buf[MAX_BUFFER_LINE];
+int right_side;
 
 // Simple history array
 // This history does not change. 
 // Yours have to be updated.
 int history_index = 0;
+int history_rev;
 char * history[HISTORY_SIZE];
-int history_length = 0;
+int history_full = 0;
 /*char * history [] = {
   "ls -al | grep x", 
   "ps -e",
@@ -32,6 +35,7 @@ int history_length = 0;
   "make",
   "ls -al | grep xxx | grep yyy"
 };*/
+int history_length = HISTORY_SIZE;
 
 void read_line_print_usage()
 {
@@ -56,7 +60,7 @@ char * read_line() {
   tty_raw_mode();
 
   line_length = 0;
-  int line_loc = line_length;
+  right_side = 0;
 
   // Read one line until enter is typed
   while (1) {
@@ -90,13 +94,15 @@ char * read_line() {
         write(1, &c, 1);
       }
     }
-    else if (ch == 10) {
+    else if (ch==10) {
       // <Enter> was typed. Return line
-      // Print newline
-      write(1,&ch,1);
-
-      break;
-    }
+      if(right_side) {
+        for(int i = right_side - 1; i >= 0; i--){
+          char c = right_buf[i];
+          line_buffer[line_length] = c;
+          line_length++;
+        }
+      }
 
       if(!line_length == 0){
         if(history[history_index] == NULL){
@@ -121,27 +127,7 @@ char * read_line() {
       read_line_print_usage();
       line_buffer[0]=0;
       break;
-
-    } else if (ch == 8) {
-    // <backspace> was typed. Remove previous character read.
-
-    // Go back one character
-      ch = 8;
-      write(1,&ch,1);
-
-    // Write a space to erase the last character read
-      ch = ' ';
-      write(1,&ch,1);
-
-    // Go back one character
-      ch = 8;
-      write(1,&ch,1);
-
-    // Remove one character from buffer
-      line_length--;
-      line_loc--;
-    }
-    else if (ch == 1) {
+    } else if (ch == 1) {
       //ctrl-a
       int temp = line_length;
       for(int i = 0; i < temp; i++){
@@ -177,35 +163,31 @@ char * read_line() {
       }
       right_side --;
     }
-    else if (ch == 127) {
-      //backspace
+    else if (ch == 127 || ch == 8 ) {
       // <backspace> was typed. Remove previous character read.
-      if(line_length > 0){
-        ch = 8;
-        write(1,&ch,1);
-        // Write a space to erase the last character read
-        ch = ' ';
-        write(1,&ch,1);
-
-        // Go back one character
-        ch = 8;
-        write(1,&ch,1);
-        // Remove one character from buffer
-        line_length--;
-        line_loc--;
+      if(line_length == 0) {
+        continue;
       }
-      continue;
+      // Go back one character
+      ch = 8;
       write(1,&ch,1);
 
-      // If max number of character reached return.
-      if (line_length==MAX_BUFFER_LINE-2) 
-        break; 
+      for(int i = right_side - 1; i >=0 ; i--) {
+        char c = right_buf[i];
+        write(1,&c,1);
+      }
+      // Write a space to erase the last character read
+      ch = ' ';
+      write(1,&ch,1);
 
-      // add char to buffer.
-      line_buffer[line_length]=ch;
-      if(line_loc == line_length)
-        line_length++;
-      line_loc++;
+      // Go back one character
+      for(int i = 0; i < right_side + 1; i++){
+        ch = 8;
+        write(1,&ch,1);
+      }
+
+      // Remove one character from buffer
+      line_length--;
     }
     else if (ch==27) {
       // Escape sequence. Read two chars more
@@ -213,13 +195,12 @@ char * read_line() {
       // HINT: Use the program "keyboard-example" to
       // see the ascii code for the different chars typed.
       //
-      cchar ch1; 
+      char ch1; 
       char ch2;
       read(0, &ch1, 1);
       read(0, &ch2, 1);
-      if (ch1==91 && ch2==65) {
+      if (ch1==91 && (ch2==65 || ch2 == 66)) {
 	// Up arrow. Print next line in history.
-	
 
 	// Erase old line
 	// Print backspaces
@@ -230,25 +211,26 @@ char * read_line() {
 	}
 
 	// Print spaces on top
-	for (i =0; i < line_length; i++) {
+	for (i =0; i < line_length + right_side; i++) {
 	  ch = ' ';
 	  write(1,&ch,1);
 	}
 
 	// Print backspaces
-	for (i =0; i < line_length; i++) {
+	for (i =0; i < line_length + right_side; i++) {
 	  ch = 8;
 	  write(1,&ch,1);
-	}
+	}	
+  right_side = 0;
 
 	// Copy line from history
-  if(history_length > 0 && history_index >= 0) {
-    strcpy(line_buffer, history[history_index--]);
-    history_index = (history_index) % history_length;
-    if(history_index == -1) {
-      history_index = history_length - 1;
-    }
-    line_length = strlen(line_buffer);
+	strcpy(line_buffer, history[history_index]);
+	line_length = strlen(line_buffer);
+  int temp = history_full?history_length:history_index;
+  int upDown = ch2 == 65? - 1 : 1;
+	history_rev=(history_index + upDown)%temp;
+  if (history_rev == -1) {
+    history_rev = temp - 1;
   }
 	// echo line
 	write(1, line_buffer, line_length);
