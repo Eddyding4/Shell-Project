@@ -256,7 +256,7 @@ void Command::execute() {
         if (pid == 0) {
           execvp("/proc/self/exe", NULL);
           exit(1);
-        } else if (ret < 0) {
+        } else if (pid < 0) {
           perror("fork");
           exit(1);
         }
@@ -295,10 +295,7 @@ void Command::execute() {
 	      perror("execvp");
 	      exit(1);	 
         }
-      } else if (ret < 0) {
-      perror("fork");
-	    exit(2);
-    }
+      } 
   }
    
     // restore in/out defaults
