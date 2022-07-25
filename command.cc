@@ -165,13 +165,13 @@ void Command::execute() {
 	  std::string temp = std::to_string(pid);
 	  _simpleCommands[i]->_arguments[1] = new std::string(temp);
   }
-  if (!strcmp(_simpleCommands[i]->_arguments[1]->c_str(), "?")){
+  /*if (!strcmp(_simpleCommands[i]->_arguments[1]->c_str(), "?")){
     int status;
     waitpid(ret, &status, 0);
     int exit_status = WEXITSTATUS(status);
     std::string temp = std::to_string(exit_status);
     _simpleCommands[i]->_arguments[1] = new std::string(temp);
-  }
+  }*/
 
   //implement the env
   if(!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv") ){
