@@ -6,7 +6,7 @@
  * You have to extend it.
  *
  */
-
+%s SOURCE_SC
 %{
 
 #include <cstring>
