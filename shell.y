@@ -143,7 +143,7 @@ int max = 30;
 int num = 0;
 char ** entries;
 
-bool cmpfunction (char * i, char * j) { 
+bool cmpfunc (char * i, char * j) { 
   return strcmp(i,j)<0; 
 }
 

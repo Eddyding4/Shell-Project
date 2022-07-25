@@ -1718,11 +1718,8 @@ int max = 30;
 int num = 0;
 char ** entries;
 
-int cmp (const void *file1, const void *file2) 
-{
-	const char *_file1 = *(const char **)file1;
-	const char *_file2 = *(const char **)file2;
-	return strcmp(_file1, _file2);
+bool cmpfunction (char * i, char * j) { 
+  return strcmp(i,j)<0; 
 }
 
 void expandWildcardsIfNecessary(std::string * arg) {
