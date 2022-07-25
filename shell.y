@@ -56,8 +56,7 @@ arg_list:
   arg_list WORD {
       //printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
       //Command::_currentSimpleCommand->insertArgument( $2 );
-    std::string echo = "echo";
-    if(strcmp(Command::_currentSimpleCommand->_arguments[0]->c_str(), echo) == 0 && strchr($2, '?')) {
+    if(strcmp(Command::_currentSimpleCommand->_arguments[0]->c_str(), "echo") == 0 && strchr($2, '?')) {
       	Command::_currentSimpleCommand->insertArgument( $2 );
 	  } else {
 		    expandWildcardsIfNecessary($2);
