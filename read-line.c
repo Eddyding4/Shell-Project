@@ -269,7 +269,7 @@ char * read_line() {
 
           // echo line
           write(1, line_buffer, line_length);
-          current_pos = line_length;
+          current = line_length;
         }
         else
         {
@@ -277,7 +277,7 @@ char * read_line() {
           line_length = strlen(line_buffer);
 
           write(1, line_buffer, line_length);
-          current_pos = line_length;
+          current = line_length;
         }
 
       } if (ch1==91 && ch2==68) {
