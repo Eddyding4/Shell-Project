@@ -17,6 +17,7 @@
 #include <cstring>
 #include <regex>
 #include <iostream>
+#include <dirent.h>
 #if __cplusplus > 199711L
 #define register      // Deprecated in C++11 so remove the keyword
 #endif
@@ -40,10 +41,10 @@
 void yyerror(const char * s);
 int yylex();
 
-void expandWildCardsIfNecessary(char * arg);
-void expandWildCards(char * prefix, char * arg);
-int cmpfunc(const void * file1, const void * file2);
-bool is_dir(const char * path);
+void expandWildcardsIfNecessary(std::string * arg);
+void expandWildcard(char * prefix, char * suffix);
+bool cmpfunction (char * i, char * j);
+static bool wildCard;
 
 %}
 
@@ -54,10 +55,17 @@ goal: command_list;
 arg_list:
   arg_list WORD {
       //printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
-      if(strcmp(Command::_currentSimpleCommand->_arguments[0], "echo") == 0 && strchr($2, '?'))
-      Command::_currentSimpleCommand->insertArgument( $2 );
-      else
-      expandWildcardsIfNecessary
+      wildCard = false;
+      char *p = (char *)"";
+      expandWildcard(p, (char*)$2->c_str());
+      std::sort(_sortArgument.begin(), sortArgument.end(), cmpfunction);
+      for(auto a:_sortArgument){
+        std::string * argToInsert = new std::string(a);
+        Command::_currentSimpleCommand->insertArgument(argToInsert);
+      }
+      _sortArgument.clear();
+      //Command::_currentSimpleCommand->insertArgument( $2 );
+      
   } 
   | /*empty*/
   ;
@@ -137,26 +145,7 @@ command_list:
   ;
 %%
 
-int maxEntries = 20;
-int nEntries = 0;
-char ** entries;
-
-void expandWildCardsIfNecessary(char * arg){
-  maxEntries = 20;
-  nEntries = 0;
-  entries = (char **) malloc (maxEntries * sizeof(char*));
-
-  if(strchr(arg, '*') || strchr(arg, '?')) {
-    expandWildCard(NULL, arg);
-    qsort(entries, nEntries, sizeof(char *), cmpfunc);
-    for(int i = 0; i < nEntries; i++){
-      Command::_currentSimpleCommand->insertArgument(entries[i]);
-    } 
-  } else {
-    Command::_currentSimpleCommand->insertArgument(arg);
-  }
-  return;
-}
+bool cmpfunction (char * i, char * j) { return strcmp(i,j)<0; }
 
 void
 yyerror(const char * s)
@@ -164,6 +153,18 @@ yyerror(const char * s)
   fprintf(stderr,"%s", s);
 }
 
+void expandWildcardsIfNecessary(std::string * arg){
+  char * args = (char *)arg->c_str();
+  char * a;
+  std::string path;
+
+  if(strchr(args, '?') == NULL & strchr(args, '*') == NULL){
+    Command::_currentSimpleCommand->insertArgument(arg);
+    return;
+  }
+  DIR * dir;
+
+}
 #if 0
 main()
 {
