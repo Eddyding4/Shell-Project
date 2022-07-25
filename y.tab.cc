@@ -1723,7 +1723,19 @@ int cmp (const void *file1, const void *file2)
 	return strcmp(_file1, _file2);
 }
 
+void expandWildCards(char * prefix, char * arg){
+  char * temp = arg;
+  char * temp2 = (char*) malloc (strlen(arg) + 10);
+  char * dir = save;
 
+  if(temp[0] = '/'){
+    *(save++) = *(temp++);
+  }
+  while (*temp != '/' && *temp){
+    *(save++) = *(temp++);
+  }
+  *save = '\0';
+}
 
 void expandWildcardsIfNecessary(std::string * arg){
   char * temp = (char *) malloc(arg->length()+1);

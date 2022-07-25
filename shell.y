@@ -137,7 +137,7 @@ command_list:
   ;
 %%
 
-int max = 20;
+int max = 30;
 int num = 0;
 char ** entries;
 
@@ -150,7 +150,7 @@ int cmp (const void *file1, const void *file2)
 
 void expandWildCards(char * prefix, char * arg){
   char * temp = arg;
-  char * temp2 = (char*) malloc (strlen(arg) + 10);
+  char * save = (char*) malloc (strlen(arg) + 10);
   char * dir = save;
 
   if(temp[0] = '/'){
@@ -160,6 +160,97 @@ void expandWildCards(char * prefix, char * arg){
     *(save++) = *(temp++);
   }
   *save = '\0';
+  if (strchr(dir, '*') || strchr(dir, '?')) 
+	{
+		if (!prefix && arg[0] == '/') 
+		{
+			prefix = strdup("/");
+			dir++;
+		}  
+
+		char * temp2 = (char *) malloc (2*strlen(arg) + 10);
+		char * a = dir;
+		char * r = temp2;
+
+		*r = '^';
+		r++;
+		while (*a) 
+		{
+			if (*a == '*') { *r='.'; r++; *r='*'; r++; }
+			else if (*a == '?') { *r='.'; r++; }
+			else if (*a == '.') { *r='\\'; r++; *r='.'; r++; }
+			else { *r=*a; r++; }
+			a++;
+		}
+		*r = '$';
+		r++;
+		*r = '\0';
+
+		regex_t re;
+
+		int expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
+
+		char * toOpen = strdup((prefix)?prefix:".");
+		DIR * dir = opendir(toOpen);
+		if (dir == NULL) 
+		{
+			perror("opendir");
+			return;
+		}
+
+		struct dirent * ent;
+		regmatch_t match;
+		while ((ent = readdir(dir)) != NULL) 
+		{
+			if (!regexec(&re, ent->d_name, 1, &match, 0)) 
+			{
+				if (*temp) 
+				{
+					if (ent->d_type == DT_DIR) 
+					{
+						char * nPrefix = (char *) malloc (150);
+						if (!strcmp(toOpen, ".")) {
+              nPrefix = strdup(ent->d_name);
+            }
+						else if (!strcmp(toOpen, "/")) {
+              sprintf(nPrefix, "%s%s", toOpen, ent->d_name);
+            }  else {
+              sprintf(nPrefix, "%s/%s", toOpen, ent->d_name);
+            }
+						expandWildCards(nPrefix, (*temp == '/')?++temp:temp);
+					}
+				} else {	
+					if (num == max) 
+					{ 
+						max *= 2; 
+						entries = (char **) realloc (entries, max * sizeof(char *)); 
+					}
+					char * argument = (char *) malloc (1024);
+					argument[0] = '\0';
+					if (prefix)
+						sprintf(argument, "%s/%s", prefix, ent->d_name);
+
+					if (ent->d_name[0] == '.') 
+					{
+						if (arg[0] == '.')
+							entries[num++] = (argument[0] != '\0')?strdup(argument):strdup(ent->d_name);
+					}
+					else
+						entries[num++] = (argument[0] != '\0')?strdup(argument):strdup(ent->d_name);
+				}
+			}
+		}
+		closedir(dir);
+	} else {
+		char * preToSend = (char *) malloc (1024);
+		if(prefix) 
+			sprintf(preToSend, "%s/%s", prefix, dir);
+		else
+			preToSend = strdup(dir);
+
+		if(*temp)
+			expandWildCards(preToSend, ++temp);
+	}
 }
 
 void expandWildcardsIfNecessary(std::string * arg){
