@@ -1739,7 +1739,7 @@ void expandWildcardsIfNecessary(std::string * arg){
 			return;
     }
     qsort(entries, num, sizeof(char *), cmp);
-    for (int i = 0; i < nEntries; i++) {
+    for (int i = 0; i < num; i++) {
 			std::string * str = new std::string(entries[i]);
 			Command::_currentSimpleCommand->insertArgument(str);
 		}
@@ -1756,7 +1756,6 @@ yyerror(const char * s)
 }
 
 
-}
 #if 0
 main()
 {
