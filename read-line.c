@@ -139,7 +139,7 @@ char * read_line() {
       }
     } else if (ch == 5) {
       //ctrl-e
-      for(int i = right_side; i >= 0; i--){
+      for(int i = right_side - 1; i >= 0; i--){
         write(1, "\033[1C", 5);
         line_buffer[line_length] = right_buf[right_side - 1];
         right_side--;
