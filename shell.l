@@ -73,7 +73,6 @@ void myunputc(int c) {
 
 <SOURCE_SC>[^ ><|&\t\n][^ ><|&\t\n]* {
   FILE * in = fopen(yytext, "r+");
-
   if (!in) {
     perror("fopen");
     BEGIN(INITIAL);
@@ -81,11 +80,9 @@ void myunputc(int c) {
     fputc('\n', in);
     yypush_buffer_state(yy_create_buffer(in, YY_BUF_SIZE));
     BEGIN(INITIAL);
-    Shell::_srcCmd = true;
     yyparse();
     yypop_buffer_state();
     fclose(in);
-    Shell::_srcCmd = false;
   }
 }
 

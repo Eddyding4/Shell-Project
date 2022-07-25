@@ -6,25 +6,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-
-#ifndef YY_BUF_SIZE
-#ifdef __ia64__
-#define YY_BUF_SIZE 30000
-#else
-#define YY_BUF_SIZE 16000
-#endif
-#endif
-
-#ifndef YY_TYPEDEF_YY_BUFFER_STATE
-#define YY_TYPEDEF_YY_BUFFER_STATE
-typedef struct yy_buffer_state *YY_BUFFER_STATE;
-#endif
-
-void yyrestart(FILE * input_file );
 int yyparse(void);
-void yypush_buffer_state(YY_BUFFER_STATE buffer);
-void yypop_buffer_state();
-YY_BUFFER_STATE yy_create_buffer(FILE * file, int size);
 
 extern "C" void disp(int sig){
   //printf("\n");
@@ -44,22 +26,6 @@ void Shell::prompt() {
   fflush(stdout);
 }
 
-void source(void) {
-  std::string s = ".shellrc";
-  FILE * in = fopen(s.c_str(), "r");
-
-  if (!in) {
-    return;
-  }
-
-  yypush_buffer_state(yy_create_buffer(in, YY_BUF_SIZE));
-  Shell::_srcCmd = true;
-  yyparse();
-  yypop_buffer_state();
-  fclose(in);
-  Shell::_srcCmd = false;
-}
-
 
 int main() {
   Shell::prompt();	
@@ -67,7 +33,7 @@ int main() {
   signalAction.sa_handler = disp;
   sigemptyset(&signalAction.sa_mask);
   signalAction.sa_flags = SA_RESTART;
-  source();
+
   if(sigaction(SIGINT, &signalAction, NULL)){
     perror("sigaction");
     exit(2);
