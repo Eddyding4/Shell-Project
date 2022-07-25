@@ -152,7 +152,7 @@ void myunputc(int c) {
 		perror("fork");
 		exit(1);
 	}
-
+  waitpid(ret, 0, 0);
 	dup2(tmpin, 0);
 	dup2(tmpout, 1);
 	close(tmpin);
@@ -169,7 +169,7 @@ void myunputc(int c) {
     buffer.push_back(ch);
 	}
   
-	for (i = buffer.length; i >= 0; i--) {
+	for (i = buffer.length(); i >= 0; i--) {
 		unput(buffer[i]);
 	}
 }

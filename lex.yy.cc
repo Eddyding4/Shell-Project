@@ -1092,7 +1092,7 @@ YY_RULE_SETUP
     buffer.push_back(ch);
 	}
   
-	for (i = buffer.length; i >= 0; i--) {
+	for (i = buffer.length(); i >= 0; i--) {
 		unput(buffer[i]);
 	}
 }
