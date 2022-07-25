@@ -168,7 +168,7 @@ void myunputc(int c) {
 		else buffer[i++] = ch;
 	}
 	buffer[i] = '\0';
-
+  fprintf(stderr, "OUTPUT: %s", buffer);
 	for (i = strlen(buffer); i >= 0; i--) {
 		unput(buffer[i]);
 	}
