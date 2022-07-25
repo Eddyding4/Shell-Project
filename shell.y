@@ -20,6 +20,7 @@
 #include <dirent.h>
 #include <regex.h>
 #if __cplusplus > 199711L
+#define MAXFILENAME 1024
 #define register      // Deprecated in C++11 so remove the keyword
 #endif
 }
@@ -216,7 +217,7 @@ void expandWildcardsIfNecessary(std::string * arg) {
   closedir(dir);
   regfree(&re);
 
-  std::sort(sortArgument.begin(), sortArgument.end(), cmpfunction);
+  std::sort(sortArgument.begin(), sortArgument.end(), cmpfunc);
   
   for (auto a: sortArgument) {
     std::string * argToInsert = new std::string(a);
@@ -228,7 +229,7 @@ void expandWildcardsIfNecessary(std::string * arg) {
 
 void expandWildcard(char * prefix, char * suffix) {
   if (suffix[0] == 0) {
-    _sortArgument.push_back(strdup(prefix));
+    _argument.push_back(strdup(prefix));
     return;
   }
   char Prefix[MAXFILENAME];
