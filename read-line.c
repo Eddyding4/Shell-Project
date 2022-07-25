@@ -81,10 +81,10 @@ char * read_line() {
       line_buffer[line_length]=ch;
       line_length++;
 
-      //check right_sidee
+      //check right_side
       if(right_side) {
         for(int i = right_side - 1; i >= 0; i++){
-          char c = right_side[i];
+          char c = right_buf[i];
           write(1, &c, 1);
         }
       }
@@ -105,7 +105,7 @@ char * read_line() {
 
       if(!line_length == 0){
         if(history[history_index] == NULL){
-          
+
         }
       }
       // Print newline
