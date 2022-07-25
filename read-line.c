@@ -100,6 +100,7 @@ char * read_line() {
       }
     }
     else if (ch==10) {
+      /*
       // <Enter> was typed. Return line
       if (right_side) {
         for (int i=right_side-1; i>=0; i--) {
@@ -123,6 +124,7 @@ char * read_line() {
       write(1,&ch,1);
 
       break;
+      */
     }
     else if (ch == 1) {
       // ctrl-A was typed. The cursor moves to the beginning of the line
