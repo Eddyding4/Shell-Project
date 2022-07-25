@@ -34,7 +34,7 @@ int history_index = 0;
   "ls -al | grep xxx | grep yyy"
 };*/
 char ** history = NULL;
-int history_length = sizeof(history)/sizeof(char *);
+int history_length = 16;
 int history_size = 10;
 
 void read_line_print_usage()
