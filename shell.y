@@ -59,7 +59,7 @@ arg_list:
     if(strcmp(Command::_currentSimpleCommand->_arguments[0], "echo") == 0 && strchr($2, '?')) {
       	Command::_currentSimpleCommand->insertArgument( $2 );
 	  } else {
-		    expandWildCardsIfNecessary($2);
+		    expandWildcardsIfNecessary($2);
     }
       
   } 
