@@ -17,16 +17,13 @@ extern void tty_raw_mode(void);
 // Buffer where line is stored
 int line_length;
 char line_buffer[MAX_BUFFER_LINE];
-char right_buf[MAX_BUFFER_LINE];
-int right_side;
 
 // Simple history array
 // This history does not change. 
 // Yours have to be updated.
 int history_index = 0;
-int history_rev;
 char * history[HISTORY_SIZE];
-int history_full = 0;
+int history_length = 0;
 /*char * history [] = {
   "ls -al | grep x", 
   "ps -e",
@@ -35,7 +32,6 @@ int history_full = 0;
   "make",
   "ls -al | grep xxx | grep yyy"
 };*/
-int history_length = HISTORY_SIZE;
 
 void read_line_print_usage()
 {
@@ -60,7 +56,7 @@ char * read_line() {
   tty_raw_mode();
 
   line_length = 0;
-  right_side = 0;
+  int line_loc = line_length;
 
   // Read one line until enter is typed
   while (1) {
@@ -163,31 +159,34 @@ char * read_line() {
       }
       right_side --;
     }
-    else if (ch == 127 || ch == 8 ) {
+    else if (ch == 127) {
       // <backspace> was typed. Remove previous character read.
-      if(line_length == 0) {
-        continue;
-      }
-      // Go back one character
-      ch = 8;
+      if(line_length > 0){
+				ch = 8;
+				write(1,&ch,1);
+				// Write a space to erase the last character read
+				ch = ' ';
+				write(1,&ch,1);
+
+				// Go back one character
+				ch = 8;
+				write(1,&ch,1);
+				// Remove one character from buffer
+				line_length--;
+				line_loc--;
+			}
+			continue;
       write(1,&ch,1);
 
-      for(int i = right_side - 1; i >=0 ; i--) {
-        char c = right_buf[i];
-        write(1,&c,1);
-      }
-      // Write a space to erase the last character read
-      ch = ' ';
-      write(1,&ch,1);
+		// If max number of character reached return.
+		if (line_length==MAX_BUFFER_LINE-2) 
+			break; 
 
-      // Go back one character
-      for(int i = 0; i < right_side + 1; i++){
-        ch = 8;
-        write(1,&ch,1);
-      }
-
-      // Remove one character from buffer
-      line_length--;
+		// add char to buffer.
+		line_buffer[line_length]=ch;
+		if(line_loc == line_length)
+			line_length++;
+		line_loc++;
     }
     else if (ch==27) {
       // Escape sequence. Read two chars more
