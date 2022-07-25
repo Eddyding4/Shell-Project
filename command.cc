@@ -216,6 +216,9 @@ void Command::execute() {
     //create child process
     ret = fork();
     if (ret == 0) {
+      if (!strcmp(_simpleCommands[i]->_arguments[1]->c_str(), "$")){
+        printf("HELLO");
+      }
       if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")){
         char ** env = environ;
 				while(*env){
