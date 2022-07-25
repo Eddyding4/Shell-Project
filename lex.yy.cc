@@ -1219,7 +1219,6 @@ YY_RULE_SETUP
 #line 74 "shell.l"
 {
   FILE * in = fopen(yytext, "r+");
-
   if (!in) {
     perror("fopen");
     BEGIN(INITIAL);
@@ -1227,17 +1226,15 @@ YY_RULE_SETUP
     fputc('\n', in);
     yypush_buffer_state(yy_create_buffer(in, YY_BUF_SIZE));
     BEGIN(INITIAL);
-    Shell::_srcCmd = true;
     yyparse();
     yypop_buffer_state();
     fclose(in);
-    Shell::_srcCmd = false;
   }
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 92 "shell.l"
+#line 89 "shell.l"
 {
   //escape
 	int i=0;
@@ -1262,7 +1259,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 114 "shell.l"
+#line 111 "shell.l"
 {
 	//quotes
 	int i = 0;
@@ -1286,7 +1283,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 135 "shell.l"
+#line 132 "shell.l"
 {
   std::string * cmd = new std::string(yytext);
 	cmd->pop_back();
@@ -1354,7 +1351,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 200 "shell.l"
+#line 197 "shell.l"
 {
   //environment expansion
   std::string str = std::string(yytext);
@@ -1381,7 +1378,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 225 "shell.l"
+#line 222 "shell.l"
 {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
@@ -1390,10 +1387,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 233 "shell.l"
+#line 230 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1397 "lex.yy.cc"
+#line 1394 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(SOURCE_SC):
 	yyterminate();
@@ -2411,6 +2408,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 233 "shell.l"
+#line 230 "shell.l"
 
 

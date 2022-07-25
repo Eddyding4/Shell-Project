@@ -130,7 +130,8 @@ void myunputc(int c) {
 }
 
 \$\([^\n\$]*\)|`[^\n`]*` {
-  std::string * cmd = new std::string(yytext);
+	//subshell
+  	std::string * cmd = new std::string(yytext);
 	cmd->pop_back();
 
 	// string check
@@ -192,6 +193,25 @@ void myunputc(int c) {
 	for (i = buffer.length() - 1; i >= 0; i--) {
 		unput(buffer[i]);
 	}
+}
+
+~[^ \n\t]* {
+	//tilde stuff
+  std::string str = std::string(yytext);
+  std::string home = getenv("HOME");
+  if (str.size() == 1) {
+    yylval.cpp_string = new std::string(home);
+  } 
+  else {
+    if (str[1] == '/') {
+      str = home + str.substr(1, -1);
+    } 
+    else {
+      str = std::string("/homes/") + str.substr(1,-1);
+    }
+    yylval.cpp_string = new std::string(str);
+  }
+  return WORD;
 }
 
 $\{[^ \}\n]*\}([^ \n]*|$\{[^ \}\n]*\})* {
