@@ -234,11 +234,30 @@ char * read_line() {
   }
 	// echo line
 	write(1, line_buffer, line_length);
-      }
-      
-    }
 
+  } else if (ch1 == 91 && ch2 == 68) {
+    //left arrow
+    if(line_length == 0) {
+      continue;
+    }
+    ch = 8;
+    write(1, &ch, 1);
+    right_buf[right_side] = line_buffer[line_length - 1];
+    right_side++;
+    line_length--;
+  } else if (ch1 == 91 && ch2 == 67) {
+    if (right_side == 0) {
+      continue;
+    }
+    write(1, "\033[1C", 5);
+    line_buffer[line_length] = right_buf[right_side - 1];
+    line_length++;
+    right_side--;
+    }
+      
   }
+
+}
 
   // Add eol and null char at the end of string
   line_buffer[line_length]=10;
