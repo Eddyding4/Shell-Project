@@ -160,7 +160,11 @@ void Command::execute() {
     close(fdin);
 
   //implement env variables  
-
+  if (!strcmp(_simpleCommands[i]->_arguments[1]->c_str(), "$")){
+    int pid = getpid();
+	  std::string temp = std::to_string(pid);
+	  _simpleCommands[i]->_arguments[1] = new std::string(temp);
+  }
   /*if (!strcmp(_simpleCommands[i]->_arguments[1]->c_str(), "?")){
     int status;
     waitpid(pid, &status, 0);
@@ -225,11 +229,6 @@ void Command::execute() {
     //create child process
     ret = fork();
     if (ret == 0) {
-        if (!strcmp(_simpleCommands[i]->_arguments[1]->c_str(), "$")){
-    int pid = getpid();
-	  std::string temp = std::to_string(pid);
-	  _simpleCommands[i]->_arguments[1] = new std::string(temp);
-  }
       if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")){
         char ** env = environ;
 				while(*env){
