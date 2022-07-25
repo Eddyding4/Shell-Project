@@ -1373,7 +1373,7 @@ yyreduce:
     if(strcmp(Command::_currentSimpleCommand->_arguments[0], "echo") == 0 && strchr((yyvsp[0].cpp_string), '?')) {
       	Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
 	  } else {
-		    expandWildCardsIfNecessary((yyvsp[0].cpp_string));
+		    expandWildcardsIfNecessary((yyvsp[0].cpp_string));
     }
       
   }
