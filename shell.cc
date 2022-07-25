@@ -14,6 +14,12 @@
 #define YY_BUF_SIZE 16000
 #endif
 #endif
+
+#ifndef YY_TYPEDEF_YY_BUFFER_STATE
+#define YY_TYPEDEF_YY_BUFFER_STATE
+typedef struct yy_buffer_state *YY_BUFFER_STATE;
+#endif
+
 void yyrestart(FILE * input_file );
 int yyparse(void);
 void yypush_buffer_state(YY_BUFFER_STATE buffer);
