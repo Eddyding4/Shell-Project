@@ -1799,7 +1799,7 @@ void expandWildCards(char * prefix, char * arg){
     }
     struct dirent * ent;
     while ((ent = readdir(dir)) != NULL){
-      if (regexec(ent->d_name, reg) == 0) {
+      if (regexec(ent->d_name, expbuf) == 0) {
         Command::_currentSimpleCommand->insertArgument(strdup(end->d_name));
       }
     }
