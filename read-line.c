@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#define _SVID_SOURCE
 #include <string.h>
 #include <unistd.h>
 #include <termios.h>
