@@ -240,8 +240,6 @@ void Command::execute() {
 		while (read(fdpipeout[0], &ch, 1)) {
 			if (ch != '\n') { 
         buffer[r++] = ch;
-      } else {
-        buffer[r++] = '\n';
       }
 		}
 
