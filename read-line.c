@@ -101,30 +101,31 @@ char * read_line() {
       }
     }
     else if (ch==10) {
-      // <Enter> was typed. Return line
-      if (right_side) {
-        for (int i=right_side-1; i>=0; i--) {
-          char c = right_buf[i];
+      // // <Enter> was typed. Return line
+      // if (right_side) {
+      //   for (int i=right_side-1; i>=0; i--) {
+      //     char c = right_buf[i];
 
-          line_buffer[line_length]=c;
-          line_length++;
-        }
-      }
+      //     line_buffer[line_length]=c;
+      //     line_length++;
+      //   }
+      // }
 
-      if (line_length != 0) {
-        if (history[history_index]==NULL) 
-        history[history_index] = (char *)malloc(MAX_BUFFER_LINE);
+      // if (line_length != 0) {
+      //   if (history[history_index]==NULL) 
+      //   history[history_index] = (char *)malloc(MAX_BUFFER_LINE);
   
-        strcpy(history[history_index], line_buffer);
-        history_rev = history_index;
-        history_index++;
-        if (history_index>=history_length) {
-          history_index = 0;
-        }
-      }
+      //   strcpy(history[history_index], line_buffer);
+      //   history_rev = history_index;
+      //   history_index++;
+      //   if (history_index>=history_length) {
+      //     history_index = 0;
+      //   }
+      // }
 
-      right_side=0;
-      // Print newline
+      // right_side=0;
+      // // Print newline
+
       write(1,&ch,1);
       break;
     }
