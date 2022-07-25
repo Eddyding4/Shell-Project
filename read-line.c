@@ -17,7 +17,7 @@ extern void tty_raw_mode(void);
 // Buffer where line is stored
 int line_length;
 char line_buffer[MAX_BUFFER_LINE];
-int current_position;
+int current_pos;
 
 // Simple history array
 // This history does not change. 
@@ -189,6 +189,93 @@ char * read_line() {
       char ch2;
       read(0, &ch1, 1);
       read(0, &ch2, 1);
+      if(ch1 == 91 && ch2 == 68) {
+        //left arrow
+        if(current_pos > 0) {
+          ch = 8;
+          write(1, &ch, 1);
+          current_pos--;
+        }
+      }
+      if(ch1 == 91 && ch2 == 67) {
+        //right arrow
+        if(line_length > current_pos){
+          char ch = line_buffer[current_pos];
+          write(1, &ch, 1);
+          current_pos++;
+        }
+      } if(ch1 == 91 && ch2 == 65 && history_length > 0) {
+        // Up arrow. Print next line in history.
+        // Erase old line
+        // Print backspaces
+        int i = 0;
+        for (i =line_length - current_pos; i < line_length; i++) {
+          ch = 8;
+          write(1,&ch,1);
+        }
+
+        // Print spaces on top
+        for (i =0; i < line_length; i++) {
+          ch = ' ';
+          write(1,&ch,1);
+        }
+
+        // Print backspaces
+        for (i =0; i < line_length; i++) {
+          ch = 8;
+          write(1,&ch,1);
+        }	
+
+        // Copy line from history
+        strcpy(line_buffer, history[history_index]);
+        line_length = strlen(line_buffer);
+        history_index=(history_index+1)%history_length;
+
+        // echo line
+        write(1, line_buffer, line_length);
+        current_pos = line_length;
+      } if(ch1 == 91 && ch2 == 66) {
+        // Down arrow
+        // Erase old line
+        // Print backspaces
+        int i = 0;
+        for (i =line_length - current_pos; i < line_length; i++) {
+          ch = 8;
+            write(1,&ch,1);
+        }
+
+        // Print spaces on top
+        for (i =0; i < line_length; i++) {
+          ch = ' ';
+          write(1,&ch,1);
+        }
+
+        // Print backspaces
+        for (i =0; i < line_length; i++) {
+            ch = 8;
+            write(1,&ch,1);
+        }	
+
+        if(history_index > 0)
+        {
+          // Copy line from history
+          strcpy(line_buffer, history[history_index]);
+          line_length = strlen(line_buffer);
+          history_index=(history_index+1)%history_length;
+
+          // echo line
+          write(1, line_buffer, line_length);
+          current_pos = line_length;
+        }
+        else
+        {
+          strcpy(line_buffer, "");
+          line_length = strlen(line_buffer);
+
+          write(1, line_buffer, line_length);
+          current_pos = line_length;
+        }
+      }
   }
 
 }
