@@ -127,6 +127,33 @@ char * read_line() {
       read_line_print_usage();
       line_buffer[0]=0;
       break;
+    } else if (ch == 1) {
+      //ctrl-a
+      int temp = line_length;
+      for(int i = 0; i < temp; i++){
+        char c = 8;
+        write(1, &c, 1);
+        right_buf[right_side] = line_buffer[line_length - 1];
+        right_side++;
+        line_length --;
+      }
+    } else if (ch == 5) {
+      //ctrl-e
+      for(int i = right_side; i >= 0; i--){
+        write(1, "\033[1C", 5);
+        line_buffer[line_length] = right_buf[right_side - 1];
+        right_side--;
+        line_length++;
+      }
+    } else if (ch == 4){
+      //ctrl-d
+      if(line_length == 0) {
+        continue;
+      }
+      for(int i = right_side - 1; i >= 0; i--){
+        char c = right_buf[i];
+        write(1, &c, 1);
+      }
     }
     else if (ch == 8) {
       // <backspace> was typed. Remove previous character read.
