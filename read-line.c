@@ -111,7 +111,12 @@ char * read_line() {
         strcpy(history[history_index], line_buffer);
         history_rev = history_index;
         history_index++;
+        if(history_length <= history_index){
+          history_full = 1;
+          history_index = 0;
+        }
       }
+      right_side = 0;
       // Print newline
       write(1,&ch,1);
 
