@@ -211,7 +211,7 @@ void expandWildCards(char * prefix, char * arg){
 		*r = '$';
 		r++;
 		*r = '\0';
-    int expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
+    int expbuf = regcomp(reg, REG_EXTENDED|REG_NOSUB);
     if (expbuf != 0) {
       perror("regcomp");
       return;
