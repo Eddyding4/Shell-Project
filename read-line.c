@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <assert.h>
 
 #define MAX_BUFFER_LINE 2048
 
@@ -58,9 +59,9 @@ char * read_line() {
   // Set terminal in raw mode
   tty_raw_mode();
   if(history == NULL)
-		history = (char **) malloc(history_size * sizeof(char *));
+	history = (char **) malloc(history_size * sizeof(char *));
   line_length = 0;
-  current_position = 0;
+  current_pos = 0;
 
   // Read one line until enter is typed
   while (1) {
