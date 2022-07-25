@@ -101,24 +101,24 @@ char * read_line() {
     }
     else if (ch==10) {
       // <Enter> was typed. Return line
-      
-      // Print newline
+      if(right_side){
+        for (int i = right_side - 1; i >= 0; i--){
+          char c = right_buf[i];
+          line_buffer[line_length] = c;
+          line_length++;
+        }
+      }
+      if(line_length != 0) {
+        if(history[history_index] == NULL){
+          history[history_index] = (char *)malloc(MAX_BUFFER_LINE);
+        }
+        strcpy(history[history_index, line_buffer]);
+        history_index++;
+      }
       right_side = 0;
-      write(1,&ch,1);
-
-      if(history_length == history_size)
-      {
-        history_size = history_size*2;
-        history = (char **) realloc(history, history_size*sizeof(char *));
-        assert(history != NULL);
-      }
-      line_buffer[line_length] = 0;
-      if(line_buffer[0] != 0)
-      {
-        history[history_length] = strdup(line_buffer);
-        history_length++;
-      }
-          break;
+      // Print newline
+      write(1, &ch, 1);
+      break;
     } else if (ch == 31) {
       // ctrl-?
       read_line_print_usage();
