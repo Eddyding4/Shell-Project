@@ -88,7 +88,7 @@ char * read_line() {
           write(1, &c, 1);
         }
       }
-      for (int i = 0; i < right_side.length; i++){
+      for (int i = 0; i < right_side; i++){
         char c = 8;
         write(1, &c, 1);
       }
