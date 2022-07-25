@@ -288,7 +288,7 @@ void Command::execute() {
 				buffer[i] = '\0';
 				printf("%s\n",buffer);
 
-			} else {
+			}  else {
         char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
 	      for ( unsigned int j = 0; j < _simpleCommands[i]->_arguments.size(); j++ ) {
 
@@ -306,7 +306,7 @@ void Command::execute() {
 	    exit(2);
     }
   }
-   
+  }
     // restore in/out defaults
     dup2(tmpin, 0);
     dup2(tmpout, 1);
