@@ -115,12 +115,7 @@ char * read_line() {
           history[history_index] = (char *)malloc(MAX_BUFFER_LINE);
   
         strcpy(history[history_index], line_buffer);
-        history_index_rev = history_index;
         history_index++;
-        if (history_index>=history_length) {
-          history_index = 0;
-          history_full = 1;
-        }
       }
 
       right_side=0;
