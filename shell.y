@@ -20,9 +20,10 @@
 #include <dirent.h>
 #include <regex.h>
 #if __cplusplus > 199711L
-#define MAXFILENAME 1024
+
 #define register      // Deprecated in C++11 so remove the keyword
 #endif
+#define MAXFILENAME 1024
 }
 
 %union
