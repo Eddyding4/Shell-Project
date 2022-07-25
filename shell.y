@@ -146,15 +146,15 @@ char ** entries;
 
 void expandWildcardsIfNecessary(std::string * arg) 
 {
-	char * arg_new = (char *) malloc(arg->length()+1);
-	strcpy(arg_new,arg->c_str());
+	char * args = (char *) malloc(arg->length()+1);
+	strcpy(args,arg->c_str());
 	max = 30;
 	num = 0;
 	entries = (char **) malloc (max * sizeof(char *));
 
-	if (strchr(arg_new, '*') || strchr(arg_new, '?')) 
+	if (strchr(args, '*') || strchr(args, '?')) 
 	{
-		expandWildCards(NULL, arg_new);
+		expandWildCards(NULL, args);
 		if(num == 0)
 		{
 			Command::_currentSimpleCommand->insertArgument(arg);
@@ -233,12 +233,10 @@ void expandWildCards(char * prefix, char * arg)
 
 		struct dirent * ent;
 		regmatch_t match;
-		/*bool ismatch = false;*/
 		while ((ent = readdir(dir)) != NULL) 
 		{
 			if (!regexec(&re, ent->d_name, 1, &match, 0)) 
 			{
-				/*ismatch = true;*/
 				if (*temp) 
 				{
 					if (ent->d_type == DT_DIR) 
@@ -272,22 +270,18 @@ void expandWildCards(char * prefix, char * arg)
 				}
 			}
 		}
-		/*if(ismatch == false)
-		{
-			Command::_currentSimpleCommand->insertArgument(arg);
-		}*/
 		closedir(dir);
 	} 
 	else 
 	{
-		char * preToSend = (char *) malloc (100);
+		char * pre = (char *) malloc (100);
 		if(prefix) 
-			sprintf(preToSend, "%s/%s", prefix, dir);
+			sprintf(pre, "%s/%s", prefix, dir);
 		else
-			preToSend = strdup(dir);
+			pre = strdup(dir);
 
 		if(*temp)
-			expandWildCards(preToSend, ++temp);
+			expandWildCards(pre, ++temp);
 	}
 }
 
