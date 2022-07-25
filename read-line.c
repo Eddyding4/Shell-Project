@@ -213,7 +213,7 @@ char * read_line() {
 	      // Erase old line
 	      // Print backspaces
 	      int i = 0;
-	      for (i =0; i < line_length - ; i++) {
+	      for (i =0; i < line_length - current; i++) {
 	        ch = 8;
 	        write(1,&ch,1);
 	      }
