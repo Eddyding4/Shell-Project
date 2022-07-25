@@ -142,12 +142,38 @@ int max = 30;
 int num = 0;
 char ** entries;
 
+void expandWildcardsIfNecessary(std::string * arg){
+  char * temp = (char *) malloc(arg->length()+1);
+  strcpy(temp, arg->c_str());
+  max = 20;
+  num = 0;
+  entries = (char **) malloc (max * sizeof(char *));
+
+  if(strchr(temp, '*') || strchr(temp, '?')){
+    expandWildCards(NULL, temp);
+    if(num == 0){
+      Command::_currentSimpleCommand->insertArgument(arg);
+			return;
+    }
+    qsort(entries, num, sizeof(char *), cmp);
+    for (int i = 0; i < num; i++) {
+			std::string * str = new std::string(entries[i]);
+			Command::_currentSimpleCommand->insertArgument(str);
+		}
+	} else {
+		Command::_currentSimpleCommand->insertArgument(arg);
+  }
+	return;
+}
+
+
 int cmp (const void *file1, const void *file2) 
 {
 	const char *_file1 = *(const char **)file1;
 	const char *_file2 = *(const char **)file2;
 	return strcmp(_file1, _file2);
 }
+
 
 void expandWildCards(char * prefix, char * arg){
   char * temp = arg;
@@ -253,31 +279,6 @@ void expandWildCards(char * prefix, char * arg){
 			expandWildCards(preToSend, ++temp);
 	}
 }
-
-void expandWildcardsIfNecessary(std::string * arg){
-  char * temp = (char *) malloc(arg->length()+1);
-  strcpy(temp, arg->c_str());
-  max = 20;
-  num = 0;
-  entries = (char **) malloc (max * sizeof(char *));
-
-  if(strchr(temp, '*') || strchr(temp, '?')){
-    expandWildCards(NULL, temp);
-    if(num == 0){
-      Command::_currentSimpleCommand->insertArgument(arg);
-			return;
-    }
-    qsort(entries, num, sizeof(char *), cmp);
-    for (int i = 0; i < num; i++) {
-			std::string * str = new std::string(entries[i]);
-			Command::_currentSimpleCommand->insertArgument(str);
-		}
-	} else {
-		Command::_currentSimpleCommand->insertArgument(arg);
-  }
-	return;
-}
-
 void
 yyerror(const char * s)
 {
