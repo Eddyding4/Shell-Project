@@ -1370,8 +1370,8 @@ yyreduce:
                 {
       //printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
       //Command::_currentSimpleCommand->insertArgument( $2 );
-    std::string echo = "echo";
-    if(strcmp(Command::_currentSimpleCommand->_arguments[0]->c_str(), echo.c_str()) == 0 && strchr((yyvsp[0].cpp_string), '?')) {
+    
+    if(strcmp(Command::_currentSimpleCommand->_arguments[0]->c_str(), "echo") == 0 && strchr((yyvsp[0].cpp_string)->c_Str(), '?')) {
       	Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
 	  } else {
 		    expandWildcardsIfNecessary((yyvsp[0].cpp_string));
