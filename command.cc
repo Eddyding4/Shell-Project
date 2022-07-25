@@ -158,10 +158,11 @@ void Command::execute() {
     // redirect input 
     dup2(fdin, 0);
     close(fdin);
-     printf("%s", _simpleCommands[i]->_arguments[1]->c_str());
-      if (!strcmp(_simpleCommands[i]->_arguments[1]->c_str(), "$")){
-        printf("HELLO");
-      }
+  if (!strcmp(_simpleCommands[i]->_arguments[1]->c_str(), "$")){
+    int pid = getpid();
+	  std::string temp = std::to_string(pid);
+	  _simpleCommands[i]->_arguments[1] = new std::string(temp);
+  }
   if(!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv") ){
     int error = setenv(_simpleCommands[i]->_arguments[1]->c_str(), _simpleCommands[i]->_arguments[2]->c_str(), 1);
 		if(error) {
