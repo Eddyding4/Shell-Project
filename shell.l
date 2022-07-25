@@ -169,7 +169,7 @@ void myunputc(int c) {
     buffer.push_back(ch);
 	}
   
-	for (i = buffer.length(); i >= 0; i--) {
+	for (i = buffer.length() - 1; i >= 0; i--) {
 		unput(buffer[i]);
 	}
 }
