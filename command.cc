@@ -165,10 +165,7 @@ void Command::execute() {
 	  std::string temp = std::to_string(pid);
 	  _simpleCommands[i]->_arguments[1] = new std::string(temp);
   }
-  /*if (!strcmp(_simpleCommands[i]->_arguments[1]->c_str(), "?")){
-    int status;
-    waitpid(pid, &status, 0);
-  }*/
+
 
   //implement the env
   if(!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv") ){
@@ -229,6 +226,13 @@ void Command::execute() {
     //create child process
     ret = fork();
     if (ret == 0) {
+      if (!strcmp(_simpleCommands[i]->_arguments[1]->c_str(), "?")){
+        int status;
+        waitpid(ret, &status, 0);
+        int exit_status = WEXITSTATUS(status);
+        printf("%d", exit_status);
+      }
+
       if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")){
         char ** env = environ;
 				while(*env){
