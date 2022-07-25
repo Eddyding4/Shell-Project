@@ -67,7 +67,7 @@ void myunputc(int c) {
   return STANDARDERR;
 }
 
-source {
+"source" {
   BEGIN(SOURCE_SC);
 }
 
