@@ -191,7 +191,7 @@ void Command::execute() {
 		Shell::prompt();
     return;
   }
-  if(strcmp(_simpleCommands[i]->_arguments[i]->c_str(), "source") == 0){
+  if(strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "source") == 0){
     FILE * fp = fopen(_simpleCommands[i]->_arguments[1]->c_str(), "r");
     char cmdline [1024];
 
