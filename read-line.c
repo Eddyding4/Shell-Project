@@ -10,6 +10,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <assert.h>
+#include <termios.h>
 
 #define MAX_BUFFER_LINE 2048
 
