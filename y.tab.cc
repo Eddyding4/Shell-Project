@@ -1787,7 +1787,7 @@ void expandWildCards(char * prefix, char * arg){
 		r++;
 		*r = '\0';
     regex_t re;
-    char * expbuf = regcomp(reg, REG_EXTENDED|REG_NOSUB);
+    char * expbuf = regcomp(&re, REG_EXTENDED|REG_NOSUB);
     if (expbuf != 0) {
       perror("regcomp");
       return;
