@@ -285,6 +285,8 @@ char * read_line() {
   line_length++;
   line_buffer[line_length]=0;
 
+  tcsetattr(0, TCSANOW, &original_attribute);
+
   return line_buffer;
 }
 
