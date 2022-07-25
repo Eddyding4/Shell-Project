@@ -224,52 +224,17 @@ char * read_line() {
   right_side = 0;
 
 	// Copy line from history
-	if(history_length > 0 && history_index >= 0){
-		strcpy(line_buffer, history[history_index--]);
-		history_index=(history_index)%history_length;
-		if(history_index == -1){
-			history_index = history_length - 1;
-		}
-
-		line_length = strlen(line_buffer);
-	}
-	// echo line
-	write(1, line_buffer, line_length);
-
-  } else if (ch1 == 91 && ch2 == 66) {
-    // Down arrow. Print prev line in history.
-
-	// Erase old line
-	// Print backspaces
-	int i = 0;
-	for (i =0; i < line_length; i++) {
-	  ch = 8;
-	  write(1,&ch,1);
-	}
-
-	// Print spaces on top
-	for (i =0; i < line_length; i++) {
-	  ch = ' ';
-	  write(1,&ch,1);
-	}
-
-	// Print backspaces
-	for (i =0; i < line_length; i++) {
-	  ch = 8;
-	  write(1,&ch,1);
-	}	
-
-	// Copy line from history
-	if(history_length > 0 && history_index <= history_length-1)
-		strcpy(line_buffer, history[history_index++]);
-	else if(history_index == history_length){
-		history_index = history_length - 1;
-		strcpy(line_buffer,"");
-	}
-
+	strcpy(line_buffer, history[history_index]);
 	line_length = strlen(line_buffer);
+  int temp = history_full?history_length:history_index;
+  int upDown = ch2 == 65? - 1 : 1;
+	history_rev=(history_rev + upDown)%temp;
+  if (history_rev == -1) {
+    history_rev = temp - 1;
+  }
 	// echo line
 	write(1, line_buffer, line_length);
+
   } else if (ch1 == 91 && ch2 == 68) {
     //left arrow
     if(line_length == 0) {
@@ -299,16 +264,6 @@ char * read_line() {
   line_buffer[line_length]=10;
   line_length++;
   line_buffer[line_length]=0;
-
-  //update the history
-  history[history_length] = (char *)malloc(strlen(line_buffer)*sizeof(char)+1); 
-	//printf("%s", line_buffer);
-	
-	strcpy(history[history_length++], line_buffer);
-	history[history_length-1][strlen(line_buffer)-1] = '\0';
-	history_index = history_length-1;
-
-	tty_term_mode();
 
   return line_buffer;
 }
