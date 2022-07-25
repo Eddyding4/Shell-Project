@@ -187,12 +187,11 @@ void yyerror(const char * s);
 int yylex();
 
 void expandWildcardsIfNecessary(std::string * arg);
-void expandWildcard(char * prefix, char * suffix);
-bool cmpfunction (char * i, char * j);
-static bool wildCard;
+int cmpfunc (const void *file1, const void *file2);
+void expandWildCards(char * prefix, char * arg);
 
 
-#line 196 "y.tab.cc"
+#line 195 "y.tab.cc"
 
 
 #ifdef short
@@ -554,9 +553,9 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    53,    53,    56,    70,    74,    74,    86,    87,    91,
-      96,   100,   106,   111,   115,   122,   123,   127,   130,   134,
-     138,   139,   143,   144
+       0,    52,    52,    55,    62,    66,    66,    78,    79,    83,
+      88,    92,    98,   103,   107,   114,   115,   119,   122,   126,
+     130,   131,   135,   136
 };
 #endif
 
@@ -1366,126 +1365,119 @@ yyreduce:
   switch (yyn)
     {
   case 3:
-#line 56 "shell.y"
+#line 55 "shell.y"
                 {
       //printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
-      wildCard = false;
-      char *p = (char *)"";
-      expandWildcard(p, (char*)(yyvsp[0].cpp_string)->c_str());
-      std::sort(_sortArgument.begin(), sortArgument.end(), cmpfunction);
-      for(auto a:_sortArgument){
-        std::string * argToInsert = new std::string(a);
-        Command::_currentSimpleCommand->insertArgument(argToInsert);
-      }
-      _sortArgument.clear();
+    
       //Command::_currentSimpleCommand->insertArgument( $2 );
+      expandWildcardsIfNecessary((yyvsp[0].cpp_string));
       
   }
-#line 1385 "y.tab.cc"
+#line 1377 "y.tab.cc"
     break;
 
   case 5:
-#line 74 "shell.y"
+#line 66 "shell.y"
        {
     //printf(" Yacc: insert command \"%s\"\n", $1->c_str());
     Command::_currentSimpleCommand = new SimpleCommand();
     Command::_currentSimpleCommand->insertArgument( (yyvsp[0].cpp_string) );
   }
-#line 1395 "y.tab.cc"
+#line 1387 "y.tab.cc"
     break;
 
   case 6:
-#line 79 "shell.y"
+#line 71 "shell.y"
            {
     Shell::_currentCommand.
     insertSimpleCommand( Command::_currentSimpleCommand );
   }
-#line 1404 "y.tab.cc"
+#line 1396 "y.tab.cc"
     break;
 
   case 9:
-#line 91 "shell.y"
+#line 83 "shell.y"
                   {
     Shell::_currentCommand._append = true;
     Shell::_currentCommand._count++;
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
   }
-#line 1414 "y.tab.cc"
+#line 1406 "y.tab.cc"
     break;
 
   case 10:
-#line 96 "shell.y"
+#line 88 "shell.y"
                {
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
     Shell::_currentCommand._count++;
   }
-#line 1423 "y.tab.cc"
+#line 1415 "y.tab.cc"
     break;
 
   case 11:
-#line 100 "shell.y"
+#line 92 "shell.y"
                              {
     Shell::_currentCommand._append = true;
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
     Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
     Shell::_currentCommand._count++;
   }
-#line 1434 "y.tab.cc"
+#line 1426 "y.tab.cc"
     break;
 
   case 12:
-#line 106 "shell.y"
+#line 98 "shell.y"
                         {
     Shell::_currentCommand._outFile = (yyvsp[0].cpp_string);
     Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
     Shell::_currentCommand._count++;
   }
-#line 1444 "y.tab.cc"
+#line 1436 "y.tab.cc"
     break;
 
   case 13:
-#line 111 "shell.y"
+#line 103 "shell.y"
               {
     Shell::_currentCommand._count++;
     Shell::_currentCommand._inFile = (yyvsp[0].cpp_string);
   }
-#line 1453 "y.tab.cc"
+#line 1445 "y.tab.cc"
     break;
 
   case 14:
-#line 115 "shell.y"
+#line 107 "shell.y"
                      {
     Shell::_currentCommand._count++;
     Shell::_currentCommand._errFile = (yyvsp[0].cpp_string);
   }
-#line 1462 "y.tab.cc"
+#line 1454 "y.tab.cc"
     break;
 
   case 17:
-#line 127 "shell.y"
+#line 119 "shell.y"
             {
     Shell::_currentCommand._background = true;
   }
-#line 1470 "y.tab.cc"
+#line 1462 "y.tab.cc"
     break;
 
   case 19:
-#line 134 "shell.y"
+#line 126 "shell.y"
                                                     {
     //printf(" Yacc: Execute command\n");
     Shell::_currentCommand.execute();
   }
-#line 1479 "y.tab.cc"
+#line 1471 "y.tab.cc"
     break;
 
   case 21:
-#line 139 "shell.y"
+#line 131 "shell.y"
                  {yyerrok; }
-#line 1485 "y.tab.cc"
+#line 1477 "y.tab.cc"
     break;
 
 
-#line 1489 "y.tab.cc"
+#line 1481 "y.tab.cc"
 
       default: break;
     }
@@ -1717,10 +1709,45 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 146 "shell.y"
+#line 138 "shell.y"
 
 
-bool cmpfunction (char * i, char * j) { return strcmp(i,j)<0; }
+int max = 20;
+int num = 0;
+char ** entries;
+
+int cmp (const void *file1, const void *file2) 
+{
+	const char *_file1 = *(const char **)file1;
+	const char *_file2 = *(const char **)file2;
+	return strcmp(_file1, _file2);
+}
+
+
+
+void expandWildcardsIfNecessary(std::string * arg){
+  char * temp = (char *) malloc(arg->length()+1);
+  strcpy(temp, arg->c_str());
+  max = 20;
+  num = 0;
+  entries = (char **) malloc (max * sizeof(char *));
+
+  if(strchr(temp, '*') || strchr(temp, '?')){
+    expandWildCards(NULL, temp);
+    if(num == 0){
+      Command::_currentSimpleCommand->insertArgument(arg);
+			return;
+    }
+    qsort(entries, num, sizeof(char *), cmp);
+    for (int i = 0; i < nEntries; i++) {
+			std::string * str = new std::string(entries[i]);
+			Command::_currentSimpleCommand->insertArgument(str);
+		}
+	} else {
+		Command::_currentSimpleCommand->insertArgument(arg);
+  }
+	return;
+}
 
 void
 yyerror(const char * s)
@@ -1728,16 +1755,6 @@ yyerror(const char * s)
   fprintf(stderr,"%s", s);
 }
 
-void expandWildcardsIfNecessary(std::string * arg){
-  char * args = (char *)arg->c_str();
-  char * a;
-  std::string path;
-
-  if(strchr(args, '?') == NULL & strchr(args, '*') == NULL){
-    Command::_currentSimpleCommand->insertArgument(arg);
-    return;
-  }
-  DIR * dir;
 
 }
 #if 0
