@@ -39,9 +39,12 @@
 
 void yyerror(const char * s);
 int yylex();
-std::string temp;
-bool check;
-bool contains;
+
+void expandWildCardsIfNecessary(char * arg);
+void expandWildCards(char * prefix, char * arg);
+int cmpfunc(const void * file1, const void * file2);
+bool is_dir(const char * path);
+
 %}
 
 %%
@@ -51,7 +54,10 @@ goal: command_list;
 arg_list:
   arg_list WORD {
       //printf(" Yacc: insert argument \"%s\"\n", $2->c_str());
+      if(strcmp(Command::_currentSimpleCommand->_arguments[0], "echo") == 0 && strchr($2, '?'))
       Command::_currentSimpleCommand->insertArgument( $2 );
+      else
+      expandWildcardsIfNecessary
   } 
   | /*empty*/
   ;
@@ -130,6 +136,27 @@ command_list:
   | command_list command_line
   ;
 %%
+
+int maxEntries = 20;
+int nEntries = 0;
+char ** entries;
+
+void expandWildCardsIfNecessary(char * arg){
+  maxEntries = 20;
+  nEntries = 0;
+  entries = (char **) malloc (maxEntries * sizeof(char*));
+
+  if(strchr(arg, '*') || strchr(arg, '?')) {
+    expandWildCard(NULL, arg);
+    qsort(entries, nEntries, sizeof(char *), cmpfunc);
+    for(int i = 0; i < nEntries; i++){
+      Command::_currentSimpleCommand->insertArgument(entries[i]);
+    } 
+  } else {
+    Command::_currentSimpleCommand->insertArgument(arg);
+  }
+  return;
+}
 
 void
 yyerror(const char * s)
