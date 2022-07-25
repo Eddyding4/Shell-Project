@@ -148,20 +148,20 @@ void expandWildcardsIfNecessary(std::string * arg)
 {
 	char * arg_new = (char *) malloc(arg->length()+1);
 	strcpy(arg_new,arg->c_str());
-	maxEntries = 20;
-	nEntries = 0;
-	entries = (char **) malloc (maxEntries * sizeof(char *));
+	max = 30;
+	num = 0;
+	entries = (char **) malloc (max * sizeof(char *));
 
 	if (strchr(arg_new, '*') || strchr(arg_new, '?')) 
 	{
 		expandWildCards(NULL, arg_new);
-		if(nEntries == 0)
+		if(num == 0)
 		{
 			Command::_currentSimpleCommand->insertArgument(arg);
 			return;
 		}
-		qsort(entries, nEntries, sizeof(char *), cmpfunc);
-		for (int i = 0; i < nEntries; i++) 
+		qsort(entries, num, sizeof(char *), cmpfunc);
+		for (int i = 0; i < num; i++) 
 		{
 			std::string * str = new std::string(entries[i]);
 			Command::_currentSimpleCommand->insertArgument(str);
@@ -252,10 +252,10 @@ void expandWildCards(char * prefix, char * arg)
 				}
 				else 
 				{	
-					if (nEntries == maxEntries) 
+					if (num == max) 
 					{ 
-						maxEntries *= 2; 
-						entries = (char **) realloc (entries, maxEntries * sizeof(char *)); 
+						max *= 2; 
+						entries = (char **) realloc (entries, max * sizeof(char *)); 
 					}
 					char * argument = (char *) malloc (100);
 					argument[0] = '\0';
@@ -265,10 +265,10 @@ void expandWildCards(char * prefix, char * arg)
 					if (ent->d_name[0] == '.') 
 					{
 						if (arg[0] == '.')
-							entries[nEntries++] = (argument[0] != '\0')?strdup(argument):strdup(ent->d_name);
+							entries[num++] = (argument[0] != '\0')?strdup(argument):strdup(ent->d_name);
 					}
 					else
-						entries[nEntries++] = (argument[0] != '\0')?strdup(argument):strdup(ent->d_name);
+						entries[num++] = (argument[0] != '\0')?strdup(argument):strdup(ent->d_name);
 				}
 			}
 		}
