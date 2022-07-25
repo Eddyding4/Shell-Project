@@ -131,6 +131,7 @@ char * read_line() {
       //ctrl-a
       int temp = line_length;
       for(int i = 0; i < temp; i++){
+        char ch = 8;
         write(1, &c, 1);
         right_buf[right_side] = line_buffer[line_length - 1];
         right_side++;
