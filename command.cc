@@ -81,7 +81,7 @@ void Command::clear() {
 }
 
 void Command::print() {
-    printf("\n\n");
+    /*printf("\n\n");
     printf("              COMMAND TABLE                \n");
     printf("\n");
     printf("  #   Simple Commands\n");
@@ -103,7 +103,7 @@ void Command::print() {
             _errFile?_errFile->c_str():"default",
             _background?"YES":"NO");
     printf( "\n\n" );
-    
+    */
 }
 
 void Command::execute() {
@@ -289,7 +289,6 @@ void Command::execute() {
       }
         char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
 	      for ( unsigned int j = 0; j < _simpleCommands[i]->_arguments.size(); j++ ) {
-
 	        myargv[j] = strdup(_simpleCommands[i]->_arguments[j]->c_str());
 	      }
 	      myargv[_simpleCommands[i]->_arguments.size()] = NULL;
