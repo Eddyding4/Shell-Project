@@ -199,7 +199,7 @@ char * read_line() {
       char ch2;
       read(0, &ch1, 1);
       read(0, &ch2, 1);
-      if (ch1==91 && ch2==65) {
+      if (ch1==91 && (ch2==65 || ch2 == 66)) {
 	// Up arrow. Print next line in history.
 
 	// Erase old line
@@ -211,20 +211,22 @@ char * read_line() {
 	}
 
 	// Print spaces on top
-	for (i =0; i < line_length; i++) {
+	for (i =0; i < line_length + right_side; i++) {
 	  ch = ' ';
 	  write(1,&ch,1);
 	}
 
 	// Print backspaces
-	for (i =0; i < line_length; i++) {
+	for (i =0; i < line_length + right_side; i++) {
 	  ch = 8;
 	  write(1,&ch,1);
 	}	
+  right_side = 0;
 
 	// Copy line from history
 	strcpy(line_buffer, history[history_index]);
 	line_length = strlen(line_buffer);
+  int temp = history_full?history_length::history_index;
 	history_index=(history_index+1)%history_length;
 
 	// echo line
