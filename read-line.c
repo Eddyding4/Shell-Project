@@ -18,14 +18,14 @@ extern void tty_raw_mode(void);
 // Buffer where line is stored
 int line_length;
 char line_buffer[MAX_BUFFER_LINE];
-char right_side_buffer[MAX_BUFFER_LINE];
-int right_side_length;
+char right_buf[MAX_BUFFER_LINE];
+int right_side;
 
 // Simple history array
 // This history does not change. 
 // Yours have to be updated.
 int history_index = 0;
-int history_index_rev;
+int history_rev;
 int history_full = 0;
 char * history[HISTORY_SIZE];
 /*char * history [] = {
@@ -41,8 +41,8 @@ int history_length = HISTORY_SIZE;
 void read_line_print_usage()
 {
   char * usage = "\n"
-    " ctr-a        Move to the beiginning of line\n"
-    " ctr-e        Move to the beiginning of line\n"
+    " ctr-a        Move to the beginning of line\n"
+    " ctr-e        Move to the end of line\n"
     " ctr-h        Removes the character at the position before the cursor.\n"
     " ctr-h        Removes the character at the cursor\n"
     " ctrl-?       Print usage\n"
@@ -61,7 +61,7 @@ char * read_line() {
   tty_raw_mode();
 
   line_length = 0;
-  right_side_length = 0;
+  right_side = 0;
 
   // Read one line until enter is typed
   while (1) {
@@ -83,23 +83,23 @@ char * read_line() {
       line_buffer[line_length]=ch;
       line_length++;
 
-      // Check right_side_buffer
-      if (right_side_length) {
-        for (int i=right_side_length-1; i>=0; i--) {
-          char c = right_side_buffer[i];
+      // Check right_buf
+      if (right_side) {
+        for (int i=right_side-1; i>=0; i--) {
+          char c = right_buf[i];
           write(1,&c,1);
         }
       }
-      for (int i=0; i<right_side_length; i++) {
+      for (int i=0; i<right_side; i++) {
         char c = 8;
         write(1,&c,1);
       }
     }
     else if (ch==10) {
       // <Enter> was typed. Return line
-      if (right_side_length) {
-        for (int i=right_side_length-1; i>=0; i--) {
-          char c = right_side_buffer[i];
+      if (right_side) {
+        for (int i=right_side-1; i>=0; i--) {
+          char c = right_buf[i];
 
           line_buffer[line_length]=c;
           line_length++;
@@ -111,7 +111,7 @@ char * read_line() {
           history[history_index] = (char *)malloc(MAX_BUFFER_LINE);
   
         strcpy(history[history_index], line_buffer);
-        history_index_rev = history_index;
+        history_rev = history_index;
         history_index++;
         if (history_index>=history_length) {
           history_index = 0;
@@ -119,7 +119,7 @@ char * read_line() {
         }
       }
 
-      right_side_length=0;
+      right_side=0;
       // Print newline
       write(1,&ch,1);
 
@@ -137,17 +137,17 @@ char * read_line() {
       for (int i=0; i<tmp; i++) {
         char c = 8;
         write(1,&c,1);
-        right_side_buffer[right_side_length] = line_buffer[line_length-1];
-        right_side_length++;
+        right_buf[right_side] = line_buffer[line_length-1];
+        right_side++;
         line_length--;
       }
     }
     else if (ch == 5) {
       // ctrl-E was typed. The cursor moves to the end of the line
-      for (int i=right_side_length-1; i>=0; i--) {
+      for (int i=right_side-1; i>=0; i--) {
         write(1,"\033[1C",5);
-        line_buffer[line_length]=right_side_buffer[right_side_length-1];
-        right_side_length--;
+        line_buffer[line_length]=right_buf[right_side-1];
+        right_side--;
         line_length++;
       }
     }
@@ -157,8 +157,8 @@ char * read_line() {
       // Go back one character
       if (line_length == 0) continue;
 
-      for(int i=right_side_length-2; i>=0; i--) {
-        char c = right_side_buffer[i];
+      for(int i=right_side-2; i>=0; i--) {
+        char c = right_buf[i];
         write(1,&c,1);
       }
       // Write a space to erase the last character read
@@ -166,13 +166,13 @@ char * read_line() {
       write(1,&ch,1);
 
       // Go back one character
-      for (int i=0; i<right_side_length; i++) {
+      for (int i=0; i<right_side; i++) {
         char c = 8;
         write(1,&c,1);
       }
 
       // Remove one character from buffer
-      right_side_length--;
+      right_side--;
     }
     else if (ch == 8 || ch == 127) {
       // <backspace> was typed. Remove previous character read.
@@ -183,8 +183,8 @@ char * read_line() {
       ch = 8;
       write(1,&ch,1);
 
-      for(int i=right_side_length-1; i>=0; i--) {
-        char c = right_side_buffer[i];
+      for(int i=right_side-1; i>=0; i--) {
+        char c = right_buf[i];
         write(1,&c,1);
       }
       // Write a space to erase the last character read
@@ -192,7 +192,7 @@ char * read_line() {
       write(1,&ch,1);
       
       // Go back one character
-      for (int i=0; i<right_side_length+1; i++) {
+      for (int i=0; i<right_side+1; i++) {
         char c = 8;
         write(1,&c,1);
       }
@@ -222,24 +222,24 @@ char * read_line() {
 	      }
        
 	      // Print spaces on top
-	      for (i =0; i < line_length+right_side_length; i++) {
+	      for (i =0; i < line_length+right_side; i++) {
 	        ch = ' ';
 	        write(1,&ch,1);
 	      }
        
 	      // Print backspaces
-	      for (i =0; i < line_length+right_side_length; i++) {
+	      for (i =0; i < line_length+right_side; i++) {
 	        ch = 8;
 	        write(1,&ch,1);
 	      }	
-        right_side_length = 0;
+        right_side = 0;
 	      // Copy line from history
-	      strcpy(line_buffer, history[history_index_rev]);
+	      strcpy(line_buffer, history[history_rev]);
 	      line_length = strlen(line_buffer);
         int tmp = history_full?history_length:history_index;
         int up_down = ch2 == 65? -1 : 1;
-	      history_index_rev=(history_index_rev+up_down)%tmp;
-        if (history_index_rev == -1) history_index_rev = tmp-1;
+	      history_rev=(history_rev+up_down)%tmp;
+        if (history_rev == -1) history_rev = tmp-1;
        
 	      // echo line
 	      write(1, line_buffer, line_length);
@@ -252,20 +252,20 @@ char * read_line() {
         ch = 8;
         write(1,&ch,1);
         // Allow insertion 
-        right_side_buffer[right_side_length] = line_buffer[line_length-1];
-        right_side_length++;
+        right_buf[right_side] = line_buffer[line_length-1];
+        right_side++;
         line_length--;
       }
       else if (ch1==91 && ch2==67) {
         // right arrow. 
 
         // Move the cursor to the arrow
-        if (right_side_length == 0) continue;
+        if (right_side == 0) continue;
         write(1,"\033[1C",5);
         // Allow insertion 
-        line_buffer[line_length]=right_side_buffer[right_side_length-1];
+        line_buffer[line_length]=right_buf[right_side-1];
         line_length++;
-        right_side_length--;
+        right_side--;
       }
       
     }
