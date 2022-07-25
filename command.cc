@@ -225,8 +225,9 @@ void Command::execute() {
 				}
         exit(1);
       }
+      int pid = fork();
       if(pid == 0){
-			if(strcmp(_simpleCommands[i]->_arguments[0], "printenv") == 0){
+			if(strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv") == 0){
 				char ** env = environ;
 
 				while(*env){
@@ -235,9 +236,9 @@ void Command::execute() {
 				}
 			}
 
-			if(strcmp(_simpleCommands[i]->_arguments[0], "source") == 0){
-				FILE * fp = fopen(_simpleCommands[i]->_arguments[1], "r");
-                char cmdline [1024];
+			if(strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "source") == 0){
+				FILE * fp = fopen(_simpleCommands[i]->_arguments[1]->c_str(), O_RDONLY);
+        char cmdline [1024];
 
 				fgets(cmdline, 1023, fp);
 				fclose(fp);
