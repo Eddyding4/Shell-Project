@@ -25,6 +25,7 @@ int right_side;
 // Yours have to be updated.
 int history_index = 0;
 int history_rev;
+char * history[HISTORY_SIZE];
 int history_full = 0;
 /*char * history [] = {
   "ls -al | grep x", 
