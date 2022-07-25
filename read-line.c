@@ -204,36 +204,6 @@ char * read_line() {
 
 	// Erase old line
 	// Print backspaces
-	int i = 0;
-	for (i =0; i < line_length; i++) {
-	  ch = 8;
-	  write(1,&ch,1);
-	}
-
-	// Print spaces on top
-	for (i =0; i < line_length ; i++) {
-	  ch = ' ';
-	  write(1,&ch,1);
-	}
-
-	// Print backspaces
-	for (i =0; i < line_length; i++) {
-	  ch = 8;
-	  write(1,&ch,1);
-	}	
-  right_side = 0;
-
-	// Copy line from history
-	strcpy(line_buffer, history[history_rev]);
-	line_length = strlen(line_buffer);
-  int temp = history_full?history_length:history_index;
-  int upDown = ch2 == 65? - 1 : 1;
-	history_rev=(history_rev + upDown)%temp;
-  if (history_rev == -1) {
-    history_rev = temp - 1;
-  }
-	// echo line
-	write(1, line_buffer, line_length);
 
   } else if (ch1 == 91 && ch2 == 68) {
     //left arrow
