@@ -11,7 +11,7 @@
 #include <unistd.h>
 
 #define MAX_BUFFER_LINE 2048
-#define HISTORY_SIZE 32
+#define HISTORY_SIZE 16
 extern void tty_raw_mode(void);
 
 // Buffer where line is stored
@@ -224,7 +224,7 @@ char * read_line() {
   right_side = 0;
 
 	// Copy line from history
-	strcpy(line_buffer, history[history_index]);
+	strcpy(line_buffer, history[history_rev]);
 	line_length = strlen(line_buffer);
   int temp = history_full?history_length:history_index;
   int upDown = ch2 == 65? - 1 : 1;
