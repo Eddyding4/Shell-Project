@@ -13,7 +13,7 @@
 #else
 #define YY_BUF_SIZE 16000
 #endif
-
+#endif
 void yyrestart(FILE * input_file );
 int yyparse(void);
 void yypush_buffer_state(YY_BUFFER_STATE buffer);
