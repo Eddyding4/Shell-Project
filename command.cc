@@ -256,8 +256,8 @@ void Command::execute() {
       int status;
       waitpid(ret, &status, 0);
       Shell::code = std::string(WEXITSTATUS(status));
-      setenv("?", Shell::code, 1);
-      printf("%s", Shell::code);
+      setenv("?", Shell::code->c_str(), 1);
+      printf("%s", Shell::code->c_str());
     }
   
  // Clear to prepare for next command
