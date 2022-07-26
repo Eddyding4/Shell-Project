@@ -29,7 +29,7 @@ void Shell::prompt() {
 
 int main(int argc, char ** argv) {
   Shell::path = realpath(argv[0], NULL);
-  printf("%s", Shell::path);
+  setenv("SHELL", Shell::path, 1);
   Shell::prompt();	
   struct sigaction signalAction;
   signalAction.sa_handler = disp;
