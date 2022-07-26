@@ -9,7 +9,7 @@
 int yyparse(void);
 
 extern "C" void disp(int sig){
-  printf("\n");
+
   Shell::prompt();
 }
 extern "C" void dis(int sig){
@@ -20,8 +20,8 @@ extern "C" void dis(int sig){
 }
 void Shell::prompt() {
   if ( isatty(0) ) {
+    printf("\n");
     printf("myshell>");
-
   }
   fflush(stdout);
 }
