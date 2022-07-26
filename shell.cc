@@ -27,13 +27,12 @@ void Shell::prompt() {
 
 
 int main(int argc, char ** argv) {
+
+  Shell::prompt();
   struct sigaction signalAction;
   signalAction.sa_handler = disp;
   sigemptyset(&signalAction.sa_mask);
   signalAction.sa_flags = SA_RESTART;
-  Shell::prompt();	
-
-
   
   Shell::path = realpath(argv[0], NULL);
   
