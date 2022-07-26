@@ -25,7 +25,3 @@ test_parsing2 Passed .5/.5
 test_quotes1 Passed 1/1
 test_quotes2 Passed 1/1
 test_escape Passed 2/2
-test_subshell Passed 10/10
-test_env_expand1 Passed 1/1
-test_env_expand2 Passed 1/1
-test_env_var_shell Passed 1/1
