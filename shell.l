@@ -239,6 +239,7 @@ void myunputc(int c) {
 }
 
 $\{[^ \}\n]*\}([^ \n]*|$\{[^ \}\n]*\})* {
+	printf("Hello");
   //environment expansion
   std::string str = std::string(yytext);
   std::string result = "";
