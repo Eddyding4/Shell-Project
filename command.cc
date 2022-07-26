@@ -260,7 +260,7 @@ void Command::execute() {
     } else {
       int pid = getpid();
 	    std::string temp = std::to_string(pid);
-      setenv("!", temp.c_str(), 1);
+      //setenv("!", temp.c_str(), 1);
     }
   
  // Clear to prepare for next command
