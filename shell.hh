@@ -8,7 +8,7 @@ struct Shell {
   static void prompt();
 
   static Command _currentCommand;
-  static int _code;
+  static int code;
 };
 
 #endif
