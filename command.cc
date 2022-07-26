@@ -105,7 +105,7 @@ void Command::print() {
 }
 
 void Command::execute() {
-  setenv("SHELL", Shell::path, 1);
+
   if (_count > 1) {
 		printf("Ambiguous output redirect.\n");
 		clear();
@@ -160,6 +160,7 @@ void Command::execute() {
 
 
   //implement the env
+  setenv("SHELL", Shell::path, 1);
   if(!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv") ){
     int error = setenv(_simpleCommands[i]->_arguments[1]->c_str(), _simpleCommands[i]->_arguments[2]->c_str(), 1);
 		if(error) {
