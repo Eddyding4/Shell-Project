@@ -35,7 +35,7 @@ int main(int argc, char ** argv) {
   sigemptyset(&signalAction.sa_mask);
   signalAction.sa_flags = SA_RESTART;
 
-  char * path;
+  char * path = [100];
   realpath(argv[0], path);
   setenv("SHELL", path, 1);
 
