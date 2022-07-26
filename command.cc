@@ -153,6 +153,7 @@ void Command::execute() {
     fderr = dup(tmperr);
   }
   dup2(fderr, 2);
+  close(fderr);
   for ( unsigned int i = 0; i < _simpleCommands.size() ; i++ ) {
     // redirect input 
     dup2(fdin, 0);
