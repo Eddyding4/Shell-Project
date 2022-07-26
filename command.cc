@@ -257,11 +257,11 @@ void Command::execute() {
       int num = WEXITSTATUS(status);
       Shell::code = std::to_string(num);
       setenv("?", Shell::code.c_str(), 1);
-    } else {
+    }/* else {
       int pid = getpid();
 	    std::string temp = std::to_string(pid);
       setenv("!", temp.c_str(), 1);
-    }
+    }*/
   
  // Clear to prepare for next command
   clear();
