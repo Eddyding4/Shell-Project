@@ -267,4 +267,4 @@ void Command::execute() {
   Shell::prompt();
 }
 SimpleCommand * Command::_currentSimpleCommand;
-int Shell::code;
+std::string Shell::code;
