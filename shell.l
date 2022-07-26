@@ -213,7 +213,7 @@ void myunputc(int c) {
     ch = ' ';
     buffer.push_back(ch);
 	}
-  //fprintf(stderr, "%s", buffer.c_str());
+
 	for (i = buffer.length() - 1; i >= 0; i--) {
 		unput(buffer[i]);
 	}
@@ -262,6 +262,8 @@ $\{[^ \}\n]*\}([^ \n]*|$\{[^ \}\n]*\})* {
 	int pid = getpid();
 	std::string temp = std::to_string(pid);
 	yylval.cpp_string = new std::string(temp);
+  } else if (strcmp(result.c_str(), "SHELL") == 0){
+	yylval.cpp_string = new std::string(Shell::path);
   } else {
     yylval.cpp_string = new std::string(result);
   }

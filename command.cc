@@ -252,7 +252,6 @@ void Command::execute() {
     close(tmpin);
     close(tmpout);
     close(tmperr);
-    printf("hello %s\n", Shell::path);
     if (!_background) {
       int status;
       waitpid(ret, &status, 0);
