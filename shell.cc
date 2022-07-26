@@ -28,9 +28,9 @@ void Shell::prompt() {
 
 
 int main(int argc, char ** argv) {
-  printf("hello");
+
   Shell::path = realpath(argv[0], NULL);
-  
+  printf("hello");
   Shell::prompt();	
 
   struct sigaction signalAction;
