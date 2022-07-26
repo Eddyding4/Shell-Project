@@ -264,8 +264,7 @@ $\{[^ \}\n]*\}([^ \n]*|$\{[^ \}\n]*\})* {
 	std::string temp = std::to_string(pid);
 	yylval.cpp_string = new std::string(temp);
   } else if (strcmp(result.c_str(), "SHELL") == 0){
-	printf("hello");
-	yylval.cpp_string = new std::string(Shell::path);
+	setenv("SHELL", Shell::path, 1);
   } else {
     yylval.cpp_string = new std::string(result);
   }
@@ -280,6 +279,6 @@ $\{[^ \}\n]*\}([^ \n]*|$\{[^ \}\n]*\})* {
   return WORD;
 }
 
-
+char * Shell::path;
 
 %%
