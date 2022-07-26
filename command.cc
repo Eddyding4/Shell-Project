@@ -34,7 +34,6 @@
 Command::Command() {
     // Initialize a new vector of Simple Commands
     _simpleCommands = std::vector<SimpleCommand *>();
-    setenv("?", 0, 1);
     _outFile = NULL;
     _inFile = NULL;
     _errFile = NULL;
