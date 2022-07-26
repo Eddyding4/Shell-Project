@@ -29,7 +29,7 @@ void Shell::prompt() {
 
 int main(int argc, char ** argv) {
   Shell::path = realpath(argv[0], NULL);
-  setenv("SHELL", Shell::path, 1);
+
   Shell::prompt();	
   struct sigaction signalAction;
   signalAction.sa_handler = disp;
@@ -49,7 +49,7 @@ int main(int argc, char ** argv) {
     exit(2);
   }
   yyparse();
- 
+   setenv("SHELL", Shell::path, 1);
 }
 
 Command Shell::_currentCommand;
