@@ -28,7 +28,7 @@ void Shell::prompt() {
 
 
 int main(int argc, char ** argv) {
-  Shell::path = realpath(argv[0], NULL);
+  
 
 
   Shell::prompt();	
@@ -37,7 +37,8 @@ int main(int argc, char ** argv) {
   signalAction.sa_handler = disp;
   sigemptyset(&signalAction.sa_mask);
   signalAction.sa_flags = SA_RESTART;
-
+  Shell::path = realpath(argv[0], NULL);
+  setenv("SHELL", Shell::path, 1);
   if(sigaction(SIGINT, &signalAction, NULL)){
     perror("sigaction");
     exit(2);

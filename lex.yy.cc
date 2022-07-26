@@ -1376,7 +1376,7 @@ YY_RULE_SETUP
 #line 156 "shell.l"
 {
 	//subshell
-	setenv("SHELL", "/usr/local/bin/bash", 1);
+
   	std::string * cmd = new std::string(yytext);
 	cmd->pop_back();
 
