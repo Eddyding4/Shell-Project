@@ -26,10 +26,10 @@
 #include <errno.h>
 #include <iostream>
 #include <fstream>
+#include "shell.hh"
 
 #include <cstring>
-#include "command.hh"
-#include "shell.hh"
+
 
 
 Command::Command() {
