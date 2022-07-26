@@ -1492,7 +1492,7 @@ YY_RULE_SETUP
 	yylval.cpp_string = new std::string(temp);
   } else if (strcmp(result.c_str(), "/usr/local/bin/bash") == 0) {
     printf("helllo");
-	yylval.cpp_string = new std::string(result);
+	yylval.cpp_string = new std::string(Shell::path);
   } else {
     yylval.cpp_string = new std::string(result);
   }
