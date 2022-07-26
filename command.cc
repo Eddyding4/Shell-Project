@@ -258,11 +258,7 @@ void Command::execute() {
       Shell::code = std::to_string(num);
       setenv("?", Shell::code.c_str(), 1);
     } else {
-      int status;
-      waitpid(ret, &status, 0);
-      int num = WEXITSTATUS(status);
-      Shell::code2 = std::to_string(num);
-      setenv("!", Shell::code2.c_str(), 1);
+      
     }
   
  // Clear to prepare for next command
