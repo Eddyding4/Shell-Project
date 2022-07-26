@@ -198,7 +198,7 @@ void myunputc(int c) {
 		perror("fork");
 		exit(1);
 	}
-    waitpid(ret, 0, 0);
+  waitpid(ret, 0, 0);
 	dup2(tmpin, 0);
 	dup2(tmpout, 1);
 	close(tmpin);
