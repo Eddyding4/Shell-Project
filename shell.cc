@@ -31,6 +31,7 @@ int main(int argc, char ** argv) {
   Shell::path = realpath(argv[0], NULL);
   
   Shell::prompt();	
+    printf("hello");
   struct sigaction signalAction;
   signalAction.sa_handler = disp;
   sigemptyset(&signalAction.sa_mask);
