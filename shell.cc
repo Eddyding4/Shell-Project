@@ -28,10 +28,11 @@ void Shell::prompt() {
 
 
 int main(int argc, char ** argv) {
+  printf("hello");
   Shell::path = realpath(argv[0], NULL);
   
   Shell::prompt();	
-    printf("hello");
+
   struct sigaction signalAction;
   signalAction.sa_handler = disp;
   sigemptyset(&signalAction.sa_mask);
