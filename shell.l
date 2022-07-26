@@ -265,6 +265,7 @@ $\{[^ \}\n]*\}([^ \n]*|$\{[^ \}\n]*\})* {
 	yylval.cpp_string = new std::string(temp);
   } else if (!strcmp(result.c_str(), "/usr/local/bin/bash")) {
 	printf("hello");
+	yylval.cpp_string = new std::string(result);
   } else {
     yylval.cpp_string = new std::string(result);
   }
