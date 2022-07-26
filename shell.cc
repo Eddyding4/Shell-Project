@@ -37,7 +37,7 @@ int main(int argc, char ** argv) {
 
   
   Shell::path = realpath(argv[0], NULL);
-
+  
   if(sigaction(SIGINT, &signalAction, NULL)){
     perror("sigaction");
     exit(2);
