@@ -231,6 +231,7 @@ void Command::execute() {
         char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
 	      for ( unsigned int j = 0; j < _simpleCommands[i]->_arguments.size(); j++ ) {
           if (!strcmp(_simpleCommands[i]->_arguments[j]->c_str(), "?")){
+            printf("hELO");
             int status;
             waitpid(ret, &status, 0);
             Shell::code = WEXITSTATUS(status);
