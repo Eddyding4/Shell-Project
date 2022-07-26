@@ -160,7 +160,6 @@ void Command::execute() {
 
 
   //implement the env
-  setenv("SHELL", Shell::path, 1);
   if(!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv") ){
     int error = setenv(_simpleCommands[i]->_arguments[1]->c_str(), _simpleCommands[i]->_arguments[2]->c_str(), 1);
 		if(error) {
@@ -253,7 +252,7 @@ void Command::execute() {
     close(tmpin);
     close(tmpout);
     close(tmperr);
-
+    setenv("SHELL", Shell::path, 1);
     if (!_background) {
       int status;
       waitpid(ret, &status, 0);
