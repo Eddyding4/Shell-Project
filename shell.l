@@ -189,8 +189,6 @@ void myunputc(int c) {
 	close(fdpipein[0]);
 	dup2(fdpipeout[1], 1);
 	close(fdpipeout[1]);
-	close(fdpipein[1]);
-	close(fdpipeout[0]);
 
 	int ret = fork();
 	if (ret == 0) {
