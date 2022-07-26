@@ -254,16 +254,16 @@ void Command::execute() {
     close(tmpout);
     close(tmperr);
     if (!_background) {
-      waitpid(ret, 0, 0);
+      int status;
+      waitpid(ret, &status, 0);
+      Shell::_code = WEXITSTATUS(status);
+      printf("%d", Shell::code);
     }
   
  // Clear to prepare for next command
   clear();
 
   // Print new prompt
-  /*if ( isatty(0) ) {
-    Shell::prompt();
-  }*/
   Shell::prompt();
 }
 SimpleCommand * Command::_currentSimpleCommand;

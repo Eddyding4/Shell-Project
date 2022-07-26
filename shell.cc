@@ -27,7 +27,8 @@ void Shell::prompt() {
 }
 
 
-int main() {
+int main(int argc, char ** argv) {
+  
   Shell::prompt();	
   struct sigaction signalAction;
   signalAction.sa_handler = disp;
