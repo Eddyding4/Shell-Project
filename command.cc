@@ -258,9 +258,9 @@ void Command::execute() {
       Shell::code = std::to_string(num);
       setenv("?", Shell::code.c_str(), 1);
     } else {
-      int pid = getpid();
+      int pid = getpid() + 4;
 	    std::string temp = std::to_string(pid);
-      printf("%d", pid);
+      setenv("!", temp.c_str(), 1);
     }
   
  // Clear to prepare for next command
