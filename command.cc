@@ -286,7 +286,7 @@ void Command::execute() {
       setenv("?", Shell::code.c_str(), 1);
     } else {
       int pid = getpid() + 2;
-	    std::string temp = std::to_string(pid);
+	    std::string temp = std::to_string(ret);
       setenv("!", temp.c_str(), 1);
     }
   
