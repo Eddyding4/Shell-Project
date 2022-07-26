@@ -35,9 +35,9 @@ int main(int argc, char ** argv) {
   sigemptyset(&signalAction.sa_mask);
   signalAction.sa_flags = SA_RESTART;
 
-  char * path = [100];
-  realpath(argv[0], path);
-  setenv("SHELL", path, 1);
+  
+  Shell::path = realpath(argv[0], NULL);
+  setenv("SHELL", Shell::path, 1);
 
   if(sigaction(SIGINT, &signalAction, NULL)){
     perror("sigaction");
