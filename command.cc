@@ -218,7 +218,12 @@ void Command::execute() {
     //create child process
     ret = fork();
     if (ret == 0) {
-      
+      if(!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "?"){
+        int status;
+        waitpid(ret, &status, 0);
+        Shell::code = WEXITSTATUS(status);
+        printf("%d", Shell::code);
+      }
       if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")){
         char ** env = environ;
 				while(*env){
