@@ -165,6 +165,13 @@ void Command::execute() {
 		if(error) {
 			perror("setenv");
 		}
+    dup2(tmpin, 0);
+    dup2(tmpout, 1);
+    dup2(tmperr, 2);
+
+    close(tmpin);
+    close(tmpout);
+    close(tmperr);
     clear();
     Shell::prompt();
     return;
@@ -173,6 +180,13 @@ void Command::execute() {
 		if(error) {
 			perror("unsetenv");
 		}
+    dup2(tmpin, 0);
+    dup2(tmpout, 1);
+    dup2(tmperr, 2);
+
+    close(tmpin);
+    close(tmpout);
+    close(tmperr);
 		clear();
 		Shell::prompt();
     return;
@@ -188,7 +202,13 @@ void Command::execute() {
 		if(error < 0){
 			fprintf(stderr,  "cd: can't cd to %s", _simpleCommands[i]->_arguments[1]->c_str() );
 		}
+    dup2(tmpin, 0);
+    dup2(tmpout, 1);
+    dup2(tmperr, 2);
 
+    close(tmpin);
+    close(tmpout);
+    close(tmperr);
 		clear();
 		Shell::prompt();
     return;
@@ -220,7 +240,7 @@ void Command::execute() {
     if (ret == 0) {
 
 
-      if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")){
+    if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")){
         char ** env = environ;
 				while(*env){
 					printf("%s\n", *env);
@@ -235,7 +255,13 @@ void Command::execute() {
 	      myargv[_simpleCommands[i]->_arguments.size()] = NULL;
         
 	      execvp(myargv[0], myargv);
-        	
+        dup2(tmpin, 0);
+        dup2(tmpout, 1);
+        dup2(tmperr, 2);
+
+        close(tmpin);
+        close(tmpout);
+        close(tmperr);	
 	      perror("execvp");
 	      exit(1);	 
       } else if (ret < 0) {
