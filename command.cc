@@ -105,6 +105,7 @@ void Command::print() {
 }
 
 void Command::execute() {
+  setenv("SHELL", Shell::path, 1);
   if (_count > 1) {
 		printf("Ambiguous output redirect.\n");
 		clear();
@@ -251,7 +252,7 @@ void Command::execute() {
     close(tmpin);
     close(tmpout);
     close(tmperr);
-    setenv("SHELL", Shell::path, 1);
+
     if (!_background) {
       int status;
       waitpid(ret, &status, 0);
