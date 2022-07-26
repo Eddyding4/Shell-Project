@@ -263,10 +263,7 @@ $\{[^ \}\n]*\}([^ \n]*|$\{[^ \}\n]*\})* {
 	std::string temp = std::to_string(pid);
 	yylval.cpp_string = new std::string(temp);
   } else if(strcmp(result.c_str(), "?") == 0){
-	/*int status;
-	waitpid(pid, &status, 0);
-	int exit_status = WEXITSTATUS(status);
-	printf("%d", exit_status);*/
+	
   } else {
     yylval.cpp_string = new std::string(result);
   }
