@@ -252,7 +252,7 @@ void Command::execute() {
     close(tmpin);
     close(tmpout);
     close(tmperr);
-    setenv("SHELL", Shell::path, 1);
+
     if (!_background) {
       int status;
       waitpid(ret, &status, 0);
