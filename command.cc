@@ -230,6 +230,7 @@ void Command::execute() {
       }
         char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
 	      for ( unsigned int j = 0; j < _simpleCommands[i]->_arguments.size(); j++ ) {
+          printf("%s", _simpleCommands[i]->_arguments[j]->c_str());
           if (!strcmp(_simpleCommands[i]->_arguments[j]->c_str(), "?")){
             printf("hELO");
             int status;
