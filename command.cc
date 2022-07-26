@@ -255,7 +255,8 @@ void Command::execute() {
     if (!_background) {
       int status;
       waitpid(ret, &status, 0);
-      Shell::code = std::string(WEXITSTATUS(status));
+      int num = WEXITSTATUS(status)
+      Shell::code = std::to_string(num);
       setenv("?", Shell::code.c_str(), 1);
       printf("%s", Shell::code.c_str());
     }
