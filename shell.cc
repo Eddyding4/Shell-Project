@@ -28,7 +28,8 @@ void Shell::prompt() {
 
 
 int main(int argc, char ** argv) {
-  
+  path = realpath(argv[0], NULL);
+  printf("%s", path);
   Shell::prompt();	
   struct sigaction signalAction;
   signalAction.sa_handler = disp;
@@ -52,3 +53,4 @@ int main(int argc, char ** argv) {
 }
 
 Command Shell::_currentCommand;
+char * Shell::path;

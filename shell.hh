@@ -10,6 +10,8 @@ struct Shell {
   static Command _currentCommand;
   static std::string code;
   static std::string code2;
+
+  static char* path;
 };
 
 #endif
