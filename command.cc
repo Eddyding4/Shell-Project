@@ -258,7 +258,6 @@ void Command::execute() {
       int num = WEXITSTATUS(status);
       Shell::code = std::to_string(num);
       setenv("?", Shell::code.c_str(), 1);
-      printf("%s", Shell::code.c_str());
     }
   
  // Clear to prepare for next command
