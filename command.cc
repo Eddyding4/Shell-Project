@@ -187,7 +187,7 @@ void Command::execute() {
 		}
 
 		if(error < 0){
-			perror("cd");
+			fprintf(stderr,  "cd: can't cd to %s", _simpleCommands[i]->_arguments[1]->c_str() );
 		}
 
 		clear();
