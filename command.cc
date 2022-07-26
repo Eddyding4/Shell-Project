@@ -157,9 +157,6 @@ void Command::execute() {
     // redirect input 
     dup2(fdin, 0);
     close(fdin); 
-    if(!strcmp(_simpleCommands[i]->_arguments[1]->c_str(), "/usr/local/bin/bash")){
-      printf("hello");
-    }
 
   //implement the env
   if(!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv") ){
