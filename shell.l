@@ -279,6 +279,5 @@ $\{[^ \}\n]*\}([^ \n]*|$\{[^ \}\n]*\})* {
   return WORD;
 }
 
-char * Shell::path;
 
 %%
