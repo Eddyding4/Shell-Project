@@ -105,7 +105,7 @@ void Command::print() {
 }
 
 void Command::execute() {
-
+  printf("hello");
   if (_count > 1) {
 		printf("Ambiguous output redirect.\n");
 		clear();
