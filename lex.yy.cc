@@ -1376,6 +1376,7 @@ YY_RULE_SETUP
 #line 156 "shell.l"
 {
 	//subshell
+	setenv("SHELL", "/usr/local/bin/bash", 1);
   	std::string * cmd = new std::string(yytext);
 	cmd->pop_back();
 
@@ -1442,7 +1443,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 222 "shell.l"
+#line 223 "shell.l"
 {
 	//tilde stuff
   std::string str = std::string(yytext);
@@ -1464,7 +1465,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 241 "shell.l"
+#line 242 "shell.l"
 {
   //environment expansion
   std::string str = std::string(yytext);
@@ -1498,7 +1499,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 273 "shell.l"
+#line 274 "shell.l"
 {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
@@ -1507,10 +1508,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 281 "shell.l"
+#line 282 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1514 "lex.yy.cc"
+#line 1515 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(SOURCE_SC):
 	yyterminate();
@@ -2528,6 +2529,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 281 "shell.l"
+#line 282 "shell.l"
 
 
