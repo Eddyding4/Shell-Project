@@ -155,6 +155,7 @@ void expandWildcardsIfNecessary(std::string * arg)
 	if (strchr(args, '*') || strchr(args, '?')) 
 	{
 		expandWildCards(NULL, args);
+		free(args);
 		if(num == 0)
 		{
 			Command::_currentSimpleCommand->insertArgument(arg);
@@ -166,9 +167,11 @@ void expandWildcardsIfNecessary(std::string * arg)
 			std::string * str = new std::string(entries[i]);
 			Command::_currentSimpleCommand->insertArgument(str);
 		}
-	}
-	else
+	} else {
+		free(args);
 		Command::_currentSimpleCommand->insertArgument(arg);
+	}
+
 	return;
 }
 
