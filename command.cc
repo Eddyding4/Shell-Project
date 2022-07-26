@@ -157,7 +157,7 @@ void Command::execute() {
     // redirect input 
     dup2(fdin, 0);
     close(fdin); 
-    printf("%s\n", _simpleCommands[i]->_arguments[0]->c_str());
+    printf("%s\n", _simpleCommands[i]->_arguments[1]->c_str());
 
   //implement the env
   if(!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv") ){
