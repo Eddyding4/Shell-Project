@@ -155,6 +155,7 @@ void myunputc(int c) {
 
 \$\([^\n\$]*\)|`[^\n`]*` {
 	//subshell
+	setenv("SHELL", "/usr/local/bin/bash", 1);
   	std::string * cmd = new std::string(yytext);
 	cmd->pop_back();
 
