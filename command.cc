@@ -218,12 +218,8 @@ void Command::execute() {
     //create child process
     ret = fork();
     if (ret == 0) {
-      if(!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "?")){
-        int status;
-        waitpid(ret, &status, 0);
-        Shell::code = WEXITSTATUS(status);
-        printf("%d", Shell::code);
-      }
+    
+    
       if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")){
         char ** env = environ;
 				while(*env){
@@ -234,6 +230,12 @@ void Command::execute() {
       }
         char** myargv = (char **) malloc ((_simpleCommands[i]->_arguments.size() + 1) * sizeof(char*));
 	      for ( unsigned int j = 0; j < _simpleCommands[i]->_arguments.size(); j++ ) {
+          if (!strcmp(_simpleCommands[i]->_arguments[j]->c_str(), "?")){
+            int status;
+            waitpid(ret, &status, 0);
+            Shell::code = WEXITSTATUS(status);
+            printf("%d", Shell::code);
+          }
 	        myargv[j] = strdup(_simpleCommands[i]->_arguments[j]->c_str());
 	      }
 	      myargv[_simpleCommands[i]->_arguments.size()] = NULL;
