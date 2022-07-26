@@ -32,6 +32,7 @@
 
 
 Command::Command() {
+    setenv("SHELL", Shell::path, 1);
     // Initialize a new vector of Simple Commands
     _simpleCommands = std::vector<SimpleCommand *>();
     _outFile = NULL;
