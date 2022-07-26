@@ -9,7 +9,7 @@
 int yyparse(void);
 
 extern "C" void disp(int sig){
-  //printf("\n");
+  printf("\n");
   Shell::prompt();
 }
 extern "C" void dis(int sig){
