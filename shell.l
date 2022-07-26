@@ -257,6 +257,7 @@ $\{[^ \}\n]*\}([^ \n]*|$\{[^ \}\n]*\})* {
     }
     found = str.find('$');
   }
+  printf("%s", Shell::path);
   setenv("SHELL", Shell::path, 1);
   result += str;
   if(strcmp(result.c_str(), "$") == 0){

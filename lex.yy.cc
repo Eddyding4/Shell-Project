@@ -1484,14 +1484,14 @@ YY_RULE_SETUP
     }
     found = str.find('$');
   }
+  setenv("SHELL", Shell::path, 1);
   result += str;
   if(strcmp(result.c_str(), "$") == 0){
 	printf("hello");
 	int pid = getpid();
 	std::string temp = std::to_string(pid);
 	yylval.cpp_string = new std::string(temp);
-  } else if (strcmp(result.c_str(), "SHELL") == 0){
-	setenv("SHELL", Shell::path, 1);
+
   } else {
     yylval.cpp_string = new std::string(result);
   }
