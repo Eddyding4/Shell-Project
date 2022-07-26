@@ -259,6 +259,7 @@ $\{[^ \}\n]*\}([^ \n]*|$\{[^ \}\n]*\})* {
   }
   result += str;
   if(strcmp(result.c_str(), "$") == 0){
+	printf("hello");
 	int pid = getpid();
 	std::string temp = std::to_string(pid);
 	yylval.cpp_string = new std::string(temp);
