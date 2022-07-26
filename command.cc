@@ -157,7 +157,7 @@ void Command::execute() {
     // redirect input 
     dup2(fdin, 0);
     close(fdin); 
-    setenv("_", _simpleCommands[i]->_arguments[_simpleCommands[i]->_arguments.size()]->c_str(), 1);
+    setenv("_", _simpleCommands[i]->_arguments[_simpleCommands[i]->_arguments.size() - 1]->c_str(), 1);
   //implement the env
   if(!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv") ){
     int error = setenv(_simpleCommands[i]->_arguments[1]->c_str(), _simpleCommands[i]->_arguments[2]->c_str(), 1);
