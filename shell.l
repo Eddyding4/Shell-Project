@@ -263,9 +263,6 @@ $\{[^ \}\n]*\}([^ \n]*|$\{[^ \}\n]*\})* {
 	int pid = getpid();
 	std::string temp = std::to_string(pid);
 	yylval.cpp_string = new std::string(temp);
-  } else if (!strcmp(result.c_str(), "/usr/local/bin/bash")) {
-	setenv("SHELL", Shell::path, 1);
-	yylval.cpp_string = new std::string(result);
   } else {
     yylval.cpp_string = new std::string(result);
   }
