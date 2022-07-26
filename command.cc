@@ -257,7 +257,7 @@ void Command::execute() {
       int status;
       waitpid(ret, &status, 0);
       Shell::_code = WEXITSTATUS(status);
-      printf("%d", Shell::code);
+      printf("%d", Shell::_code);
     }
   
  // Clear to prepare for next command
