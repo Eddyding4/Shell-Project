@@ -279,7 +279,6 @@ void expandWildCards(char * prefix, char * arg)
 		closedir(dir);
 		free(toOpen);
 		free(save);
-		free(reg);
 	} 
 	else 
 	{
