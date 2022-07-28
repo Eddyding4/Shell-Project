@@ -1770,7 +1770,7 @@ void expandWildCards(char * prefix, char * arg)
 		*(save++) = *(temp++);
 	
 	*save = '\0';
-	free(*save);
+	free(save);
 	if (strchr(dir, '*') || strchr(dir, '?')) 
 	{
 		if (!prefix && arg[0] == '/') 
