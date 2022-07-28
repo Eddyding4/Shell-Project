@@ -223,7 +223,7 @@ void expandWildCards(char * prefix, char * arg)
 
 		regex_t re;
 
-		int expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
+		regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
 
 		char * toOpen = strdup((prefix)?prefix:".");
 		DIR * dir = opendir(toOpen);
