@@ -195,6 +195,7 @@ void expandWildCards(char * prefix, char * arg)
 		*(save++) = *(temp++);
 	
 	*save = '\0';
+	free(save);
 	if (strchr(dir, '*') || strchr(dir, '?')) 
 	{
 		if (!prefix && arg[0] == '/') 
@@ -222,7 +223,6 @@ void expandWildCards(char * prefix, char * arg)
 		*r = '\0';
 
 		regex_t re;
-		free(save);
 		regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
 
 		char * toOpen = strdup((prefix)?prefix:".");
