@@ -185,7 +185,7 @@ int cmpfunc (const void *file1, const void *file2)
 void expandWildCards(char * prefix, char * arg)
 {
 	char * temp = arg;
-	char * save = (malloc (strlen(arg));
+	char * save = (char *) malloc (strlen(arg));
 	char * dir = save;
 
 	if(temp[0] == '/')
