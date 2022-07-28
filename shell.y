@@ -222,7 +222,7 @@ void expandWildCards(char * prefix, char * arg)
 		*r = '\0';
 
 		regex_t re;
-		free(reg);
+
 		int expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
 
 		char * toOpen = strdup((prefix)?prefix:".");

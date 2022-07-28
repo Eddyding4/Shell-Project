@@ -1760,7 +1760,7 @@ int cmpfunc (const void *file1, const void *file2)
 void expandWildCards(char * prefix, char * arg)
 {
 	char * temp = arg;
-	char * save;
+	char * save = (char *) malloc (strlen(arg) + 10);
 	char * dir = save;
 
 	if(temp[0] == '/')
@@ -1797,7 +1797,7 @@ void expandWildCards(char * prefix, char * arg)
 		*r = '\0';
 
 		regex_t re;
-
+		free(reg);
 		int expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
 
 		char * toOpen = strdup((prefix)?prefix:".");
