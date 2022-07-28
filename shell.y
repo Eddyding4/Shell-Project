@@ -228,6 +228,7 @@ void expandWildCards(char * prefix, char * arg)
 
 		char * toOpen = strdup((prefix)?prefix:".");
 		DIR * dir = opendir(toOpen);
+		free(toOpen);
 		if (dir == NULL) 
 		{
 			perror("opendir");
