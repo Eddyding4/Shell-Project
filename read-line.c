@@ -32,14 +32,7 @@ int history_rev;
 int history_index = 0;
 char ** history = NULL;
 int history_size = 10;
-/*char * history [] = {
-  "ls -al | grep x", 
-  "ps -e",
-  "cat read-line-example.c",
-  "vi hello.c",
-  "make",
-  "ls -al | grep xxx | grep yyy"
-};*/
+
 int history_length = HISTORY_SIZE;
 
 void read_line_print_usage()

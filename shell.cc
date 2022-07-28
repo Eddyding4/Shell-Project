@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include "y.tab.hh"
 int yyparse(void);
 
 extern "C" void disp(int sig){
@@ -27,6 +28,18 @@ void Shell::prompt() {
 
 
 int main(int argc, char ** argv) {
+  FILE * in = fopen(".shellrc", "r+");
+  if (!in) {
+    perror("fopen");
+    BEGIN(INITIAL);
+  } else {
+    fputc('\n', in);
+    yypush_buffer_state(yy_create_buffer(in, YY_BUF_SIZE));
+    BEGIN(INITIAL);
+    yyparse();
+    yypop_buffer_state();
+    fclose(in);
+  }
 
   Shell::prompt();
   struct sigaction signalAction;
