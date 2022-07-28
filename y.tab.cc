@@ -1849,10 +1849,7 @@ void expandWildCards(char * prefix, char * arg)
 				}
 			}
 		}
-		free(toOpen);
-		free(save);
-		free(reg);
-		free(entries);
+
 		closedir(dir);
 	} 
 	else 
@@ -1866,6 +1863,10 @@ void expandWildCards(char * prefix, char * arg)
 		if(*temp)
 			expandWildCards(pre, ++temp);
 	}
+		free(toOpen);
+		free(save);
+		free(reg);
+		free(entries);
 }
 
 
