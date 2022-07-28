@@ -6,7 +6,9 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+
 #include "y.tab.hh"
+#include <unistd.h>
 int yyparse(void);
 
 extern "C" void disp(int sig){
