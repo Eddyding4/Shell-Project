@@ -1763,13 +1763,7 @@ void expandWildCards(char * prefix, char * arg)
 	char * save = (char *) malloc (strlen(arg) + 10);
 	char * dir = save;
 
-	if(temp[0] == '/')
-		*(save++) = *(temp++);
-
-	while (*temp != '/' && *temp) 
-		*(save++) = *(temp++);
 	
-	*save = '\0';
 	if (strchr(dir, '*') || strchr(dir, '?')) 
 	{
 		if (!prefix && arg[0] == '/') 
