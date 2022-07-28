@@ -289,7 +289,6 @@ void expandWildCards(char * prefix, char * arg)
 		if(*temp)
 			expandWildCards(pre, ++temp);
 	}
-	free(save);
 }
 
 
