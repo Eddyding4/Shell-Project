@@ -14,20 +14,22 @@ extern "C" void disp(int sig){
 }
 extern "C" void dis(int sig){
   while(waitpid(-1, 0, WNOHANG) > 0 ){
- 
-  //printf("%d exited\n", getpid());
   }
 }
 void Shell::prompt() {
   if ( isatty(0) ) {
-    printf("myshell>");
+    if(strcmp(getenv("PROMPT"), "")){
+      printf("myshell>");
+    } else {
+      printf(getenv("PROMPT"));
+    }
   }
   fflush(stdout);
 }
 
 
 int main(int argc, char ** argv) {
-
+  setenv("PROMPT", "");
   Shell::prompt();
   struct sigaction signalAction;
   signalAction.sa_handler = disp;
