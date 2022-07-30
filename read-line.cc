@@ -254,14 +254,12 @@ char * read_line() {
             write(1,&ch,1);
         }	
 
-        
-          // Copy line from history
 
 
           // echo line
           write(1, line_buffer, line_length);
           current = line_length;
-        }
+        
         else
         {
           strcpy(line_buffer, "");
