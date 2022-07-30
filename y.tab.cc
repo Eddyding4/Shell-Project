@@ -1848,13 +1848,13 @@ void expandWildCards(char * prefix, char * arg)
 					free(argument);
 
 				}
+						free(entries);
 			}
 		}
 		closedir(dir);
 		regfree(&re);
 		free(toOpen);
-		free(entries);
-		free(ent->d_name);
+
 		free(dir2);
 		free(reg);
 	} 
