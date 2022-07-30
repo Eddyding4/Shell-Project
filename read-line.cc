@@ -239,24 +239,13 @@ char * read_line() {
             ch = 8;
             write(1,&ch,1);
         }	
-
-        if(1 > 0)
-        {
-          // Copy line from history
-          line_length = strlen(line_buffer);
-
-          // echo line
-          write(1, line_buffer, line_length);
-          current = line_length;
-        }
-        else
-        {
-          strcpy(line_buffer, "");
-          line_length = strlen(line_buffer);
-
-          write(1, line_buffer, line_length);
-          current = line_length;
-        }
+        right_side = 0;
+        strcpy(line_buffer, history[++history_index].c_str());
+        line_length = strlen(line_buffer);
+	      // echo line
+	      write(1, line_buffer, line_length);
+        current = line_length;
+        
 
       } if (ch1==91 && ch2==68) {
         // left arrow. 
