@@ -21,7 +21,7 @@ void Shell::prompt() {
     if(!strcmp(getenv("PROMPT"), "")){
       printf("myshell>");
     } else {
-      printf(getenv("PROMPT"));
+      printf(getenv("PROMPT") + ">");
     }
   }
   fflush(stdout);
