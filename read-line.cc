@@ -223,7 +223,7 @@ char * read_line() {
         // Erase old line
         // Print backspaces
         if(history_index == (int) history.size() || history_index == (int)history.size() - 1){
-          for(int j = 0; j < line_length; j++){
+          for(int j = 0; j < (int)history[history_index].size(); j++){
             ch = 8;
             write(1, &ch, 1);
           }
