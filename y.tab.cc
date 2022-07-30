@@ -1746,7 +1746,7 @@ void expandWildcardsIfNecessary(std::string * arg)
 		free(args);
 		Command::_currentSimpleCommand->insertArgument(arg);
 	}
-
+	free(entries);
 	return;
 }
 
