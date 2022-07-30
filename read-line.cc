@@ -96,8 +96,9 @@ char * read_line() {
       char temp[MAX_BUFFER_LINE];
       for(int i = 0; i < line_length; i++){
         if(line_buffer[i] > 0){
-          printf("\nbuf:%d\n", line_buffer[i]);
+
           char ascii = (char)(line_buffer[i]);
+          printf("\nbuf:%s\n", ascii);
           strcat(temp, &ascii);
         }
       }
