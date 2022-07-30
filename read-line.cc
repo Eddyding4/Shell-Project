@@ -94,10 +94,8 @@ char * read_line() {
     }
     else if (ch==10) {
       // <Enter> was typed. Return line
-
-      
+   
       history.push_back(line_buffer);
-      history_index = (history.size());
 
       // Print newline
 
