@@ -223,7 +223,7 @@ char * read_line() {
 
 	      // echo line
 	      write(1, line_buffer, line_length);
-        current = line_length;
+        //current = line_length;
       } if (ch1 == 91 && ch2 == 66){
         // down arrow
         // Erase old line
