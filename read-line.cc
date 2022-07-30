@@ -99,7 +99,7 @@ char * read_line() {
         char ascii = (char)(line_buffer[i]);
         strcat(temp, &ascii);
       }
-      printf("%s\n", temp[0]);
+      printf("%d\n", temp[0]);
       printf("%s\n", temp);
       // Print newline
 
