@@ -222,7 +222,7 @@ char * read_line() {
         // down arrow
         // Erase old line
         // Print backspaces
-        if(history_index == (int) history.size() && history_index == (int)history.size() - 1)
+        if(history_index == (int) history.size() || history_index == (int)history.size() - 1)
           continue;
         int i = 0;
         for (i =0 ; i < line_length; i++) {
@@ -247,7 +247,6 @@ char * read_line() {
 	      // echo line
 	      write(1, line_buffer, line_length);
         current = line_length;
-        
 
       } if (ch1==91 && ch2==68) {
         // left arrow. 
