@@ -98,6 +98,7 @@ char * read_line() {
         if(line_buffer[i] > 30 && line_buffer[i] < 130){
           char ascii = (char)(line_buffer[i]);
           strcat(temp, &ascii);
+          printf("temp: %s\n", temp);
         }
       }
       std::string com = std::string(temp);
