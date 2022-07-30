@@ -96,7 +96,7 @@ char * read_line() {
       // <Enter> was typed. Return line
    
       history.push_back(line_buffer);
-      printf("%d\n", (int)history.size());
+      history_index = (int)history.size();
       // Print newline
 
       write(1,&ch,1);
@@ -211,9 +211,8 @@ char * read_line() {
 
 	      // Copy line from history
         right_side = 0;
-        strcpy(line_buffer, history[history_index].c_str());
+        strcpy(line_buffer, history[--history_index].c_str());
         line_length = strlen(line_buffer);
-        history_index++;
 	      // echo line
 	      write(1, line_buffer, line_length);
         //current = line_length;
