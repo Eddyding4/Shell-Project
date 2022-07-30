@@ -98,10 +98,10 @@ char * read_line() {
         if(line_buffer[i] > 0){
           char ascii = (char)(line_buffer[i]);
           printf("\nbuf:%s\n", &ascii);
-          strcat(temp, &ascii);
+          strncat(temp, &ascii, 1);
         }
       }
-      printf("\nThingie:%d\n", temp[1]);
+      printf("\nThingie:%d\n", temp[0]);
       printf("%s", temp);
       // Print newline
 
