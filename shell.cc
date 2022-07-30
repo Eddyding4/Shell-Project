@@ -22,7 +22,7 @@ void Shell::prompt() {
       printf("myshell>");
     } else {
       printf(getenv("PROMPT"));
-      printf(">")
+      printf(">");
     }
   }
   fflush(stdout);
