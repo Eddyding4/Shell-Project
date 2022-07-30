@@ -216,7 +216,6 @@ char * read_line() {
 
 	      // Copy line from history
         write(1, history[0].c_str(), strlen(history[0].c_str()));
-	      printf("%s\n", history[0].c_str());
        
 	      // echo line
 	      //write(1, line_buffer, line_length);
