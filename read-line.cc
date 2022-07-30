@@ -197,7 +197,7 @@ char * read_line() {
        
 	      // Erase old line
 	      // Print backspaces
-        if(history_index = 0)
+        if(history_index == 0)
           continue;
 	      int i = 0;
 	      for (i =0; i < line_length - current; i++) {
