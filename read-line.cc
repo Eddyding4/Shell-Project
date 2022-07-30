@@ -93,12 +93,12 @@ char * read_line() {
     }
     else if (ch==10) {
       // <Enter> was typed. Return line
-      std::string temp;
+      char * temp;
       for(int i = 0; i < line_length; i++){
         char ascii = char(line_buffer[i]);
         strcat(temp, ascii);
       }
-      printf("%s", temp.c_str());
+      printf("%s", temp);
       // Print newline
 
       write(1,&ch,1);
