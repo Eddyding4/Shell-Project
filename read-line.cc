@@ -215,7 +215,7 @@ char * read_line() {
 	      }	
 
 	      // Copy line from history
-        write(1, history[0].c_str(), history[0].c_str().length());
+        write(1, history[0].c_str(), history[0].c_str().size());
 	      printf("%s\n", history[0].c_str());
        
 	      // echo line
