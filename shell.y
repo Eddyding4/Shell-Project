@@ -267,8 +267,10 @@ void expandWildCards(char * prefix, char * arg)
 						if (arg[0] == '.')
 							entries[num++] = (argument[0] != '\0')?strdup(argument):strdup(ent->d_name);
 					}
-					else
+					else {
 						entries[num++] = (argument[0] != '\0')?strdup(argument):strdup(ent->d_name);
+						free(argument);
+					}
 					free(argument);
 
 				}

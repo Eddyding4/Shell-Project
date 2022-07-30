@@ -1850,6 +1850,7 @@ void expandWildCards(char * prefix, char * arg)
 			}
 		}
 		closedir(dir);
+		regfree(&re);
 		free(toOpen);
 		free(entries);
 		free(dir2);
