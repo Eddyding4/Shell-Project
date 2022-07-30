@@ -96,7 +96,7 @@ char * read_line() {
       // <Enter> was typed. Return line
    
       history.push_back(line_buffer);
-
+      printf("%s\n", history.size());
       // Print newline
 
       write(1,&ch,1);
