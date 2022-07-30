@@ -15,7 +15,7 @@
 #define MAX_BUFFER_LINE 1024
 #define HISTORY_SIZE 32
 
-extern void tty_raw_mode(void);
+extern "C" void  tty_raw_mode(void);
 extern char* strdup(const char*);
 
 // Buffer where line is stored
