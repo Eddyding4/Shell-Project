@@ -26,6 +26,7 @@ char line_buffer[MAX_BUFFER_LINE];
 char right_buf[MAX_BUFFER_LINE];
 int right_side;
 int count;
+int current;
 
 // Simple history array
 // This history does not change. 
