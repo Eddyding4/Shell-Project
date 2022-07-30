@@ -102,9 +102,7 @@ char * read_line() {
       }
       std::string com = std::string(temp);
       history.push_back(com);
-      for(int i = 0; i < (int)history.size(); i++){
-        printf("%s\n", history[i].c_str());
-      }
+
       // Print newline
 
       write(1,&ch,1);
@@ -215,19 +213,19 @@ char * read_line() {
 	        ch = 8;
 	        write(1,&ch,1);
 	      }	
-        right_side = 0;
+
 	      // Copy line from history
-	      
+	      printf("%s\n", history[0].c_str());
        
 	      // echo line
 	      write(1, line_buffer, line_length);
-        current = line_length;
+
       } if (ch1 == 91 && ch2 == 66){
         // down arrow
         // Erase old line
         // Print backspaces
         int i = 0;
-        for (i =line_length - current; i < line_length; i++) {
+        for (i =line_length; i < line_length; i++) {
           ch = 8;
             write(1,&ch,1);
         }
