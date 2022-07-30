@@ -25,7 +25,7 @@ int line_length;
 char line_buffer[MAX_BUFFER_LINE];
 char right_buf[MAX_BUFFER_LINE];
 int right_side;
-int count;
+int history_index;
 int current;
 
 // Simple history array
@@ -197,6 +197,8 @@ char * read_line() {
        
 	      // Erase old line
 	      // Print backspaces
+        if(history_index = 0)
+          continue;
 	      int i = 0;
 	      for (i =0; i < line_length - current; i++) {
 	        ch = 8;
@@ -216,11 +218,12 @@ char * read_line() {
 	      }	
 
 	      // Copy line from history
-        write(1, history[count].c_str(), strlen(history[count].c_str()));
-        count++;
-	      // echo line
-	      //write(1, line_buffer, line_length);
+        history_index++;
+        strcpy(line_buffer, history[--history_index].c_str());
 
+	      // echo line
+	      write(1, line_buffer, line_length);
+        current = line_length;
       } if (ch1 == 91 && ch2 == 66){
         // down arrow
         // Erase old line
