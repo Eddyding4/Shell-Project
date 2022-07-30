@@ -197,8 +197,7 @@ char * read_line() {
        
 	      // Erase old line
 	      // Print backspaces
-        if(history_index < 0)
-          continue;
+
 	      int i = 0;
 	      for (i =0; i < line_length - current; i++) {
 	        ch = 8;
@@ -218,8 +217,9 @@ char * read_line() {
 	      }	
 
 	      // Copy line from history
-
+        right_side = 0;
         strcpy(line_buffer, history[--history_index].c_str());
+        line_length = strlen(line_buffer);
         history_index++;
 	      // echo line
 	      write(1, line_buffer, line_length);
