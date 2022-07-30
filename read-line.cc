@@ -102,7 +102,7 @@ char * read_line() {
       }
       std::string com = std::string(temp);
       history.push_back(com);
-      for(int i = 0; i < history.size(); i++){
+      for(int i = 0; i < (int)history.size(); i++){
         printf("%s", history[i].c_str());
       }
       // Print newline
