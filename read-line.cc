@@ -222,7 +222,8 @@ char * read_line() {
         // down arrow
         // Erase old line
         // Print backspaces
-
+        if(history_index == (int) history.size())
+          continue;
         int i = 0;
         for (i =0 ; i < line_length; i++) {
           ch = 8;
@@ -240,9 +241,9 @@ char * read_line() {
             ch = 8;
             write(1,&ch,1);
         }	
-        if(history_index == (int)history.size() - 1){
+        if(history_index == (int)history.size() - 1)
           continue;
-        }
+        
         right_side = 0;
         strcpy(line_buffer, history[++history_index].c_str());
         line_length = strlen(line_buffer);
