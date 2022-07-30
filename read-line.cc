@@ -93,7 +93,7 @@ char * read_line() {
     }
     else if (ch==10) {
       // <Enter> was typed. Return line
-      printf("%s", line_buffer[0]);
+      printf("%d", line_buffer[0]);
       // Print newline
 
       write(1,&ch,1);
