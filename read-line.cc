@@ -37,7 +37,7 @@ int history_length = HISTORY_SIZE;
 
 void read_line_print_usage()
 {
-  char * usage = "\n"
+  std::string usage = "\n"
     " ctr-a        Move to the beginning of line\n"
     " ctr-e        Move to the end of line\n"
     " ctr-h        Removes the character at the position before the cursor.\n"
@@ -46,7 +46,7 @@ void read_line_print_usage()
     " Backspace    Deletes last character\n"
     " up arrow     See last command in the history\n";
 
-  write(1, usage, strlen(usage));
+  write(1, usage->c_str(), strlen(usage->c_str()));
 }
 
 /* 
