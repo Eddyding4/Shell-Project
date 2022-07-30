@@ -25,7 +25,7 @@ int line_length;
 char line_buffer[MAX_BUFFER_LINE];
 char right_buf[MAX_BUFFER_LINE];
 int right_side;
-int current;
+int count;
 
 // Simple history array
 // This history does not change. 
@@ -215,8 +215,8 @@ char * read_line() {
 	      }	
 
 	      // Copy line from history
-        write(1, history[0].c_str(), strlen(history[0].c_str()));
-       
+        write(1, history[count].c_str(), strlen(history[count].c_str()));
+        count++;
 	      // echo line
 	      //write(1, line_buffer, line_length);
 
