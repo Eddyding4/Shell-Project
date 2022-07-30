@@ -207,7 +207,6 @@ void expandWildCards(char * prefix, char * arg)
 		char * reg = (char *) malloc (2*strlen(arg) + 10);
 		char * a = dir;
 		char * r = reg;
-		free(dir);
 		*r = '^';
 		r++;
 		while (*a) 
