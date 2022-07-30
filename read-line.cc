@@ -222,6 +222,8 @@ char * read_line() {
         // down arrow
         // Erase old line
         // Print backspaces
+        if(history_index == history.size() && history_index == history.size() - 1)
+          continue;
         int i = 0;
         for (i =0 ; i < line_length; i++) {
           ch = 8;
