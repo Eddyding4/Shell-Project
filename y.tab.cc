@@ -1844,7 +1844,6 @@ void expandWildCards(char * prefix, char * arg)
 					}
 					else {
 						entries[num++] = (argument[0] != '\0')?strdup(argument):strdup(ent->d_name);
-						free(entries);
 					}
 					free(argument);
 
@@ -1855,6 +1854,7 @@ void expandWildCards(char * prefix, char * arg)
 		regfree(&re);
 		free(toOpen);
 		free(entries);
+		free(ent->d_name);
 		free(dir2);
 		free(reg);
 	} 
