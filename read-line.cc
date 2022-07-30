@@ -98,7 +98,7 @@ char * read_line() {
         char ascii = char(line_buffer[i]);
         strcat(temp, ascii);
       }
-      printf("%s", temp);
+      printf("%s", temp->c_str());
       // Print newline
 
       write(1,&ch,1);
