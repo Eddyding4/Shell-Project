@@ -58,6 +58,7 @@ char * read_line() {
 
   line_length = 0;
   right_side = 0;
+
   // Read one line until enter is typed
   while (1) {
 
@@ -136,18 +137,22 @@ char * read_line() {
       for (int i=0; i<right_side; i++) {
         char c = 8;
         write(1,&c,1);
+      }
 
+      // Remove one character from buffer
+      right_side--;
+    }
+    else if (ch == 5) {
       // ctrl-E was typed. The cursor moves to the end of the line
       for (int i=right_side-1; i>=0; i--) {
         write(1,"\033[1C",5);
         line_buffer[line_length]=right_buf[right_side-1];
         right_side--;
         line_length++;
-
       }
     }
     
-    } else if (ch == 8 || ch == 127) {
+    else if (ch == 8 || ch == 127) {
       // <backspace> was typed. Remove previous character read.
 
       // Removes the character at the cursor
@@ -190,7 +195,7 @@ char * read_line() {
 	      // Erase old line
 	      // Print backspaces
 	      int i = 0;
-	      for (i =0; i < line_length; i++) {
+	      for (i =0; i < line_length ; i++) {
 	        ch = 8;
 	        write(1,&ch,1);
 	      }
@@ -208,7 +213,7 @@ char * read_line() {
 	      }	
 
 	      // Copy line from history
-        write(1, history[0].c_str(), strlen(history[0].c_str()));
+        write(1, history[count].c_str(), strlen(history[count].c_str()));
         count++;
 	      // echo line
 	      //write(1, line_buffer, line_length);
@@ -264,6 +269,7 @@ char * read_line() {
         right_buf[right_side] = line_buffer[line_length-1];
         right_side++;
         line_length--;
+
       }
       else if (ch1==91 && ch2==67) {
         // right arrow. 
@@ -275,6 +281,7 @@ char * read_line() {
         line_buffer[line_length]=right_buf[right_side-1];
         line_length++;
         right_side--;
+
       }
       
     }
