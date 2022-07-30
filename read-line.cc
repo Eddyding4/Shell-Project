@@ -29,12 +29,8 @@ int current;
 // Simple history array
 // This history does not change. 
 // Yours have to be updated.
-int history_rev;
-int history_index = 0;
-char ** history = NULL;
-int history_size = 10;
 
-int history_length = HISTORY_SIZE;
+std::vector<std::string> history;
 
 void read_line_print_usage()
 {
@@ -230,9 +226,7 @@ char * read_line() {
 	      }	
         right_side = 0;
 	      // Copy line from history
-	      strcpy(line_buffer, history[history_index]);
-	      line_length = strlen(line_buffer);
-        history_index=(history_index + 1) % history_length;
+	      
        
 	      // echo line
 	      write(1, line_buffer, line_length);
