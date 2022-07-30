@@ -30,6 +30,7 @@ void Shell::prompt() {
 
 int main(int argc, char ** argv) {
   setenv("PROMPT", "", 1);
+  printf("eho: %s\n", getenv("PROMPT"));
   Shell::prompt();
   struct sigaction signalAction;
   signalAction.sa_handler = disp;
