@@ -218,7 +218,7 @@ char * read_line() {
 
 	      // Copy line from history
         right_side = 0;
-        strcpy(line_buffer, history[--history_index].c_str());
+        strcpy(line_buffer, history[history_index].c_str());
         line_length = strlen(line_buffer);
         history_index++;
 	      // echo line
