@@ -95,7 +95,7 @@ char * read_line() {
       // <Enter> was typed. Return line
       char * temp;
       for(int i = 0; i < line_length; i++){
-        char ascii = char(line_buffer[i]);
+        char * ascii = char(line_buffer[i]);
         strcat(temp, ascii);
       }
       printf("%s", temp);
