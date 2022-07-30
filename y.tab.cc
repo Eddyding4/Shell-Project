@@ -1851,9 +1851,9 @@ void expandWildCards(char * prefix, char * arg)
 			}
 		}
 		closedir(dir);
-		//regfree(&re);
+
 		free(toOpen);
-		//free(dir2);
+
 	} 
 	else 
 	{
@@ -1866,6 +1866,8 @@ void expandWildCards(char * prefix, char * arg)
 		if(*temp)
 			expandWildCards(pre, ++temp);
 	}
+	//free(dir2);
+	//regfree(&re);
 }
 
 
