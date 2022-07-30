@@ -215,10 +215,11 @@ char * read_line() {
 	      }	
 
 	      // Copy line from history
+        write(1, history[0].c_str(), history[0].c_str().length());
 	      printf("%s\n", history[0].c_str());
        
 	      // echo line
-	      write(1, line_buffer, line_length);
+	      //write(1, line_buffer, line_length);
 
       } if (ch1 == 91 && ch2 == 66){
         // down arrow
