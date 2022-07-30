@@ -1761,7 +1761,7 @@ void expandWildCards(char * prefix, char * arg)
 {
 	char * temp = arg;
 	char * save = (char *) malloc (strlen(arg));
-	char * dir = save;
+	char * dir2 = save;
 
 	if(temp[0] == '/')
 		*(save++) = *(temp++);
@@ -1771,16 +1771,16 @@ void expandWildCards(char * prefix, char * arg)
 	
 	*save = '\0';
 	//free(dir);
-	if (strchr(dir, '*') || strchr(dir, '?')) 
+	if (strchr(dir2, '*') || strchr(dir2, '?')) 
 	{
 		if (!prefix && arg[0] == '/') 
 		{
 			prefix = strdup("/");
-			dir++;
+			dir2++;
 		}  
 
 		char * reg = (char *) malloc (2*strlen(arg) + 10);
-		char * a = dir;
+		char * a = dir2;
 		char * r = reg;
 		*r = '^';
 		r++;
@@ -1852,6 +1852,7 @@ void expandWildCards(char * prefix, char * arg)
 		closedir(dir);
 		free(toOpen);
 		free(entries);
+		free(dir2);
 		free(reg);
 	} 
 	else 
