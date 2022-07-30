@@ -1859,9 +1859,9 @@ void expandWildCards(char * prefix, char * arg)
 	{
 		char * pre = (char *) malloc (100);
 		if(prefix) 
-			sprintf(pre, "%s/%s", prefix, dir);
+			sprintf(pre, "%s/%s", prefix, dir2);
 		else
-			pre = strdup(dir);
+			pre = strdup(dir2);
 
 		if(*temp)
 			expandWildCards(pre, ++temp);
