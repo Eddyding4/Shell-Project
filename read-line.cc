@@ -12,6 +12,7 @@
 #include <termios.h>
 #include <assert.h>
 #include <string>
+#include <vector>
 
 #define MAX_BUFFER_LINE 1024
 #define HISTORY_SIZE 32
