@@ -190,7 +190,8 @@ char * read_line() {
        
 	      // Erase old line
 	      // Print backspaces
-
+        if(history_index == 0)
+          continue;
 	      int i = 0;
 	      for (i =0; i < line_length - current; i++) {
 	        ch = 8;
@@ -215,7 +216,8 @@ char * read_line() {
         line_length = strlen(line_buffer);
 	      // echo line
 	      write(1, line_buffer, line_length);
-        //current = line_length;
+        current = line_length;
+
       } if (ch1 == 91 && ch2 == 66){
         // down arrow
         // Erase old line
