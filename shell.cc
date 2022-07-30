@@ -18,7 +18,7 @@ extern "C" void dis(int sig){
 }
 void Shell::prompt() {
   if ( isatty(0) ) {
-    if(strcmp(getenv("PROMPT"), "")){
+    if(!strcmp(getenv("PROMPT"), "")){
       printf("myshell>");
     } else {
       printf(getenv("PROMPT"));
@@ -30,7 +30,6 @@ void Shell::prompt() {
 
 int main(int argc, char ** argv) {
   setenv("PROMPT", "", 1);
-  printf("eho: %d\n", strcmp(getenv("PROMPT"), ""));
   Shell::prompt();
   struct sigaction signalAction;
   signalAction.sa_handler = disp;
