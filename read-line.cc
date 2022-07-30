@@ -47,7 +47,7 @@ void read_line_print_usage()
     " Backspace    Deletes last character\n"
     " up arrow     See last command in the history\n";
 
-  write(1, usage->c_str(), strlen(usage->c_str()));
+  write(1, usage.c_str(), strlen(usage.c_str()));
 }
 
 /* 
