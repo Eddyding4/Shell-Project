@@ -97,12 +97,14 @@ char * read_line() {
       for(int i = 0; i < line_length; i++){
         if(line_buffer[i] > 0){
           char ascii = (char)(line_buffer[i]);
-          printf("\nbuf:%s\n", &ascii);
-          strncat(temp, &ascii, 1);
+          strcat(temp, &ascii);
         }
       }
-      printf("\nThingie:%d\n", temp[0]);
-      printf("%s", temp);
+      std::string com = std::string(temp);
+      history.push_back(com);
+      for(int i = 0; i < history.size(); i++){
+        printf("%s", history[i].c_str());
+      }
       // Print newline
 
       write(1,&ch,1);
