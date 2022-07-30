@@ -95,8 +95,8 @@ char * read_line() {
       // <Enter> was typed. Return line
       char temp[MAX_BUFFER_LINE];
       for(int i = 0; i < line_length; i++){
-        
-        char ascii = (char)(line_buffer[i]);
+        if(line_buffer[i] > 0)
+          char ascii = (char)(line_buffer[i]);
         strcat(temp, &ascii);
       }
       printf("\n%d\n", temp[0]);
