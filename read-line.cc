@@ -193,7 +193,7 @@ char * read_line() {
         if(history_index == 0)
           continue;
 	      int i = 0;
-	      for (i =0; i < line_length - current; i++) {
+	      for (i =0; i < line_length; i++) {
 	        ch = 8;
 	        write(1,&ch,1);
 	      }
