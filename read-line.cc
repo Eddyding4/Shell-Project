@@ -58,7 +58,7 @@ char * read_line() {
 
   line_length = 0;
   right_side = 0;
-
+  current = 0;
   // Read one line until enter is typed
   while (1) {
 
@@ -117,6 +117,7 @@ char * read_line() {
         right_buf[right_side] = line_buffer[line_length-1];
         right_side++;
         line_length--;
+        current++;
       }
     }
     else if (ch == 4) {
@@ -149,6 +150,7 @@ char * read_line() {
         line_buffer[line_length]=right_buf[right_side-1];
         right_side--;
         line_length++;
+        current--;
       }
     }
     
@@ -177,7 +179,7 @@ char * read_line() {
 
       // Remove one character from buffer
       line_length--;
-
+      current--;
     }
     else if (ch==27) {
       // Escape sequence. Read two chars more
@@ -195,7 +197,7 @@ char * read_line() {
 	      // Erase old line
 	      // Print backspaces
 	      int i = 0;
-	      for (i =0; i < line_length ; i++) {
+	      for (i =0; i < line_length - current; i++) {
 	        ch = 8;
 	        write(1,&ch,1);
 	      }
@@ -247,7 +249,7 @@ char * read_line() {
 
           // echo line
           write(1, line_buffer, line_length);
-
+          current = line_length;
         }
         else
         {
@@ -255,7 +257,7 @@ char * read_line() {
           line_length = strlen(line_buffer);
 
           write(1, line_buffer, line_length);
-
+          current = line_length;
         }
 
       } if (ch1==91 && ch2==68) {
@@ -269,7 +271,7 @@ char * read_line() {
         right_buf[right_side] = line_buffer[line_length-1];
         right_side++;
         line_length--;
-
+        current--;
       }
       else if (ch1==91 && ch2==67) {
         // right arrow. 
@@ -281,7 +283,7 @@ char * read_line() {
         line_buffer[line_length]=right_buf[right_side-1];
         line_length++;
         right_side--;
-
+        current++;
       }
       
     }
