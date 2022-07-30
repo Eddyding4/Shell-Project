@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <termios.h>
 #include <assert.h>
+#include <string>
 
 #define MAX_BUFFER_LINE 1024
 #define HISTORY_SIZE 32
