@@ -29,7 +29,7 @@ void Shell::prompt() {
 
 
 int main(int argc, char ** argv) {
-  setenv("PROMPT", "");
+  setenv("PROMPT", "", 1);
   Shell::prompt();
   struct sigaction signalAction;
   signalAction.sa_handler = disp;
