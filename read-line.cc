@@ -240,7 +240,7 @@ char * read_line() {
             ch = 8;
             write(1,&ch,1);
         }	
-        if(history_index == (int) history.size() || history_index == (int)history.size() - 1){
+        if(history_index == (int)history.size() - 1){
           continue;
         }
         right_side = 0;
