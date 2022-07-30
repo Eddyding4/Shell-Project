@@ -94,7 +94,7 @@ char * read_line() {
     else if (ch==10) {
       // <Enter> was typed. Return line
       std::string temp;
-      for(int i = 0; i < line_buffer.length(); i++){
+      for(int i = 0; i < line_buffer.size(); i++){
 
       }
       printf("%d", line_buffer[0]);
