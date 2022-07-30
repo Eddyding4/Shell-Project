@@ -100,7 +100,7 @@ char * read_line() {
           strcat(temp, &ascii);
         }
       }
-      printf("\n%d\n", temp[1]);
+      printf("%s\n", temp[1]);
       printf("%s", temp);
       // Print newline
 
