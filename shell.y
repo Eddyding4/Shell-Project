@@ -166,6 +166,7 @@ void expandWildcardsIfNecessary(std::string * arg)
 		{
 			std::string * str = new std::string(entries[i]);
 			Command::_currentSimpleCommand->insertArgument(str);
+			free(str);
 		}
 	} else {
 		free(args);
