@@ -196,7 +196,6 @@ void expandWildCards(char * prefix, char * arg)
 		*(save++) = *(temp++);
 	
 	*save = '\0';
-	//free(dir);
 	if (strchr(dir2, '*') || strchr(dir2, '?')) 
 	{
 		if (!prefix && arg[0] == '/') 
@@ -292,7 +291,7 @@ void expandWildCards(char * prefix, char * arg)
 		if(*temp)
 			expandWildCards(pre, ++temp);
 	}
-
+	free(dir2);
 }
 
 
