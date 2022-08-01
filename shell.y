@@ -292,6 +292,7 @@ void expandWildCards(char * prefix, char * arg)
 			expandWildCards(pre, ++temp);
 	}
 	free(dir2);
+	free(reg);
 }
 
 
