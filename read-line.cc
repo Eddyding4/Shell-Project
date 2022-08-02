@@ -246,7 +246,7 @@ char * read_line() {
         memset(line_buffer, 0, line_length);
         line_length = 0;
         continue;
-      } else if (history_index = history.size()){
+      } else if (history_index == history.size()){
         continue;
       }
           
