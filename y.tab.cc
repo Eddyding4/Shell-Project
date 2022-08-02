@@ -1762,6 +1762,7 @@ void expandWildCards(char * prefix, char * arg)
 {
 	char * temp = arg;
 	char * save = (char *) malloc (strlen(arg));
+	char * freethis = save;
 	char * dir2 = save;
 
 	if(temp[0] == '/')
@@ -1866,7 +1867,7 @@ void expandWildCards(char * prefix, char * arg)
 		if(*temp)
 			expandWildCards(pre, ++temp);
 	}
-
+	free(freethis);
 
 }
 
