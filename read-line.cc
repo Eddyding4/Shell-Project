@@ -224,7 +224,6 @@ char * read_line() {
         // Print backspaces
 
         int i = 0;
-        if(history_index == (int)history.size() - 1){
         for (i =0 ; i < line_length; i++) {
           ch = 8;
             write(1,&ch,1);
@@ -241,15 +240,8 @@ char * read_line() {
             ch = 8;
             write(1,&ch,1);
         }	
-        right_side = 0;
-        history_index = history.size();
-        memset(line_buffer, 0, line_length);
-        line_length = 0;
-        continue;
-      } else if (history_index == history.size()){
-        continue;
-      }
-          
+        if(history_index == (int)history.size() - 1)
+          continue;
 
         right_side = 0;
         strcpy(line_buffer, history[++history_index].c_str());
